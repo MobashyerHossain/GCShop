@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('title', 'Add New Products')
 
 @section('content')
-  @include('multiAuth.showrooms.inc.navbar')
+  @include('multiAuth.showroomstaffs.inc.navbar')
   <div class="row">
     <div class="col-2">
 
@@ -20,10 +20,10 @@
             <!-- Tab Contents -->
             <div class="tab-content">
                 <div class="tab-pane active" role="tabpanel" id="tab-2">
-                    @include('multiAuth.showrooms.inc.carEntryForm')
+                    @include('multiAuth.showroomstaffs.inc.carEntryForm')
                 </div>
                 <div class="tab-pane" role="tabpanel" id="tab-3">
-                    @include('multiAuth.showrooms.inc.partEntryForm')
+                    @include('multiAuth.showroomstaffs.inc.partEntryForm')
                 </div>
             </div>
         </div>

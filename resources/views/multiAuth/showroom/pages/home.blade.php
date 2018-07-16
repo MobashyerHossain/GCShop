@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('title', 'Show Room')
 
 @section('content')
-  @include('inc.showrooms.inc.navbar')
+  @include('multiAuth.showroomstaff.inc.navbar')
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-md-8">

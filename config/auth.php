@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'consumer',
+        'passwords' => 'consumers',
     ],
 
     /*
@@ -36,7 +36,40 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        //consumer
+        'consumer' => [
+            'driver' => 'session',
+            'provider' => 'consumers',
+        ],
+
+        'consumer-api' => [
+            'driver' => 'token',
+            'provider' => 'consumers',
+        ],
+
+        //admin
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+        ],
+
+        //showroomstaff
+        'showroomstaff' => [
+            'driver' => 'session',
+            'provider' => 'showroomstaffs',
+        ],
+
+        'showroomstaff-api' => [
+            'driver' => 'token',
+            'provider' => 'showroomstaffs',
+        ],
+
+        /*'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -44,7 +77,7 @@ return [
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
-        ],
+        ],*/
     ],
 
     /*
@@ -65,10 +98,28 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        //consumer
+        'consumers' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\MultiAuth\Consumer::class,
         ],
+
+        //admin
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\MultiAuth\Admin::class,
+        ],
+
+        //showroomstaff
+        'showroomstaffs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\MultiAuth\ShowRoomStaff::class,
+        ],
+
+        //'users' => [
+        //    'driver' => 'eloquent',
+        //    'model' => App\User::class,
+        //],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -92,11 +143,32 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        //consumer
+        'consumers' => [
+            'provider' => 'consumers',
             'table' => 'password_resets',
             'expire' => 60,
         ],
+
+        //admin
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        //showroomstaff
+        'showroomstaffs' => [
+            'provider' => 'showroomstaffs',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        //'users' => [
+        //    'provider' => 'users',
+        //    'table' => 'password_resets',
+        //    'expire' => 60,
+        //],
     ],
 
 ];

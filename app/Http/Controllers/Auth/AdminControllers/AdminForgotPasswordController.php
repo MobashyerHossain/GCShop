@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\AdminControllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Password;
 
-class ForgotPasswordController extends Controller
+class AdminForgotPasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -27,6 +28,15 @@ class ForgotPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:admin');
+    }
+
+    protected function broker(){
+      return Password::broker('admins');
+    }
+
+    public function showLinkRequestForm()
+    {
+        return view('auth.admin.email');
     }
 }

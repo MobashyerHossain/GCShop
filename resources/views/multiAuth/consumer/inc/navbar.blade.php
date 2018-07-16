@@ -10,7 +10,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navcol-1">
         <ul class="nav navbar-nav mr-auto">
-
+          
         </ul>
         <ul class="nav navbar-nav ml-auto">
           @include('multiAuth.consumer.inc.logtab')

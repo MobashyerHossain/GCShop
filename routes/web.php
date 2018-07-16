@@ -13,12 +13,13 @@
 
 //Index Route
 Route::view('/', 'multiAuth.consumer.pages.home')->name('index');
+Route::post('/', 'Auth\LoginController@login')->name('login.submit');
 
 //Model resources
 
 //Consumer Routes
 Route::prefix('consumer')->group(function(){
-  Route::get('/home', 'HomeControllers\ConsumerHomeController@index')->name('consumer.home');
+  Route::get('/home', 'Auth\ConsumerControllers\ConsumerController@index')->name('consumer.home');
   Route::get('/', 'Auth\ConsumerControllers\ConsumerLoginController@show')->name('consumer.login');
   Route::post('/', 'Auth\ConsumerControllers\ConsumerLoginController@login')->name('consumer.login.submit');
   Route::get('/logout', 'Auth\ConsumerControllers\ConsumerLoginController@consumerLogout')->name('consumer.logout');
@@ -35,7 +36,7 @@ Route::prefix('consumer')->group(function(){
 
 //Admin Routes
 Route::prefix('admin')->group(function(){
-  Route::get('/home', 'HomeControllers\AdminHomeController@index')->name('admin.home');
+  Route::get('/home', 'Auth\AdminControllers\AdminController@index')->name('admin.home');
   Route::get('/', 'Auth\AdminControllers\AdminLoginController@show')->name('admin.login');
   Route::post('/', 'Auth\AdminControllers\AdminLoginController@login')->name('admin.login.submit');
   Route::get('/logout', 'Auth\AdminControllers\AdminLoginController@adminLogout')->name('admin.logout');
@@ -51,18 +52,18 @@ Route::prefix('admin')->group(function(){
 });
 
 //Show Room Routes
-Route::prefix('showroom')->group(function(){
-  Route::get('/home', 'HomeControllers\ShowRoomHomeController@index')->name('showroom.home');
-  Route::get('/', 'Auth\ShowRoomControllers\ShowRoomLoginController@show')->name('showroom.login');
-  Route::post('/', 'Auth\ShowRoomControllers\ShowRoomLoginController@login')->name('showroom.login.submit');
-  Route::get('/logout', 'Auth\ShowRoomControllers\ShowRoomLoginController@showroomLogout')->name('showroom.logout');
+Route::prefix('showroomstaff')->group(function(){
+  Route::get('/home', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@index')->name('showroomstaff.home');
+  Route::get('/', 'Auth\ShowRoomStaffControllers\ShowRoomStaffLoginController@show')->name('showroomstaff.login');
+  Route::post('/', 'Auth\ShowRoomStaffControllers\ShowRoomStaffLoginController@login')->name('showroomstaff.login.submit');
+  Route::get('/logout', 'Auth\ShowRoomStaffControllers\ShowRoomStaffLoginController@showroomstaffLogout')->name('showroomstaff.logout');
 
   //Password Reset Routes
-  Route::post('/password/email', 'Auth\ShowRoomControllers\ShowRoomForgotPasswordController@sendResetLinkEmail')->name('showroom.password.email');
-  Route::get('/password/reset', 'Auth\ShowRoomControllers\ShowRoomForgotPasswordController@showLinkRequestForm')->name('showroom.password.request');
-  Route::post('/password/reset', 'Auth\ShowRoomControllers\ShowRoomResetPasswordController@reset');
-  Route::get('/password/reset/{token}', 'Auth\ShowRoomControllers\ShowRoomResetPasswordController@showResetForm')->name('showroom.password.reset');
+  Route::post('/password/email', 'Auth\ShowRoomStaffControllers\ShowRoomStaffForgotPasswordController@sendResetLinkEmail')->name('showroomstaff.password.email');
+  Route::get('/password/reset', 'Auth\ShowRoomStaffControllers\ShowRoomStaffForgotPasswordController@showLinkRequestForm')->name('showroomstaff.password.request');
+  Route::post('/password/reset', 'Auth\ShowRoomStaffControllers\ShowRoomStaffResetPasswordController@reset');
+  Route::get('/password/reset/{token}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffResetPasswordController@showResetForm')->name('showroomstaff.password.reset');
 
   //views
-  Route::view('/addproduct', 'multiAuth.showrooms.pages.addProduct')->name('addproduct');
+  Route::view('/addproduct', 'multiAuth.showroomstaffs.pages.addProduct')->name('addproduct');
 });

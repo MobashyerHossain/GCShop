@@ -2,38 +2,36 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\MultiAuth\Consumer;
+use App\Models\MultiAuth\Admin;
+use App\Models\MultiAuth\ShowRoomStaff;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
+    public function login(Request $request){
+      //validate the form date
+      $this->validate($request, [
+        'email' => 'required|email',
+        'password' => 'required'
+      ]);
 
-    use AuthenticatesUsers;
+      //Validate type of user
+      if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+        //if successfull, than redirect to their intended location
+        return redirect()->intended(route('admin.home'));
+      }
+      else if (Auth::guard('showroomstaff')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+        //if successfull, than redirect to their intended location
+        return redirect()->intended(route('showroomstaff.home'));
+      }
+      else if (Auth::guard('consumer')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+        //if successfull, than redirect to their intended location
+        return redirect()->intended(route('consumer.home'));
+      }
+      return redirect()->back()->withInput($request->only('email', 'remember'));
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
     }
 }

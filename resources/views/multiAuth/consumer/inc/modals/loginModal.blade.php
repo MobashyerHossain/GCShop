@@ -8,16 +8,16 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="" aria-label="{{ __('Login') }}">
+        <form method="POST" action="{{ route('login.submit') }}" aria-label="{{ __('Login') }}">
             @csrf
             <!--email-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="log_email" type="email" class="form-control{{ $errors->has('log_email') ? ' is-invalid' : '' }}" name="log_email" value="{{ old('log_email') }}" placeholder="Email" required>
+                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
 
-                    @if ($errors->has('log_email'))
+                    @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('log_email') }}</strong>
+                            <strong>{{ $errors->first('email') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -26,11 +26,11 @@
             <!--password-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="log_password" type="password" class="form-control{{ $errors->has('log_password') ? ' is-invalid' : '' }}" name="log_password" placeholder="Password" required>
+                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" required>
 
-                    @if ($errors->has('log_password'))
+                    @if ($errors->has('password'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('log_password') }}</strong>
+                            <strong>{{ $errors->first('password') }}</strong>
                         </span>
                     @endif
                 </div>

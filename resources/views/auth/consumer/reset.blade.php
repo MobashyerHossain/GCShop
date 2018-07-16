@@ -1,4 +1,4 @@
-consumer.@extends('layouts.app')
+consumer.@extends('layout.app')
 
 @section('content')
 <div class="container">

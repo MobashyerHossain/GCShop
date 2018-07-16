@@ -19,14 +19,14 @@
             case 'Admin':
               $logout = 'admin.logout';
               break;
-            case 'Accountant':
-              $logout = 'accountant.logout';
+            case 'Consumer':
+              $logout = 'consumer.logout';
               break;
             case 'Bank':
               $logout = 'bank.logout';
               break;
-            case 'ShowRoom':
-              $logout = 'showroom.logout';
+            case 'ShowRoomStaff':
+              $logout = 'showroomstaff.logout';
               break;
             default:
               $logout = 'consumer.logout';

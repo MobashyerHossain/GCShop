@@ -1,14 +1,14 @@
-consumer.@extends('layouts.app')
+consumer.@extends('layout.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Consumer Reset Password') }}</div>
+                <div class="card-header">{{ __('Admin Reset Password') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('consumer.password.request') }}" aria-label="{{ __('Reset Password') }}">
+                    <form method="POST" action="{{ route('admin.password.request') }}" aria-label="{{ __('Reset Password') }}">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
