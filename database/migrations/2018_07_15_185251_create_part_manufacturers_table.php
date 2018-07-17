@@ -18,7 +18,6 @@ class CreatePartManufacturersTable extends Migration
             $table->string('name')->unique();
             $table->string('details');
             $table->integer('logo')->unsigned()->nullable();
-            $table->foreign('logo')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

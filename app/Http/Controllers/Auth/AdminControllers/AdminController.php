@@ -10,4 +10,8 @@ class AdminController extends Controller
     public function index(){
       return view('multiAuth.admin.pages.home');
     }
+
+    public function verifyAccount(){
+      return route('index');
+    }
 }

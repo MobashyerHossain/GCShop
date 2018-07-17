@@ -13,7 +13,7 @@ class ShowRoomStaffLoginController extends Controller
     }
 
     public function show(){
-      return view('multiAuth.showroomstaff.pages.login');
+      return redirect()->route('index');
     }
 
     public function login(Request $request){

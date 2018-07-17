@@ -19,9 +19,7 @@ class CreateShowRoomsTable extends Migration
 
             //foreign key
             $table->integer('logo')->unsigned()->nullable();
-            $table->foreign('logo')->references('id')->on('images')->onDelete('cascade');
             $table->integer('address_id')->unsigned()->nullable();
-            $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -19,7 +19,6 @@ class CreateCarEnginesTable extends Migration
             $table->string('deatil');
             $table->enum('engine_type', array('Petrol', 'Diesel'));
             $table->integer('image')->unsigned()->nullable();
-            $table->foreign('image')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class AdminLoginController extends Controller
     }
 
     public function show(){
-      return view('multiAuth.admin.pages.login');
+      return redirect()->route('index');
     }
 
     public function login(Request $request){

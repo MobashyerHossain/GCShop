@@ -19,9 +19,7 @@ class CreateInvoicesTable extends Migration
             $table->double('sold_at', 10, 2);
             $table->integer('quantity');
             $table->integer('consumer')->unsigned();
-            $table->foreign('consumer')->references('id')->on('consumers')->onDelete('cascade');
             $table->integer('part_id')->unsigned();
-            $table->foreign('part_id')->references('id')->on('parts')->onDelete('cascade');
             $table->timestamps();
         });
     }

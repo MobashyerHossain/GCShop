@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <!--Registration form-->
-        <form method="POST" action="" aria-label="{{ __('Register') }}">
+        <form method="POST" action="{{ route('consumer.register.submit') }}" aria-label="{{ __('Register') }}" enctype='multipart/form-data'>
             @csrf
             <div class="row p-0 m-0">
               <div class="col-12 col-md-8 p-0">
@@ -42,9 +42,9 @@
               <div class="col-4 ml-auto mr-auto col-md-4">
                 <!--profile picture-->
                 <div class="form-group row">
-                    <div class="col-12">
+                    <div class="col-12 p-0 m-0">
                       <a onclick="uploadImage()">
-                        <img id="pro_pic" src="{{url('storage/images/male.png')}}" class="rounded" alt="Profile Picture" style="width:100%; height:100px; object-fit: cover; cursor:pointer;">
+                        <img id="pro_pic" class="float-right m-0 p-0 rounded" src="{{url('storage/images/devil.ico')}}" alt="Profile Picture" style="width:65%; height:90px; object-fit: cover; cursor:pointer;">
                       </a>
                       <input type="file" id="profile_pic" name="profile_pic" value="{{ old('profile_pic') }}" class="d-none"/>
                     </div>
@@ -55,34 +55,27 @@
             <!--email-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="reg_email" type="reg_email" class="form-control{{ $errors->has('reg_email') ? ' is-invalid' : '' }}" name="reg_email" value="{{ old('reg_email') }}" placeholder="Email" required>
+                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
 
-                    @if ($errors->has('reg_email'))
+                    @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('reg_email') }}</strong>
+                            <strong>{{ $errors->first('email') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>
 
-            <!--birth date & gender-->
+            <!--birth date-->
             <div class="form-group row">
                 <!--birth date-->
                 <div class="col-md-6 col-12">
-                    <input id="birth_date" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" placeholder="Birth Date" required>
+                    <input id="date_of_birth" type="date" class="form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" name="date_of_birth" value="{{ old('date_of_birth') }}" placeholder="Date of Birth" required>
 
-                    @if ($errors->has('birth_date'))
+                    @if ($errors->has('date_of_birth'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('birth_date') }}</strong>
+                            <strong>{{ $errors->first('date_of_birth') }}</strong>
                         </span>
                     @endif
-                </div>
-
-                <!--gender-->
-                <div class="col-md-6 col-12 mt-auto mb-auto">
-                  <input type="radio" name="gender" value="male" class="form-horizontal" checked> Male
-                  <input type="radio" name="gender" value="female" class="form-horizontal ml-2"> Female
-                  <input type="radio" name="gender" value="other" class="form-horizontal ml-2"> Other
                 </div>
             </div>
 

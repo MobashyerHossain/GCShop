@@ -16,7 +16,6 @@ class CreatePartsForCarsTable extends Migration
         Schema::create('parts_for_cars', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('part')->unsigned();
-            $table->foreign('part')->references('id')->on('parts')->onDelete('cascade');
             $table->string('car_name');
             $table->timestamps();
         });

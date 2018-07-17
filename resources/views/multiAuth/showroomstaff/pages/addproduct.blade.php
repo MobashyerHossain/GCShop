@@ -3,7 +3,7 @@
 @section('title', 'Add New Products')
 
 @section('content')
-  @include('multiAuth.showroomstaffs.inc.navbar')
+  @include('multiAuth.showroomstaff.inc.navbar')
   <div class="row">
     <div class="col-2">
 
@@ -20,10 +20,10 @@
             <!-- Tab Contents -->
             <div class="tab-content">
                 <div class="tab-pane active" role="tabpanel" id="tab-2">
-                    @include('multiAuth.showroomstaffs.inc.carEntryForm')
+                    @include('multiAuth.showroomstaff.inc.carEntryForm')
                 </div>
                 <div class="tab-pane" role="tabpanel" id="tab-3">
-                    @include('multiAuth.showroomstaffs.inc.partEntryForm')
+                    @include('multiAuth.showroomstaff.inc.partEntryForm')
                 </div>
             </div>
         </div>

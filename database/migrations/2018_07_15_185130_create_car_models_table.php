@@ -19,9 +19,7 @@ class CreateCarModelsTable extends Migration
 
             //foreign key
             $table->integer('maker_id')->unsigned();
-            $table->foreign('maker_id')->references('id')->on('car_makers')->onDelete('cascade');
             $table->integer('image_id')->unsigned()->nullable();
-            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

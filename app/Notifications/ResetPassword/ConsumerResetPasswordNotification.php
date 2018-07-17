@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\ResetPassword;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ShowRoomStaffResetPasswordNotification extends Notification
+class ConsumerResetPasswordNotification extends Notification
 {
     use Queueable;
 
@@ -44,7 +44,7 @@ class ShowRoomStaffResetPasswordNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Your recieving this email because you requested a password change.')
-                    ->action('Reset Password', route('showroomstaff.password.reset', $this->token))
+                    ->action('Reset Password', route('consumer.password.reset', $this->token))
                     ->line('If you didnt request this change, no farther action is needed.');
     }
 

@@ -17,6 +17,20 @@
 @stop
 
 @section('script')
+  <!--Account Verification Alart-->
+  <script>
+    if("{{Session::has('please_verify')}}"){
+      alert("{{Session::get('please_verify')}}");
+    }
+  </script>
+
+  <!--Account Verification Alart-->
+  <script>
+    if("{{Session::has('verification_status')}}"){
+      alert("{{Session::get('verification_status')}}");
+    }
+  </script>
+
   <!--Script for uploading and changing profile pic-->
   <script>
     function uploadImage(){

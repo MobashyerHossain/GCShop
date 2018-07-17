@@ -10,4 +10,8 @@ class ShowRoomStaffController extends Controller
     public function index(){
       return view('multiAuth.showroomstaff.pages.home');
     }
+
+    public function verifyAccount(){
+      return route('index');
+    }
 }

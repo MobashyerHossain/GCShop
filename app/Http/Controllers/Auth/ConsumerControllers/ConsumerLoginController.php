@@ -13,7 +13,7 @@ class ConsumerLoginController extends Controller
     }
 
     public function show(){
-      return view('multiAuth.consumer.pages.home');
+      return redirect()->route('index');
     }
 
     public function login(Request $request){

@@ -20,7 +20,6 @@ class CreateCarMakersTable extends Migration
 
             //foreign key
             $table->integer('logo')->unsigned()->nullable();
-            $table->foreign('logo')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

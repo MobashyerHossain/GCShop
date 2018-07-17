@@ -16,7 +16,7 @@ class Consumer extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'date_of_birth',
+        'first_name', 'last_name', 'email', 'password', 'date_of_birth', 'profile_pic',
     ];
 
     /**
