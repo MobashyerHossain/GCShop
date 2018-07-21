@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.consumer')
 
 @section('title', 'Add New Products')
 

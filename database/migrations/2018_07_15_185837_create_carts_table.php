@@ -16,8 +16,17 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('quantity');
+            $table->boolean('sold')->default(false);
+
+            //foreign keys
             $table->integer('consumer')->unsigned();
+            $table->foreign('consumer')->references('id')->on('consumers')->onDelete('cascade');
             $table->integer('part_id')->unsigned();
+            $table->foreign('part_id')->references('id')->on('parts')->onDelete('cascade');
+            $table->integer('showroom_id')->unsigned();
+            $table->foreign('showroom_id')->references('id')->on('show_rooms')->onDelete('cascade');
+            $table->integer('invoice_id')->unsigned()->nullable();
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->timestamps();
         });
     }

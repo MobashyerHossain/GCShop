@@ -22,10 +22,10 @@ class CreateCarsTable extends Migration
             $table->float('current_discount')->nullable();
 
             //foreign key
-            $table->integer('maker_id')->unsigned();
             $table->integer('model_id')->unsigned();
-            $table->integer('engine_id')->unsigned();
+            $table->foreign('model_id')->references('id')->on('car_models')->onDelete('cascade');
             $table->integer('image_id')->unsigned()->nullable();
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

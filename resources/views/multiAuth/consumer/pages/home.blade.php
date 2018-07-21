@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.consumer')
 
 @section('title', 'Home')
 
@@ -17,17 +17,24 @@
 @stop
 
 @section('script')
-  <!--Account Verification Alart-->
+  <!--Account Verification Request Alart-->
   <script>
     if("{{Session::has('please_verify')}}"){
-      alert("{{Session::get('please_verify')}}");
+      swal("Please Verify!", "{{Session::get('please_verify')}}", "info");
     }
   </script>
 
-  <!--Account Verification Alart-->
+  <!--Account Not Verification Alart-->
+  <script>
+    if("{{Session::has('not_verified')}}"){
+      swal("Not Varified!", "{{Session::get('not_verified')}}", "error");
+    }
+  </script>
+
+  <!--Account Verification verified Alart-->
   <script>
     if("{{Session::has('verification_status')}}"){
-      alert("{{Session::get('verification_status')}}");
+      swal("Good Job!", "{{Session::get('verification_status')}}", "success");
     }
   </script>
 

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Models\MultiAuth\Consumer;
 use App\Models\MultiAuth\Admin;
 use App\Models\MultiAuth\ShowRoomStaff;
+use App\Http\Controllers\Auth\ConsumerControllers\ConsumerLoginController;
+use App\Http\Controllers\Auth\AdminControllers\AdminLoginController;
+use App\Http\Controllers\Auth\ShowRoomStaffControllers\ShowRoomStaffLoginController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -19,17 +22,21 @@ class LoginController extends Controller
       ]);
 
       //Validate type of user
-      if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-        //if successfull, than redirect to their intended location
-        return redirect()->intended(route('admin.home'));
+      if (Admin::where('email', $request->Input('email'))->first()) {
+        //if successfull, tha0n redirect to Admin Dashboard
+        return (new AdminLoginController)->login($request);
       }
-      else if (Auth::guard('showroomstaff')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-        //if successfull, than redirect to their intended location
-        return redirect()->intended(route('showroomstaff.home'));
+      else if (ShowRoomStaff::where('email', $request->Input('email'))->first()) {
+        //if successfull, than redirect to ShowRoomStaff Dashboard
+        return (new ShowRoomStaffLoginController)->login($request);
       }
-      else if (Auth::guard('consumer')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-        //if successfull, than redirect to their intended location
-        return redirect()->intended(route('consumer.home'));
+      else if (Consumer::where('email', $request->Input('email'))->first()) {
+        $consumer = Consumer::where('email', $request->Input('email'))->first();
+        if ($consumer->verification_status == 0) {
+          return redirect()->route('index')->with('not_verified', 'Your Account is still not verified. Please follow the link in your email to verify your Account.');
+        }
+        //if successfull, than redirect to Consumer Dashboard
+        return (new ConsumerLoginController)->login($request);
       }
       return redirect()->back()->withInput($request->only('email', 'remember'));
 

@@ -13,10 +13,9 @@ class ConsumerController extends Controller
     }
 
     public function verifyAccount($id){
-      return $this->id;
-      //$consumer = Consumer::find($id);
-      //$consumer->verification_status = true;
-      //$consumer->save();
-      //return redirect()->route('index')->with('verification_status', 'Account verified');
+      $consumer = Consumer::find($id);
+      $consumer->verification_status = true;
+      $consumer->save();
+      return redirect()->route('index')->with('verification_status', 'Account verified. You Can Log In Now!');
     }
 }

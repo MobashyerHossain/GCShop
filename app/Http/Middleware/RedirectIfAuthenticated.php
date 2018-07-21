@@ -25,12 +25,12 @@ class RedirectIfAuthenticated
           break;
           case 'admin':
             if (Auth::guard($guard)->check()) {
-                return redirect()->route('admin.home');
+                return redirect()->route('admin.dashboard');
             }
             break;
           case 'showroomstaff':
             if (Auth::guard($guard)->check()) {
-                return redirect()->route('showroomstaff.home');
+                return redirect()->route('showroomstaff.dashboard');
             }
             break;
           default:

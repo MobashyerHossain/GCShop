@@ -15,11 +15,12 @@ class CreateCarMakersTable extends Migration
     {
         Schema::create('car_makers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->string('deatil');
+            $table->string('name')->unique();   //audi
+            $table->string('details');
 
             //foreign key
             $table->integer('logo')->unsigned()->nullable();
+            $table->foreign('logo')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

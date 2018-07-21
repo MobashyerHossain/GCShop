@@ -22,9 +22,6 @@
             case 'Consumer':
               $logout = 'consumer.logout';
               break;
-            case 'Bank':
-              $logout = 'bank.logout';
-              break;
             case 'ShowRoomStaff':
               $logout = 'showroomstaff.logout';
               break;

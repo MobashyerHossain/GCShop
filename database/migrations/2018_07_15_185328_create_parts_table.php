@@ -23,8 +23,11 @@ class CreatePartsTable extends Migration
 
             //foreign key
             $table->integer('manufacturer_id')->unsigned();
+            $table->foreign('manufacturer_id')->references('id')->on('part_manufacturers')->onDelete('cascade');
             $table->integer('sub_category_id')->unsigned();
+            $table->foreign('sub_category_id')->references('id')->on('part_sub_categories')->onDelete('cascade');
             $table->integer('image_id')->unsigned()->nullable();
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

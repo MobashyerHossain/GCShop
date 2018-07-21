@@ -35,7 +35,7 @@ Route::prefix('consumer')->group(function(){
   Route::post('/password/reset', 'Auth\ConsumerControllers\ConsumerResetPasswordController@reset');
   Route::get('/password/reset/{token}', 'Auth\ConsumerControllers\ConsumerResetPasswordController@showResetForm')->name('consumer.password.reset');
     //verification
-  Route::get('/verification/{$id}', 'Auth\ConsumerControllers\ConsumerController@verifyAccount')->name('consumer.verify');
+  Route::get('/verification/{id}', 'Auth\ConsumerControllers\ConsumerController@verifyAccount')->name('consumer.verify');
 
   //views
 
@@ -43,7 +43,8 @@ Route::prefix('consumer')->group(function(){
 
 //Admin Routes
 Route::prefix('admin')->group(function(){
-  Route::get('/home', 'Auth\AdminControllers\AdminController@index')->name('admin.home')->middleware('auth:admin');
+  Route::get('/dashboard', 'Auth\AdminControllers\AdminController@index')->name('admin.dashboard')->middleware('auth:admin');
+  Route::get('/profile', 'Auth\AdminControllers\AdminController@profile')->name('admin.profile')->middleware('auth:admin');
 
   //Auth Routes
     //login
@@ -64,7 +65,7 @@ Route::prefix('admin')->group(function(){
 
 //Show Room Routes
 Route::prefix('showroomstaff')->group(function(){
-  Route::get('/home', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@index')->name('showroomstaff.home')->middleware('auth:showroomstaff');
+  Route::get('/dashboard', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@index')->name('showroomstaff.dashboard')->middleware('auth:showroomstaff');
 
   //Auth Routes
     //login
@@ -80,7 +81,7 @@ Route::prefix('showroomstaff')->group(function(){
   Route::get('/verify', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@verifyAccount')->name('showroomstaff.verify');
 
   //views
-  Route::view('/addproduct', 'multiAuth.showroomstaff.pages.addProduct')->name('addproduct')->middleware('auth:showroomstaff');
+  Route::view('/addproduct', 'multiAuth.showroomstaff.pages.addProduct')->name('addproduct');
 });
 
 //Resource Routes

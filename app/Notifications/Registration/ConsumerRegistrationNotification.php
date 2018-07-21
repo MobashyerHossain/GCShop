@@ -43,9 +43,8 @@ class ConsumerRegistrationNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Dear Consumer,')
-                    ->line($this->consumer->getFullName())
-                    ->line('You have created a new account please verify the account before continuing.')
+                    ->line('Dear, '.$this->consumer->getFullName())
+                    ->line('You have created a new Account. Please verify the Account before you can use all of our services.')
                     ->action('Verify Account', route('consumer.verify', $this->consumer->id))
                     ->line('Thank you!');
     }

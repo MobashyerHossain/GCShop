@@ -2,6 +2,7 @@
 
 namespace App\Models\MultiAuth;
 
+use App\Models\Other\Image;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\AdminResetPasswordNotification;
@@ -33,5 +34,19 @@ class Admin extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPasswordNotification($token));
+    }
+
+    //getters
+    public function getFullName(){
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    public function getProfilePic(){
+      if(Image::find($this->profile_pic)){
+        return (Image::find($this->profile_pic))->uri;
+      }
+      else{
+        return 'storage/images/temp.png';
+      }
     }
 }

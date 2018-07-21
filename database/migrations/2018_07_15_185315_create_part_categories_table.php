@@ -16,7 +16,7 @@ class CreatePartCategoriesTable extends Migration
         Schema::create('part_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();     //Ex. Brake System, Oil and Fluids, Filters etc.
-            $table->string('detail')->nullable(); //Brief intro
+            $table->string('details')->nullable(); //Brief intro
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class CreateRolesTable extends Migration
             $table->increments('id');
             $table->enum('work_as', ['admin', 'showroom staff']);
             $table->string('title')->unique();
-            $table->string('detail');
+            $table->string('details');
             $table->double('salary', 10, 2)->nullable();
             $table->timestamps();
         });

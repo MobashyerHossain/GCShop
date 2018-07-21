@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarEnginesTable extends Migration
+class CreateInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateCarEnginesTable extends Migration
      */
     public function up()
     {
-        Schema::create('car_engines', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->string('deatil');
-            $table->enum('engine_type', array('Petrol', 'Diesel'));
-            $table->integer('image')->unsigned()->nullable();
+            $table->double('total_amount', 10, 2);
+            $table->integer('consumer')->unsigned();
+            $table->foreign('consumer')->references('id')->on('consumers')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateCarEnginesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('car_engines');
+        Schema::dropIfExists('invoices');
     }
 }

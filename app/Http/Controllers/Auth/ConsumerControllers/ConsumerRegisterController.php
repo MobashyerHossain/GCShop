@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ModelControllers\ImageController;
 use App\Notifications\Registration\ConsumerRegistrationNotification;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ConsumerRegisterController extends Controller
 {
@@ -28,8 +29,10 @@ class ConsumerRegisterController extends Controller
     public function register(Request $request){
         $this->validation($request);
 
+        //upload image
         $image = (new ImageController)->store($request);
 
+        //create user
         $consumer = Consumer::create([
           'first_name' => $request->Input('first_name'),
           'last_name' => $request->Input('last_name'),
@@ -39,7 +42,12 @@ class ConsumerRegisterController extends Controller
           'profile_pic' => $image->id,
         ]);
 
-        $consumer->notify(new ConsumerRegistrationNotification($consumer));
+        //send verification mail
+        try {
+          $consumer->notify(new ConsumerRegistrationNotification($consumer));
+        } catch (\Exception $e) {
+          return redirect()->route('index')->with('please_verify', 'Cant connect to internet');
+        }
         return redirect()->route('index')->with('please_verify', 'To complete your registration please follow the link sent to your eamil');
     }
 }

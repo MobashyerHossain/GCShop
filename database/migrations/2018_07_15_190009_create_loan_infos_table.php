@@ -16,15 +16,24 @@ class CreateLoanInfosTable extends Migration
         Schema::create('loan_infos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('consumer')->unsigned();
+            $table->foreign('consumer')->references('id')->on('consumers')->onDelete('cascade');
             $table->integer('car_id')->unsigned();
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
+            $table->boolean('approval')->default(false);
+            $table->float('requested_loan_percentage');
 
             //additional information
-            $table->string('proffesion');
-            $table->integer('copy_of_national_id')->unsigned()->nullable();
-            $table->integer('copy_of_passport')->unsigned()->nullable();
-            $table->integer('copy_of_bank_statment')->unsigned()->nullable();
-            $table->integer('copy_of_tax_clearence')->unsigned()->nullable();
+            $table->string('applicant_proffesion');
+            $table->integer('applicant_national_id')->unsigned();
+            $table->foreign('applicant_national_id')->references('id')->on('images')->onDelete('cascade');
+            $table->integer('applicant_bank_statment')->unsigned();
+            $table->foreign('applicant_bank_statment')->references('id')->on('images')->onDelete('cascade');
+            $table->integer('applicant_tax_clearence')->unsigned();
+            $table->foreign('applicant_tax_clearence')->references('id')->on('images')->onDelete('cascade');
+            $table->integer('applicant_passport')->unsigned()->nullable();
+            $table->foreign('applicant_passport')->references('id')->on('images')->onDelete('cascade');
             $table->integer('additional')->unsigned()->nullable();
+            $table->foreign('additional')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

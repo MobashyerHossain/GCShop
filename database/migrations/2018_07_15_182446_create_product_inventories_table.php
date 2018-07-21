@@ -20,6 +20,7 @@ class CreateProductInventoriesTable extends Migration
             $table->integer('quantity');
             //foreign keys
             $table->integer('showroom_id')->unsigned();
+            $table->foreign('showroom_id')->references('id')->on('show_rooms')->onDelete('cascade');
             $table->timestamps();
         });
     }
