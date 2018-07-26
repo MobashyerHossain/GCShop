@@ -16,8 +16,10 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->double('total_amount', 10, 2);
-            $table->integer('consumer')->unsigned();
-            $table->foreign('consumer')->references('id')->on('consumers')->onDelete('cascade');
+
+            //foreign key
+            $table->integer('consumer_id')->unsigned();
+            $table->foreign('consumer_id')->references('id')->on('consumers')->onDelete('cascade');
             $table->timestamps();
         });
     }

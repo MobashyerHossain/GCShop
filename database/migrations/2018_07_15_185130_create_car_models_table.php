@@ -16,7 +16,7 @@ class CreateCarModelsTable extends Migration
         Schema::create('car_models', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');             //GT
-            $table->string('details');
+            $table->string('details', 500);
             $table->string('Year_from_to');     //1999-2010
 
             //foreign key

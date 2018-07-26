@@ -19,8 +19,8 @@ class CreateCartsTable extends Migration
             $table->boolean('sold')->default(false);
 
             //foreign keys
-            $table->integer('consumer')->unsigned();
-            $table->foreign('consumer')->references('id')->on('consumers')->onDelete('cascade');
+            $table->integer('consumer_id')->unsigned();
+            $table->foreign('consumer_id')->references('id')->on('consumers')->onDelete('cascade');
             $table->integer('part_id')->unsigned();
             $table->foreign('part_id')->references('id')->on('parts')->onDelete('cascade');
             $table->integer('showroom_id')->unsigned();

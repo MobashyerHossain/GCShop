@@ -2,10 +2,13 @@
 
 namespace App\Models\MultiAuth;
 
-use App\Models\Other\Image;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\AdminResetPasswordNotification;
+
+use App\Models\Other\Image;
+use App\Models\Other\Address;
+use App\Models\Other\PhoneNumber;
 
 class Admin extends Authenticatable
 {
@@ -48,5 +51,13 @@ class Admin extends Authenticatable
       else{
         return 'storage/images/temp.png';
       }
+    }
+
+    public function getAddress(){
+        return Address::find($this->address_id);
+    }
+
+    public function getPhoneNumber(){
+        return PhoneNumber::find($this->phone_number_id);
     }
 }

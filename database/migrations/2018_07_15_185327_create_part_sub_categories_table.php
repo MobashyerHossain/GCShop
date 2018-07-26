@@ -16,7 +16,13 @@ class CreatePartSubCategoriesTable extends Migration
         Schema::create('part_sub_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();           //Ex. Air Filter, Brake Pad etc.
-            $table->string('details')->nullable();      //Brief intro
+            $table->string('details', 500)->nullable();      //Brief intro
+
+            //foreign key
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('part_categories')->onDelete('cascade');
+            $table->integer('image_id')->unsigned()->nullable();
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

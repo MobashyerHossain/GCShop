@@ -86,3 +86,18 @@ Route::prefix('showroomstaff')->group(function(){
 
 //Resource Routes
 Route::resource('images', 'ImageController');
+
+//Oauth Route
+Route::get('socialauth/{provider}', 'Auth\OauthController@redirectToProvider')->name('socialauth.redirect');
+Route::get('socialauth/{provider}/callback', 'Auth\OauthController@handleProviderCallback')->name('socialauth.callback');
+
+//Product Route
+Route::prefix('product_details')->group(function(){
+  //Find Product
+  Route::get('car/{carId}', 'OtherControllers\ProductController@findCar')->name('find.car.details');
+  Route::get('part/{partId}', 'OtherControllers\ProductController@findPart')->name('find.part.details');
+
+  //Show Product
+  Route::get('car/{carMakerName}/{carModelName}/{carName}', 'OtherControllers\ProductController@showCar')->name('show.car.details');
+  Route::get('part/{partCategoryName}/{partSubCategoryName}/{partManufacturerName}/{partName}', 'OtherControllers\ProductController@showPart')->name('show.part.details');
+});

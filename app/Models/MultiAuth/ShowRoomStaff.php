@@ -6,6 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ShowRoomStaffResetPasswordNotification;
 
+use App\Models\Other\Image;
+use App\Models\Other\Address;
+use App\Models\Other\PhoneNumber;
+
 class ShowRoomStaff extends Authenticatable
 {
     use Notifiable;
@@ -31,5 +35,27 @@ class ShowRoomStaff extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ShowRoomStaffResetPasswordNotification($token));
+    }
+
+    //getters
+    public function getFullName(){
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    public function getProfilePic(){
+      if(Image::find($this->profile_pic)){
+        return (Image::find($this->profile_pic))->uri;
+      }
+      else{
+        return 'storage/images/temp.png';
+      }
+    }
+
+    public function getAddress(){
+        return Address::find($this->address_id);
+    }
+
+    public function getPhoneNumber(){
+        return PhoneNumber::find($this->phone_number_id);
     }
 }

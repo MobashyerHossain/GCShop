@@ -18,8 +18,8 @@ class CreateCarBookingsTable extends Migration
             $table->double('booking_advance', 10, 2)->default(100000);
 
             //foreign keys
-            $table->integer('consumer')->unsigned();
-            $table->foreign('consumer')->references('id')->on('consumers')->onDelete('cascade');
+            $table->integer('consumer_id')->unsigned();
+            $table->foreign('consumer_id')->references('id')->on('consumers')->onDelete('cascade');
             $table->integer('car_id')->unsigned();
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
             $table->timestamps();
