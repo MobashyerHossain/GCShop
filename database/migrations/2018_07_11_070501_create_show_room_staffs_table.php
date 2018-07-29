@@ -22,7 +22,7 @@ class CreateShowRoomStaffsTable extends Migration
           $table->boolean('preliminary_password_change')->default(false);
 
           //foreign keys
-          $table->integer('profile_pic')->unsigned()->nullable();
+          $table->integer('profile_pic')->unsigned()->default(1);
           $table->foreign('profile_pic')->references('id')->on('images')->onDelete('cascade');
           $table->integer('role_id')->unsigned();     //Sells Manager, Showroom Manager, Worker
           $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');

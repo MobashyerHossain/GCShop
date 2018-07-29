@@ -21,7 +21,7 @@ class CreatePartSubCategoriesTable extends Migration
             //foreign key
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('part_categories')->onDelete('cascade');
-            $table->integer('image_id')->unsigned()->nullable();
+            $table->integer('image_id')->unsigned()->default(4);
             $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });

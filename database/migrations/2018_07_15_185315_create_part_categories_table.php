@@ -19,7 +19,7 @@ class CreatePartCategoriesTable extends Migration
             $table->string('details', 500)->nullable(); //Brief intro
 
             //foreign key
-            $table->integer('image_id')->unsigned()->nullable();
+            $table->integer('image_id')->unsigned()->default(4);
             $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });

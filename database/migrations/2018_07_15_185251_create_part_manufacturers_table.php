@@ -16,8 +16,8 @@ class CreatePartManufacturersTable extends Migration
         Schema::create('part_manufacturers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
-            $table->string('details');
-            $table->integer('logo')->unsigned()->nullable();
+            $table->string('details', 500)->nullable();
+            $table->integer('logo')->unsigned()->default(4);
             $table->foreign('logo')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });

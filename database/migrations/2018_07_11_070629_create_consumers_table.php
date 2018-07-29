@@ -17,13 +17,13 @@ class CreateConsumersTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->date('date_of_birth');
+            $table->date('date_of_birth')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('verification_status')->default(false);
 
             //foreign keys
-            $table->integer('profile_pic')->unsigned()->nullable();
+            $table->integer('profile_pic')->unsigned()->default(1);
             $table->foreign('profile_pic')->references('id')->on('images')->onDelete('cascade');
             $table->integer('address_id')->unsigned()->nullable();
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');

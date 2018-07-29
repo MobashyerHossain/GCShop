@@ -15,13 +15,15 @@ class CreateCarModelsTable extends Migration
     {
         Schema::create('car_models', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');             //GT
+            $table->string('name', 100);             //GT
             $table->string('details', 500);
-            $table->string('Year_from_to');     //1999-2010
+            $table->string('Year_from_to', 20);     //1999-2010
 
             //foreign key
             $table->integer('maker_id')->unsigned();
             $table->foreign('maker_id')->references('id')->on('car_makers')->onDelete('cascade');
+            $table->integer('image_id')->unsigned()->default(2);
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

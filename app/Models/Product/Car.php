@@ -11,7 +11,7 @@ use App\Models\Product\ProductDetail;
 class Car extends Model
 {
     //getter
-    public function getPhoto(){
+    public function getImage(){
         if(Image::find($this->image_id)){
           return (Image::find($this->image_id))->uri;
         }

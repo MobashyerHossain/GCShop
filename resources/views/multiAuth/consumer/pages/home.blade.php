@@ -56,14 +56,17 @@
                 <div class="carousel slide" data-ride="carousel" id="carousel-1">
                     <div class="carousel-inner" role="listbox" style="height:340px;">
                         <div class="carousel-item active">
-                          <img src="{{url('FrontEnd/Consumers/assets/img/4278.jpg')}}" alt="" style="width:100%;">
+                          <img src="{{url('storage/images/categories/car model/Audi R8 4S.jpg')}}" alt="" style="width:100%;">
                         </div>
-                        <div class="carousel-item">
-                          <img src="{{url('FrontEnd/Consumers/assets/img/4226.jpg')}}" alt="" style="width:100%;">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="{{url('FrontEnd/Consumers/assets/img/775.jpg')}}" alt="" style="width:100%;">
-                        </div>
+                        @foreach($carmakers as $carmaker)
+                          @foreach($carmaker->getModels() as $carmodel)
+                            @foreach($carmodel->getCars() as $car)
+                              <div class="carousel-item">
+                                <img src="{{url($car->getImage())}}" alt="" style="width:100%;">
+                              </div>
+                            @endforeach
+                          @endforeach
+                        @endforeach
                     </div>
                     <div>
                       <a class="carousel-control-prev" href="#carousel-1" role="button" data-slide="prev">
@@ -100,12 +103,14 @@
             </div>
         </div>
 
-        <!-- Individual categories -->
+    <!-- Individual categories -->
+        <!-- Car Makers -->
+        @foreach($carmakers as $carmaker)
         <div style="margin:30px 0px;">
             <!-- categories header -->
             <div class="row" style="padding:0px;margin-bottom:10px;margin-right:0px;margin-left:0px;">
                 <div class="col-3 align-self-center" style="padding:0px;">
-                    <h4 class="text-uppercase d-inline" style="margin:0px;color:rgba(33,37,41,0.8);">SHOCK ABSORBER</h4>
+                    <h4 class="text-uppercase d-inline" style="margin:0px;color:rgba(33,37,41,0.8);">{{$carmaker->name}}</h4>
                 </div>
                 <div class="col align-self-center" style="padding:0px;">
                     <div class="rounded" style="height:5px;color:rgba(33,37,41,0.8);background-color:rgba(33,37,41,0.11);"></div>
@@ -115,29 +120,60 @@
             <!-- category show -->
             <div class="row" style="margin:0px;background-color:#ffffff;padding:0px;">
                 <!-- category image -->
-                <div class="col-2" style="background-image:url('FrontEnd/Consumers/assets/img/775.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;">
-                    <h4 class="text-uppercase" style="margin-top:20px;color:rgba(33,37,41,0.8);">Audi, BMW and many more...</h4>
+                <div class="col-2" style="background-image:url('{{$carmaker->getLogo()}}');background-size:contain;background-repeat:no-repeat;background-position:center;">
+                    <h4 class="text-uppercase" style="font-size:10px;margin-top:20px;color:rgba(33,37,41,0.8);"></h4>
                 </div>
 
                 <!-- sub categories -->
                 <div class="col">
                     <div class="row">
-                        <div class="col-4 border" style="padding:15px;">
-                            <h5 class="text-capitalize" style="color:rgba(33,37,41,0.8);font-weight:normal;">Audi</h5>
-                            <img class="float-right" src="{{url('FrontEnd/Consumers/assets/img/775.jpg')}}" data-bs-hover-animate="pulse" style="margin-top:20px;margin-bottom:10px;width:60%;">
+                        @foreach($carmaker->getModels() as $carmodel)
+                        <div class="col-3 border" style="padding:15px;">
+                            <h5 class="text-capitalize" style="color:rgba(33,37,41,0.8);font-weight:normal;">{{$carmodel->name}}</h5>
+                            <img class="float-right" src="{{url($carmodel->getImage())}}" data-bs-hover-animate="pulse" style="margin-top:20px;margin-bottom:10px;width:60%;">
                         </div>
-                        <div class="col-4 border" style="padding:15px;">
-                            <h5 class="text-capitalize" style="color:rgba(33,37,41,0.8);font-weight:normal;">BMW</h5>
-                            <img class="float-right" src="{{url('FrontEnd/Consumers/assets/img/775.jpg')}}" style="margin-top:20px;margin-bottom:10px;width:60%;">
-                        </div>
-                        <div class="col-4 border" style="padding:15px;">
-                            <h5 class="text-capitalize" style="color:rgba(33,37,41,0.8);font-weight:normal;">Lamborgini</h5>
-                            <img class="float-right" src="{{url('FrontEnd/Consumers/assets/img/775.jpg')}}" style="margin-top:20px;margin-bottom:10px;width:60%;">
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
+        @endforeach
+
+        <!-- Part Categories -->
+        @foreach($partcategories as $partcategory)
+        <div style="margin:30px 0px;">
+            <!-- categories header -->
+            <div class="row" style="padding:0px;margin-bottom:10px;margin-right:0px;margin-left:0px;">
+                <div class="col-3 align-self-center" style="padding:0px;">
+                    <h4 class="text-uppercase d-inline" style="margin:0px;color:rgba(33,37,41,0.8);">{{$partcategory->name}}</h4>
+                </div>
+                <div class="col align-self-center" style="padding:0px;">
+                    <div class="rounded" style="height:5px;color:rgba(33,37,41,0.8);background-color:rgba(33,37,41,0.11);"></div>
+                </div>
+            </div>
+
+            <!-- category show -->
+            <div class="row" style="margin:0px;background-color:#ffffff;padding:0px;">
+                <!-- category image -->
+                <div class="col-2" style="background-image:url('{{$partcategory->getImage()}}');background-size:contain;background-repeat:no-repeat;background-position:center;">
+                    <h4 class="text-uppercase" style="font-size:10px;margin-top:20px;color:rgba(33,37,41,0.8);"></h4>
+                </div>
+
+                <!-- sub categories -->
+                <div class="col">
+                    <div class="row">
+                        @foreach($partcategory->getSubCategories() as $partsubcategory)
+                        <div class="col-4 border" style="padding:15px;">
+                            <h5 class="text-capitalize" style="color:rgba(33,37,41,0.8);font-weight:normal;">{{$partsubcategory->name}}</h5>
+                            <img class="float-right m-2 text-bottom" src="{{url($partsubcategory->getImage())}}" data-bs-hover-animate="pulse" style="width:50%;">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+
         <div style="margin:30px 0px;">
             <div class="row" style="padding:0px;margin-bottom:10px;margin-right:0px;margin-left:0px;">
                 <div class="col-4 align-self-center" style="padding:0px;">
@@ -186,17 +222,18 @@
                 </div>
             </div>
             <div class="row" style="background-color:#ffffff;margin:0px;">
-                <div class="col" style="padding:10px;margin:0px;background-color:transperent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
-                <div class="col" style="padding:10px;margin:0px;background-color:transperent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
-                <div class="col" style="padding:10px;margin:0px;background-color:transperent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
-                <div class="col" style="padding:10px;margin:0px;background-color:transperent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
-                <div class="col" style="padding:10px;margin:0px;background-color:transperent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
-                <div class="col" style="padding:10px;margin:0px;background-color:transperent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
+                <div class="col" style="padding:10px;margin:0px;background-color:transparent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
+                <div class="col" style="padding:10px;margin:0px;background-color:transparent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
+                <div class="col" style="padding:10px;margin:0px;background-color:transparent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
+                <div class="col" style="padding:10px;margin:0px;background-color:transparent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
+                <div class="col" style="padding:10px;margin:0px;background-color:transparent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
+                <div class="col" style="padding:10px;margin:0px;background-color:transparent;cursor:pointer;"><a href="#"><img class="justify-content-center" src="assets/img/36878.jpg" style="width:100%;"></a></div>
             </div>
         </div>
         <div class="row" style="margin:0px;">
             <div class="col" style="padding:0px;margin-right:10px;">
                 <div style="margin:5px 0px;">
+                    <!-- header-->
                     <div class="row" style="padding:0px;margin-bottom:10px;margin-right:0px;margin-left:0px;">
                         <div class="col align-self-center" style="padding:0px;">
                             <h4 class="text-uppercase d-inline" style="margin:0px;color:rgba(33,37,41,0.8);">find car by makers</h4>
@@ -205,13 +242,16 @@
                             <div class="rounded" style="height:5px;color:rgba(33,37,41,0.8);background-color:rgba(33,37,41,0.11);"></div>
                         </div>
                     </div>
-                    <div class="row" style="background-color:transperent;margin:0px;">
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
+
+                    <!-- content-->
+                    <div class="row" style="background-color:transparent;margin:0px;">
+                        @foreach($carmakers as $carmaker)
+                          <div class="col-2" style="margin:0px;background-color:transparent;cursor:pointer;padding:10px;">
+                            <a href="#">
+                              <img class="justify-content-center" src="{{url($carmaker->getLogo())}}" style="width:100%;">
+                            </a>
+                          </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -225,13 +265,14 @@
                             <div class="rounded" style="height:5px;color:rgba(33,37,41,0.8);background-color:rgba(33,37,41,0.11);"></div>
                         </div>
                     </div>
-                    <div class="row" style="background-color:transperent;margin:0px;">
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
-                        <div class="col-2" style="margin:0px;background-color:transperent;cursor:pointer;padding:10px;"><a href="#"><img class="justify-content-center" src="assets/img/Honda.png" style="width:100%;"></a></div>
+                    <div class="row" style="background-color:transparent;margin:0px;">
+                        @foreach($partmanufacturers as $partmanufacturer)
+                          <div class="col-2" style="margin:0px;background-color:transparent;cursor:pointer;padding:10px;">
+                            <a href="#">
+                              <img class="justify-content-center" src="{{url($partmanufacturer->getLogo())}}" style="width:100%;">
+                            </a>
+                          </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

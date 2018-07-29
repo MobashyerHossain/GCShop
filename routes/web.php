@@ -12,7 +12,7 @@
 */
 
 //Index Route
-Route::view('/', 'multiAuth.consumer.pages.home')->name('index');
+Route::get('/', 'Auth\ConsumerControllers\ConsumerController@index')->name('index');
 Route::post('/', 'Auth\LoginController@login')->name('login.submit');
 
 //Model resources
@@ -101,3 +101,5 @@ Route::prefix('product_details')->group(function(){
   Route::get('car/{carMakerName}/{carModelName}/{carName}', 'OtherControllers\ProductController@showCar')->name('show.car.details');
   Route::get('part/{partCategoryName}/{partSubCategoryName}/{partManufacturerName}/{partName}', 'OtherControllers\ProductController@showPart')->name('show.part.details');
 });
+
+Route::get('test/db', 'OtherControllers\ProductController@test')->name('test');

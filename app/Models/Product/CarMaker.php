@@ -15,11 +15,6 @@ class CarMaker extends Model
     }
 
     public function getLogo(){
-        if(Image::find($this->logo)){
-          return (Image::find($this->logo))->uri;
-        }
-        else{
-          return 'storage/Images/tempLogo.png';
-        }
+        return (Image::find($this->logo))->uri;
     }
 }

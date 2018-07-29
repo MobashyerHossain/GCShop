@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Product\CarMaker;
 use App\Models\Product\Car;
+use App\Models\Other\Image;
 
 class CarModel extends Model
 {
@@ -16,5 +17,9 @@ class CarModel extends Model
 
     public function getMaker(){
         return CarMaker::find($this->maker_id);
+    }
+
+    public function getImage(){
+        return (Image::find($this->image_id))->uri;
     }
 }

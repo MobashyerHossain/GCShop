@@ -6,10 +6,17 @@ use App\Models\MultiAuth\Consumer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Product\CarMaker;
+use App\Models\Product\PartCategory;
+use App\Models\Product\PartManufacturer;
+
 class ConsumerController extends Controller
 {
     public function index(){
-      return view('multiAuth.consumer.pages.home');
+      $carmakers = CarMaker::all();
+      $partcategories = PartCategory::all();
+      $partmanufacturers = PartManufacturer::all();
+      return view('multiAuth.consumer.pages.home')->with(['carmakers' => $carmakers, 'partcategories' => $partcategories, 'partmanufacturers' => $partmanufacturers]);
     }
 
     public function verifyAccount($id){

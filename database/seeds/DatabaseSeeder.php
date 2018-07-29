@@ -15,8 +15,17 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
         $this->call([
+            'DefaultSeeder',
+            'ImageSeeder',
+            'ConsumerSeeder',
+            'PartManufacturerSeeder',
             'PartCategorySeeder',
-            'PartSubCategorySeeder',            
+            'PartSubCategorySeeder',
+            'PartSeeder',
+            'CarMakerSeeder',
+            'CarModelSeeder',
+            'CarSeeder',
+            'ShowRoomSeeder',
         ]);
     }
 }

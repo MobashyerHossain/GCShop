@@ -13,7 +13,7 @@ use App\Models\Product\PartsForCar;
 class Part extends Model
 {
     //getter
-    public function getPhoto(){
+    public function getImage(){
         if(Image::find($this->image_id)){
           return (Image::find($this->image_id))->uri;
         }

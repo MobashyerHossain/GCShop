@@ -5,6 +5,7 @@ namespace App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Product\PartCategory;
+use App\Models\Product\Part;
 use App\Models\Other\Image;
 
 class PartSubCategory extends Model
@@ -13,12 +14,16 @@ class PartSubCategory extends Model
         return PartCategory::find($this->category_id);
     }
 
-    public function getLogo(){
+    public function getImage(){
         if(Image::find($this->image_id)){
           return (Image::find($this->image_id))->uri;
         }
         else{
           return 'storage/Images/tempSubCategory.png';
         }
+    }
+
+    public function getparts(){
+        return Part::where('sub_category_id', $this->id)->get();
     }
 }

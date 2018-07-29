@@ -49,14 +49,14 @@ class ImageController extends Controller
           $path = $request->file('profile_pic')->storeAs('public/images', $newfilename);
           //final pathname
           $finalpathname = 'storage/images/'.$newfilename;
+
+          return Image::create([
+            'uri' => $finalpathname,
+          ]);
         }
         else{
-          $finalpathname = '';
+          return Image::find((new Image)->getDefaultProfilePic());
         }
-
-        return Image::create([
-          'uri' => $finalpathname,
-        ]);
     }
 
     /**
