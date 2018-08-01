@@ -15,22 +15,22 @@ use Auth;
 class LoginController extends Controller
 {
     public function login(Request $request){
-      //validate the form date
+      //validate the form data
       $this->validate($request, [
         'email' => 'required|email',
         'password' => 'required'
       ]);
 
       //Validate type of user
-      if (Admin::where('email', $request->Input('email'))->first()) {
+      if (count(Admin::where('email', $request->Input('email'))->first()) > 0) {
         //if successfull, tha0n redirect to Admin Dashboard
         return (new AdminLoginController)->login($request);
       }
-      else if (ShowRoomStaff::where('email', $request->Input('email'))->first()) {
+      else if (count(ShowRoomStaff::where('email', $request->Input('email'))->first()) > 0) {
         //if successfull, than redirect to ShowRoomStaff Dashboard
         return (new ShowRoomStaffLoginController)->login($request);
       }
-      else if (Consumer::where('email', $request->Input('email'))->first()) {
+      else if (count(Consumer::where('email', $request->Input('email'))->first()) > 0) {
         $consumer = Consumer::where('email', $request->Input('email'))->first();
         if ($consumer->verification_status == 0) {
           return redirect()->route('index')->with('not_verified', 'Your Account is still not verified. Please follow the link in your email to verify your Account.');

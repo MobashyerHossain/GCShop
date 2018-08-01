@@ -17,17 +17,17 @@ class PartSubCategorySeeder extends Seeder
             //wheels
             array(
               'name' => 'Alloy Wheel',
-              'details' => 'A car boot liner is a synthetic mat designed to protect the automobile boot or trunk against damage from dirt or spills and to pad cargo against abrasion or shock',
+              'details' => 'In the automotive industry, alloy wheels are wheels that are made from an alloy of aluminium or magnesium. Alloys are mixtures of a metal and other elements',
               'category_id' => 1,
             ),
             array(
               'name' => 'Steel Wheel',
-              'details' => 'Floor mat are used to prevent dirts from cars actual floors',
+              'details' => "There are definite benefits of steel wheels - which is a good thing, considering the fact that they're standard equipment on base models of most new non-luxury passenger vehicles! First off, alloy wheels – particularly forged aluminum alloys – are more expensive than steel wheels, mainly because of differences in production techniques",
               'category_id' => 1,
             ),
             array(
               'name' => 'Aluminium Wheel',
-              'details' => 'The mechanism that moves the window up and down is called the window regulator.The window regulator is powered by an electric motor, called window motor',
+              'details' => "Matching cast aluminium wheels in a variety of designs. Are your Audi's high-quality tyres still in good condition but you'd like to freshen up your vehicle's looks?",
               'category_id' => 1,
             ),
 

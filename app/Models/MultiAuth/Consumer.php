@@ -56,7 +56,11 @@ class Consumer extends Authenticatable
 
     //consumers cart methods
     public function getCartProducts(){
-        return Cart::where('consumer_id', $this->id)->where('sold', false)->get();
+        return Cart::where('consumer_id', $this->id)->where('sold', false)->orderBy('created_at', 'desc')->get();
+    }
+
+    public function getTotalAmountProducts(){
+        return Cart::where('consumer_id', $this->id)->where('sold', false)->sum('quantity');
     }
 
     public function getTotalCostPerCart(){
@@ -64,9 +68,9 @@ class Consumer extends Authenticatable
         $total = 0;
 
         foreach ($carts as $cart) {
-          $total += $cart->getTotalPartCost();
+          $total += (double)substr($cart->getTotalPartCost(), 2, -4);
         }
-        return number_format((float)$total, 2, '.', '');
+        return '$ '.(number_format((float)$total, 2, '.', '')).' USD';
     }
 
     public function getAddress(){

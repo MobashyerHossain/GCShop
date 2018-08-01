@@ -23,7 +23,7 @@ class PartSubCategory extends Model
         }
     }
 
-    public function getparts(){
+    public function getParts(){
         return Part::where('sub_category_id', $this->id)->get();
     }
 }

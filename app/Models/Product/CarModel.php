@@ -22,4 +22,13 @@ class CarModel extends Model
     public function getImage(){
         return (Image::find($this->image_id))->uri;
     }
+
+    public function getShortedName($len){
+      if(strlen($this->name) > $len){
+        return substr($this->name, 0, $len).'...';
+      }
+      else{
+        return $this->name;
+      }
+    }
 }

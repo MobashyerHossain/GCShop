@@ -58,6 +58,7 @@ class ImageSeeder extends Seeder
             'storage/images/products/car/BMW 2017 740e.jpg',
             'storage/images/products/car/BMW 740i 2015.jpg',
             'storage/images/products/car/BMW 750i 2017.png',
+
             'storage/images/products/car/Lamborghini Aventador LP740-4S 2017.jpg',
             'storage/images/products/car/Lamborghini Aventador LP700-4 2015.jpg',
             'storage/images/products/car/Lamborghini Aventador LP700-4 2012.jpg',
@@ -69,6 +70,7 @@ class ImageSeeder extends Seeder
             'storage/images/products/car/Lamborghini Reventón 2007.jpg',
             'storage/images/products/car/Lamborghini Reventón 2008.jpg',
             'storage/images/products/car/Lamborghini Reventón 2009.jpg',
+
             'storage/images/products/car/Audi RS 5 2.9T 2018.jpg',
             'storage/images/products/car/Audi RS 5 4.2 2015.jpg',
             'storage/images/products/car/Audi RS 5 4.2 2014.jpg',
@@ -84,6 +86,7 @@ class ImageSeeder extends Seeder
             'storage/images/products/car/Audi RS7 2018.jpg',
             'storage/images/products/car/Audi RS7 Prestige 2017.jpg',
             'storage/images/products/car/Audi RS7 Prestige 2015.jpg',
+
             'storage/images/products/car/Mercedes-Benz S-Class Base 2018.jpg',
             'storage/images/products/car/Mercedes-Benz S-Class Cabriolet 2018.jpg',
             'storage/images/products/car/Mercedes-Benz S-Class Cabriolet 2017.jpg',
@@ -161,6 +164,62 @@ class ImageSeeder extends Seeder
             'storage/images/categories/part sub category/Floor Mats.jpg',
         );
 
+        $partimages = array(
+            'storage/images/products/part/AEZ Straight.png',
+            'storage/images/products/part/AXXION AX7.png',
+            'storage/images/products/part/BBS CH-R.png',
+            'storage/images/products/part/Magnetto Wheels MW R1-1341.png',
+            'storage/images/products/part/Steger ST6315.png',
+            'storage/images/products/part/Magnetto Wheels MW R1-1689.jpg',
+            'storage/images/products/part/Wolfrace Eurosport Assassin-X.jpg',
+            'storage/images/products/part/ATS Temperament 5.jpg',
+            'storage/images/products/part/Lenso Samurai D1-R.jpg',
+
+            'storage/images/products/part/Brake Discs 345mm.png',
+            'storage/images/products/part/Brake Discs Rear Alex 370mm.jpg',
+            'storage/images/products/part/Brake Disc 295mm.jpg',
+            'storage/images/products/part/Brake Disc 310mm.jpg',
+            'storage/images/products/part/Brake Pads Set disk brake Rear A8 TT.jpg',
+            'storage/images/products/part/Brake Pads Set disk brake Rear A r84.jpg',
+            'storage/images/products/part/Brake Pad Set disc brake Front MB sl3.jpg',
+            'storage/images/products/part/Brake pad Set disc brake Rear b7s.jpg',
+            'storage/images/products/part/Brake Shoe Set 180mm.png',
+            'storage/images/products/part/Brake Shoe Set Rear Axle MB 164mm.png',
+            'storage/images/products/part/Brake Shoe Set Rear Axle 164mm.jpg',
+            'storage/images/products/part/Brake Shoe Set Rear Axle 161mm.png',
+
+            'storage/images/products/part/Air Filter a5 s9.jpg',
+            'storage/images/products/part/Air Filter MB e4.png',
+            'storage/images/products/part/Air Filter B1 x3.jpg',
+            'storage/images/products/part/Air Filter B1 x5.jpg',
+            'storage/images/products/part/Fuel Filter MB e5.jpg',
+            'storage/images/products/part/Fuel Filter A3 c.jpg',
+            'storage/images/products/part/Fuel Filter b7s.png',
+            'storage/images/products/part/Fuel Filter b1 7s.png',
+            'storage/images/products/part/Oil filter en 7sB.jpg',
+            'storage/images/products/part/Oil filter en 7sB 1.jpg',
+            'storage/images/products/part/Oil filter en E C 2.png',
+            'storage/images/products/part/Oil filter en E C 1.jpg',
+
+            'storage/images/products/part/Antifreeze DY 01x.jpg',
+            'storage/images/products/part/Antifreeze RADICOOL NF.png',
+            'storage/images/products/part/Antifreeze TL 7s1.jpg',
+            'storage/images/products/part/Antifreeze K2 7s.jpg',
+            'storage/images/products/part/Total engine oil 5W-40 QUARTZ.png',
+            'storage/images/products/part/Dynamax Engine Oil 5W-30 PREMIUM.jpg',
+            'storage/images/products/part/Engine Oil 5W-30 PREMIUM ULTRA GMD 1.jpg',
+            'storage/images/products/part/Engine Oil 5W-40 GTX.png',
+            'storage/images/products/part/Hydraulic Oil Dx lam6.png',
+            'storage/images/products/part/Central Hydraulic Oil.jpg',
+            'storage/images/products/part/Hydraulic Oil MB slk9.jpg',
+            'storage/images/products/part/Hydraulic Oil AD TT R6.jpg',
+
+            'storage/images/products/part/Novline MAT013 Boot Liner Tray Mat.jpg',
+            'storage/images/products/part/Window Regulator Left Rear Electric.jpg',
+            'storage/images/products/part/Window Regulator Right Rear Electric.png',
+            'storage/images/products/part/Floor Mat.jpg',
+        );
+
         foreach ($carmakerlogo as $logo) {
           DB::table('images')->insert([
               'image_type' => 'car_maker_logo',
@@ -199,6 +258,13 @@ class ImageSeeder extends Seeder
         foreach ($partsubcategories as $image) {
           DB::table('images')->insert([
               'image_type' => 'part_sub_category',
+              'uri' => $image,
+          ]);
+        }
+
+        foreach ($partimages as $image) {
+          DB::table('images')->insert([
+              'image_type' => 'part',
               'uri' => $image,
           ]);
         }

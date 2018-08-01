@@ -21,4 +21,13 @@ class PartCategory extends Model
     public function getSubCategories(){
         return PartSubCategory::where('category_id', $this->id)->get();
     }
+
+    public function getShortedName($len){
+      if(strlen($this->name) > $len){
+        return substr($this->name, 0, $len).'...';
+      }
+      else{
+        return $this->name;
+      }
+    }
 }

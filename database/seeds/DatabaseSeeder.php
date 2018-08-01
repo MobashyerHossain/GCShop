@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
             'CarModelSeeder',
             'CarSeeder',
             'ShowRoomSeeder',
+            'ProductInventorySeeder',
+            'RoleSeeder',
+            'AdminSeeder',
+            'ShowRoomStaffSeeder',
         ]);
     }
 }

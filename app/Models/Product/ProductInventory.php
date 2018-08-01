@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\MultiAuth\ShowRoom;
+namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
 

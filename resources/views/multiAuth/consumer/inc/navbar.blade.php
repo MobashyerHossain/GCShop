@@ -3,47 +3,12 @@
       <div class="row" style="margin:0px;">
           <!--logo-->
           <div class="col-2">
-            <a href="{{route('index')}}" class="h3 nav-link" style="margin:0px;line-height:20px;color:rgba(33,37,41,0.8);padding-top:0px;padding-bottom:0px;padding-left:15px;line-height:70px;">
+            <a href="{{route('index')}}" class="h4 nav-link" style="font-family: Cookie, cursive;margin:0px;line-height:20px;color:rgba(33,37,41,0.8);padding-top:0px;padding-bottom:0px;padding-left:15px;line-height:70px;">
               {{ config('app.name', 'Laravel') }}
             </a>
           </div>
 
-          <!--Search Engine-->
-          <div class="col-6">
-              <div class="input-group border border-primary" style="margin-top:15px;">
-                  <div class="input-group-prepend">
-                      <div class="dropdown btn-group" role="group">
-                        <button class="btn btn-primary dropdown-toggle rounded-0 no-outline" data-toggle="dropdown" aria-expanded="false" type="button">
-                          Product
-                        </button>
-                        <div class="dropdown-menu rounded-0 m-0" role="menu">
-                          <a class="dropdown-item" role="presentation" href="#">Cars</a>
-                          <a class="dropdown-item" role="presentation" href="#">Parts</a>
-                        </div>
-                      </div>
-                  </div>
-                  <input class="form-control no-outline" type="text">
-                  <div class="input-group-append">
-                    <!--Search Button-->
-                    <button class="btn btn-primary rounded-0 no-outline"  data-toggle="dropdown" aria-expanded="false" type="button">
-                      Search
-                      <span style="margin-left:5px;" class="fa fa-search"><i ></i></span>
-                    </button>
-
-                    <!--Search Items-->
-                    <div class="dropdown-menu rounded-0 p-2" role="menu">
-                      <div class="row">
-                        <div class="col">
-                          frgdfhgdrf
-                        </div>
-                        <div class="col">
-                          dfhdrfhdf
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-          </div>
+          @include('multiAuth.consumer.inc.searchbox')
 
           <!--Login-->
           <?php
@@ -88,7 +53,7 @@
             </div>
 
             <!-- sign in dropdown-->
-            <div class="hover-dropdown-content p-3 border" style="width:250px;padding:10px;right:0px;top:70px;background-color:#eaeaea;">
+            <div class="hover-dropdown-content p-3 border" style="width:250px;padding:10px;right:0px;top:70px;background-color:#ffffff;  box-shadow: 3px 3px 12px #888888;">
               @guest
                 <h6 style="color:rgba(33,37,41,0.8);">Get Started Now</h6>
                 <div class="row" style="margin-right:-10px;margin-left:-10px;margin-bottom:5px;margin-top:15px;">
@@ -136,69 +101,7 @@
           </div>
 
           <!--Cart-->
-          <div class="hover-dropdown col p-0" style="background-color:rgba(179,179,179,0.22);cursor:pointer;">
-            <div class="dropbtn no-outline p-0">
-              <i class="fa fa-shopping-cart float-left mr-3 ml-2" style="cursor:pointer;font-size:30px;color:rgb(162,171,180);padding:5px;"></i>
-              @guest
-                <ul class="list-group list-group-flush p-0 m-0 inline-flex mt-3 text-left" style="font-size: 12px;">
-                  <li class="list-group-item border-top-0 m-0 p-0 font-weight-bold"style="background-color:transparent;">
-                    <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">0 Products</a>
-                  </li>
-                  <li class="list-group-item border-top-0 m-0 p-0 border-bottom-0 font-weight-bold" style="background-color:transparent;">
-                    <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">$ 0.00 USD</a>
-                  </li>
-                </ul>
-              @else
-                <ul class="list-group list-group-flush p-0 m-0 inline-flex mt-3 text-left" style="font-size: 12px;">
-                  <li class="list-group-item border-top-0 m-0 p-0 font-weight-bold"style="background-color:transparent;">
-                    <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">{{count(Auth::user()->getCartProducts())}} Products</a>
-                  </li>
-                  <li class="list-group-item border-top-0 m-0 p-0 border-bottom-0 font-weight-bold" style="background-color:transparent;">
-                    <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">$ {{Auth::user()->getTotalCostPerCart()}} USD</a>
-                  </li>
-                </ul>
-              @endguest
-            </div>
-
-            <!--Cart dropdown-->
-            <div class="hover-dropdown-content border" style="right:0px;top:70px;width:300px;">
-              @guest
-                <h6 class="text-center mt-1">No Products</h6>
-              @else
-                @if(count(Auth::user()->getCartProducts()) <= 0)
-                  <h6 class="text-center mt-1">No Products</h6>
-                @else
-                  <h6 class="p-1" style="padding:0px;background-color:rgba(33,37,41,0.11);margin-bottom:10px;font-weight:600;color:rgba(33,37,41,0.8);">List of Products</h6>
-                  <ul class="list-group list-group-flush p-0 m-0">
-                    @foreach(Auth::user()->getCartProducts() as $product)
-                      <li class="list-group-item border-top-0 m-1" style="padding:2px;background-color:transparent;">
-                        <a href="" style="text-decoration:none;color:rgba(33,37,41,0.8);">
-                          <div class="row m-0">
-                            <div class="col-2 p-0">
-                              @if($product->getPart()->getPhoto())
-                                <img class="" src="{{url($product->getPhoto())}}" alt="" style="width:100%;">
-                              @else
-                                <img class="" src="{{url('storage/Images/temp.png')}}" alt="" style="width:100%;">
-                              @endif
-                            </div>
-                            <div class="col-6" style="font-size:13px;">
-                              {{$product->quantity.' X '.$product->getPart()->name}}
-                            </div>
-                            <div class="col-4 p-0 m-0" style="font-size:14px;">
-                              $ {{$product->getTotalPartCost()}} <span style="font-size:8px;">USD</span>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                    @endforeach
-                  </ul>
-                  <h6 class="p-1 border-top" style="font-size:15px;padding:0px;margin-bottom:10px;color:rgba(33,37,41,0.8);">
-                    Total Cost : <span class="float-right">$ {{Auth::user()->getTotalCostPerCart()}} USD</span>
-                  </h6>
-                @endif
-              @endguest
-            </div>
-          </div>
+          @include('multiAuth.consumer.inc.cart')
       </div>
   </div>
 </nav>

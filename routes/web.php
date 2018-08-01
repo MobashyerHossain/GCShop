@@ -15,7 +15,10 @@
 Route::get('/', 'Auth\ConsumerControllers\ConsumerController@index')->name('index');
 Route::post('/', 'Auth\LoginController@login')->name('login.submit');
 
-//Model resources
+//Resource Routes
+Route::resource('images', 'ModelControllers\ImageController');
+Route::resource('myfavourites', 'ModelControllers\MyFavouriteController');
+Route::resource('carts', 'ModelControllers\CartController');
 
 //Consumer Routes
 Route::prefix('consumer')->group(function(){
@@ -84,22 +87,37 @@ Route::prefix('showroomstaff')->group(function(){
   Route::view('/addproduct', 'multiAuth.showroomstaff.pages.addProduct')->name('addproduct');
 });
 
-//Resource Routes
-Route::resource('images', 'ImageController');
-
 //Oauth Route
 Route::get('socialauth/{provider}', 'Auth\OauthController@redirectToProvider')->name('socialauth.redirect');
 Route::get('socialauth/{provider}/callback', 'Auth\OauthController@handleProviderCallback')->name('socialauth.callback');
 
 //Product Route
 Route::prefix('product_details')->group(function(){
-  //Find Product
-  Route::get('car/{carId}', 'OtherControllers\ProductController@findCar')->name('find.car.details');
-  Route::get('part/{partId}', 'OtherControllers\ProductController@findPart')->name('find.part.details');
+  //Car By Maker
+  Route::get('car/maker/{carMakerId}', 'OtherControllers\ProductController@findMaker')->name('find.car.maker');
+  Route::get('car_maker/{carMakerName}', 'OtherControllers\ProductController@showMaker')->name('show.car.maker');
 
-  //Show Product
+  //Car By Model
+  Route::get('car/model/{modelId}', 'OtherControllers\ProductController@findModel')->name('find.car.model');
+  Route::get('car/{carMakerName}/{modelName}', 'OtherControllers\ProductController@showModel')->name('show.car.model');
+
+  //Part By Category
+  //Route::get('part/Category/{subCategoryId}', 'OtherControllers\ProductController@findCategory')->name('find.part.Category');
+  //Route::get('part_category/{partCategoryName}', 'OtherControllers\ProductController@showCategory')->name('show.part.Category');
+
+  //Part By Sub Category
+  Route::get('part/subCategory/{subCategoryId}', 'OtherControllers\ProductController@findSubCategory')->name('find.part.subCategory');
+  Route::get('part/{partCategoryName}/{subCategoryName}', 'OtherControllers\ProductController@showSubCategory')->name('show.part.subCategory');
+
+  //Part By Manufacturer
+  Route::get('part/manufacturer/{partManufacturerId}', 'OtherControllers\ProductController@findByManufacturer')->name('find.part.manufacturer');
+  Route::get('part_manufacturer/{partManufacturerName}', 'OtherControllers\ProductController@showByManufacturer')->name('show.part.manufacturer');
+
+  //Car Details
+  Route::get('car/{carId}', 'OtherControllers\ProductController@findCar')->name('find.car.details');
   Route::get('car/{carMakerName}/{carModelName}/{carName}', 'OtherControllers\ProductController@showCar')->name('show.car.details');
+
+  //Part Details
+  Route::get('part/{partId}', 'OtherControllers\ProductController@findPart')->name('find.part.details');
   Route::get('part/{partCategoryName}/{partSubCategoryName}/{partManufacturerName}/{partName}', 'OtherControllers\ProductController@showPart')->name('show.part.details');
 });
-
-Route::get('test/db', 'OtherControllers\ProductController@test')->name('test');

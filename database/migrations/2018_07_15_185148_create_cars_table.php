@@ -15,7 +15,7 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Name');
+            $table->string('name');
             $table->double('buying_price', 10, 2);      //for showroom
             $table->double('selling_price', 10, 2);     //for consumer
             $table->float('max_possible_discount')->nullable();
