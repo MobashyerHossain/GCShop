@@ -7,7 +7,7 @@
   <body>
     <div class="row mt-5">
       <div class="col-12">
-        <h1>Product Not Found</h1>
+        <h1>{{$x}}</h1>
       </div>
     </div>
   </body>

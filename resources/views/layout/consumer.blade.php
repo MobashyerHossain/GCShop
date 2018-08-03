@@ -28,7 +28,7 @@
 
     @yield('style')
 </head>
-<body style="background-color:#f1f1f1;">
+<body style="background-color:#f1f1f1;font-family:'Times New Roman', Times, serif;">
     <div id="app">
         <main class="py-4 mt-5">
             @yield('content')

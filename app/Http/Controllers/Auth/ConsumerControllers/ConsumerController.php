@@ -43,6 +43,8 @@ class ConsumerController extends Controller
           Part::inRandomOrder()->first(),
           Car::inRandomOrder()->first(),
           Part::inRandomOrder()->first(),
+          Car::inRandomOrder()->first(),
+          Part::inRandomOrder()->first(),
       );
       shuffle($recommendeds);
       return $recommendeds;

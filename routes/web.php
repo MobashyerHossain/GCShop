@@ -95,23 +95,23 @@ Route::get('socialauth/{provider}/callback', 'Auth\OauthController@handleProvide
 Route::prefix('product_details')->group(function(){
   //Car By Maker
   Route::get('car/maker/{carMakerId}', 'OtherControllers\ProductController@findMaker')->name('find.car.maker');
-  Route::get('car_maker/{carMakerName}', 'OtherControllers\ProductController@showMaker')->name('show.car.maker');
+  Route::get('carmaker/{carMakerName}', 'OtherControllers\ProductController@showMaker')->name('show.car.maker');
 
   //Car By Model
   Route::get('car/model/{modelId}', 'OtherControllers\ProductController@findModel')->name('find.car.model');
   Route::get('car/{carMakerName}/{modelName}', 'OtherControllers\ProductController@showModel')->name('show.car.model');
 
   //Part By Category
-  //Route::get('part/Category/{subCategoryId}', 'OtherControllers\ProductController@findCategory')->name('find.part.Category');
-  //Route::get('part_category/{partCategoryName}', 'OtherControllers\ProductController@showCategory')->name('show.part.Category');
+  Route::get('part/category/{partCategoryId}', 'OtherControllers\ProductController@findByCategory')->name('find.part.category');
+  Route::get('partcategory/{partCategoryName}', 'OtherControllers\ProductController@showByCategory')->name('show.part.category');
 
   //Part By Sub Category
   Route::get('part/subCategory/{subCategoryId}', 'OtherControllers\ProductController@findSubCategory')->name('find.part.subCategory');
   Route::get('part/{partCategoryName}/{subCategoryName}', 'OtherControllers\ProductController@showSubCategory')->name('show.part.subCategory');
 
   //Part By Manufacturer
-  Route::get('part/manufacturer/{partManufacturerId}', 'OtherControllers\ProductController@findByManufacturer')->name('find.part.manufacturer');
-  Route::get('part_manufacturer/{partManufacturerName}', 'OtherControllers\ProductController@showByManufacturer')->name('show.part.manufacturer');
+  Route::get('part_Manufacturer/{partManufacturerId}', 'OtherControllers\ProductController@findByManufacturer')->name('find.part.manufacturer');
+  Route::get('partmanufacturer/{partManufacturerName}', 'OtherControllers\ProductController@showByManufacturer')->name('show.part.manufacturer');
 
   //Car Details
   Route::get('car/{carId}', 'OtherControllers\ProductController@findCar')->name('find.car.details');

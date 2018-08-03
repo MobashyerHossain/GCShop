@@ -1,6 +1,6 @@
 @extends('layout.consumer')
 
-@section('title', $parts[0]->getManufacturer()->name)
+@section('title', $partSubCategories[0]->getCategory()->name)
 
 @section('content')
   @include('multiAuth.consumer.inc.navbar')
@@ -11,33 +11,49 @@
     @include('multiAuth.consumer.inc.modals.registerModal')
 
     <!-- Banner -->
-    <div style="height:290px;box-shadow:0 2px 10px rgba(0, 0, 0, 0.2);" class="m-0 p-0 bg-white">
-      <img class="mt-5" src="{{url($parts[0]->getManufacturer()->getLogo())}}" style="width:100%; height:120px; object-fit:contain;" alt="">
+    <div style="height:290px;box-shadow:0 2px 10px rgba(0, 0, 0, 0.2);" class="row m-0 p-0 bg-white">
+      <div class="col m-0 p-0">
+        <img src="{{url($partSubCategories[0]->getCategory()->getImage())}}" style="width:100%;height:290px;object-fit:contain;" alt="">
+      </div>
+      <div class="col m-0 p-0">
+        <table style="height: 100%; width:100%">
+          <tbody>
+            <tr>
+              <td class="align-middle">
+                <h1 class="text-capitalize text-center" style="color:rgba(33,37,41,0.8);">{{$partSubCategories[0]->getCategory()->name}}</h1>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div style="margin:10px 60px;">
       <div class="m-0 p-0">
-        <!--parts -->
-        <div style="margin:30px 0px;">
+        <!-- Car Models -->
+        @foreach($partSubCategories as $partSubCategory)
+        <div style="margin:50px 0px;">
             <!-- categories header -->
             <div class="row" style="padding:0px;margin-bottom:10px;margin-right:0px;margin-left:0px;">
                 <div class="col align-self-center" style="padding:0px;">
                     <div class="rounded" style="height:5px;color:rgba(33,37,41,0.8);background-color:rgba(33,37,41,0.11);"></div>
                 </div>
-                <div class="col-4 align-self-center text-center" style="padding:0px;">
-                    <h4 class="text-uppercase d-inline" style="margin:0px;color:rgba(33,37,41,0.8);">{{$parts[0]->getManufacturer()->name}}</h4>
+                <div class="col-3 align-self-center text-center" data-bs-hover-animate="pulse" style="padding:0px;">
+                  <a href="{{ route('find.part.subCategory', $partSubCategory->id) }}" style="text-decoration:none;">
+                    <h4 class="text-uppercase d-inline" style="margin:0px;color:rgba(33,37,41,0.8);">{{$partSubCategory->name}}</h4>
+                  </a>
                 </div>
                 <div class="col align-self-center" style="padding:0px;">
                     <div class="rounded" style="height:5px;color:rgba(33,37,41,0.8);background-color:rgba(33,37,41,0.11);"></div>
                 </div>
             </div>
 
-            <!-- parts show -->
+            <!-- Model show -->
             <div class="row" style="margin:0px;background-color:#ffffff;padding:0px;">
-                <!-- parts -->
+                <!-- cars -->
                 <div class="col">
                     <div class="row">
-                        @foreach($parts as $part)
+                        @foreach($partSubCategory->getParts() as $part)
                           <div class="col-3 border" style="padding:15px;height:200px;">
                             <div class="row m-0">
                               <div class="col">
@@ -76,6 +92,7 @@
                 </div>
             </div>
         </div>
+        @endforeach
       </div>
     </div>
   </div>

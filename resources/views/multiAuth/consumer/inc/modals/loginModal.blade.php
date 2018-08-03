@@ -13,11 +13,11 @@
             <!--email-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
+                    <input id="logemail" type="email" class="form-control{{ $errors->has('logemail') ? 'is-invalid' : '' }}" name="logemail" value="{{ old('logemail') }}" placeholder="Email" required>
 
-                    @if ($errors->has('email'))
+                    @if ($errors->has('logemail'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('logemail') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -26,11 +26,11 @@
             <!--password-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" required>
+                    <input id="logpassword" type="password" class="form-control{{ $errors->has('logpassword') ? ' is-invalid' : '' }}" name="logpassword" placeholder="Password" required>
 
-                    @if ($errors->has('password'))
+                    @if ($errors->has('logpassword'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('password') }}</strong>
+                            <strong>{{ $errors->first('logpassword') }}</strong>
                         </span>
                     @endif
                 </div>

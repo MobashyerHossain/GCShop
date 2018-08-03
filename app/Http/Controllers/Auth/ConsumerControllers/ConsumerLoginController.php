@@ -19,18 +19,18 @@ class ConsumerLoginController extends Controller
     public function login(Request $request){
       //validate the form date
       $this->validate($request, [
-        'email' => 'required|email',
-        'password' => 'required'
+        'logemail' => 'required|email',
+        'logpassword' => 'required'
       ]);
 
       //attept to log the user in
-      if (Auth::guard('consumer')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+      if (Auth::guard('consumer')->attempt(['email' => $request->logemail, 'password' => $request->logpassword], $request->remember)) {
         //if successfull, than redirect to their intended location
         return redirect()->back();
       }
 
       //if unsuccessful, than redirect with the form data
-      return redirect()->back()->withInput($request->only('email', 'remember'));
+      return redirect()->back()->withInput($request->only('logemail', 'logremember'));
     }
 
     public function consumerLogout()

@@ -15,7 +15,7 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('image_type', ['default', 'profile_picture', 'car_maker_logo', 'part_manufacturer_logo', 'car', 'part', 'others', 'car_model', 'part_category', 'part_sub_category'])->default('default');
+            $table->enum('image_type', ['default', 'profile_picture', 'car_maker_logo', 'part_manufacturer_logo', 'car', 'part', 'others', 'car_model', 'part_category', 'part_sub_category', 'extra_car_images'])->default('default');
             $table->string('uri');
             $table->timestamps();
         });

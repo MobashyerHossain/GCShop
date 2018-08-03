@@ -5,6 +5,7 @@ namespace App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Other\Image;
+use App\Models\Other\MoreImage;
 use App\Models\Product\CarModel;
 use App\Models\Product\ProductDetail;
 use App\Models\Product\ProductInventory;
@@ -18,12 +19,13 @@ class Car extends Model
         if($this->image_id == 2){
           return $this->getModel()->getImage();
         }
-        if(Image::find($this->image_id)){
+        else{
           return (Image::find($this->image_id))->uri;
         }
-        else{
-          return 'storage/Images/tempCar.png';
-        }
+    }
+
+    public function getExtraImage(){
+        return MoreImage::where('product_type', 'car')->where('product_id', $this->id)->get();
     }
 
     public function getModel(){
@@ -31,16 +33,16 @@ class Car extends Model
     }
 
     public function getDetails(){
-        return ProductDetail::where('product_type','part')->where('product_id', $this->id)->get();
+        return ProductDetail::where('product_type','car')->where('product_id', $this->id)->get();
     }
 
     public function getNormalPrice(){
-      return '$ '.(number_format((float)$this->selling_price, 2, '.', '')).' USD';
+      return '$ '.(number_format((float)$this->selling_price, 2, '.', ''));
     }
 
     public function getDiscountedPrice(){
       $price = ($this->selling_price - ($this->current_discount*$this->selling_price));
-      return '$ '.(number_format((float)$price, 2, '.', '')).' USD';
+      return '$ '.(number_format((float)$price, 2, '.', ''));
     }
 
     public function getDiscount(){

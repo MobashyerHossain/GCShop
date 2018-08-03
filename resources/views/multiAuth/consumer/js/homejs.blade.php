@@ -1,3 +1,10 @@
+<!--Show Login Error-->
+<script>user_not_found
+  if("{{Session::has('user_not_found')}}"){
+    swal("Login Failed!", "{{Session::get('user_not_found')}}", "error");
+  }
+</script>
+
 <!--Account Verification Request Alart-->
 <script>
   if("{{Session::has('please_verify')}}"){

@@ -11,12 +11,20 @@
     @include('multiAuth.consumer.inc.modals.registerModal')
 
     <!-- Banner -->
-    <div style="height:290px;" class="row m-0 p-0">
-      <div class="col m-0 p-0">
-        <img src="{{url($parts[0]->getSubCategory()->getCategory()->getImage())}}" style="width:100%;height:300px;object-fit:cover;" alt="">
+    <div style="height:290px;box-shadow:0 2px 10px rgba(0, 0, 0, 0.2);" class="row m-0 p-0 bg-white">
+      <div class="col-6 m-0 p-0">
+        <img src="{{url($parts[0]->getSubCategory()->getImage())}}" style="width:100%;height:290px;object-fit:contain;" alt="">
       </div>
-      <div class="col m-0 p-0">
-        <img src="{{url($parts[0]->getSubCategory()->getImage())}}" style="width:100%;height:300px;object-fit:cover;" alt="">
+      <div class="col-6 m-0 p-0">
+        <table style="height: 100%; width:100%">
+          <tbody>
+            <tr>
+              <td class="align-middle">
+                <h1 class="text-capitalize text-center" style="color:rgba(33,37,41,0.8);">{{$parts[0]->getSubCategory()->name}}</h1>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -25,7 +33,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="background-color:transparent;">
           <li class="breadcrumb-item">
-            <a style="text-decoration: none;" href="#">{{$parts[0]->getSubCategory()->getCategory()->name}}</a>
+            <a style="text-decoration: none;" href="{{route('find.part.category', $parts[0]->getSubCategory()->getCategory()->id)}}">{{$parts[0]->getSubCategory()->getCategory()->name}}</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
             {{$parts[0]->getSubCategory()->name}}
@@ -34,29 +42,41 @@
       </nav>
 
       <!-- part list -->
-      <div class="row">
+      <div class="row bg-white">
           @foreach($parts as $part)
-          <div class="col-2 border rounded recommended-bg" style="padding:10px;margin:5px;background-color:#ffffff; cursor:pointer;">
-            <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $part->id) }}">
-              <div class="" style="height:200px;">
-                <img class="justify-content-center" src="{{url($part->getImage())}}" style="width:100%; height:200px; object-fit: contain;">
+            <div class="col-3 border" style="padding:15px;height:200px;">
+              <div class="row m-0">
+                <div class="col">
+                  <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $part->id) }}">
+                    <h5 class="text-capitalize" style="font-size:16px;font-family: 'Times New Roman', Times, serif;color:rgba(33,37,41,0.8);font-weight:normal;">{{$part->name}}</h5>
+                  </a>
+                </div>
+                <div class="col-3 text-center m-0 p-0">
+                  @if(Auth::check())
+                    {!! Form::open(['action' => 'ModelControllers\CartController@store', 'method' => 'POST']) !!}
+                        {{Form::hidden('consumer_id', Auth::id(), [])}}
+                        {{Form::hidden('part_id', $part->id, [])}}
+                        {{Form::number('quantity', 1, ['min' => 1, 'max' => $part->getTotalStock(), 'style' => 'width:40px;height:20px;position:absolute;right:20px;top:0px;'])}}
+                        <button style="position:absolute;right:0px;top:-3px;"class="btn btn-link no-outline rounded-0 p-0 m-0" type="submit"><i class="fa fa-shopping-cart"></i></button>
+                    {!! Form::close() !!}
+                  @else
+                    <button style="position:absolute;right:0px;top:-3px;"class="btn btn-link no-outline rounded-0 p-0 m-0" data-toggle="modal" data-target="#LoginModalCenter" type="button"><i class="fa fa-shopping-cart"></i></button>
+                  @endif
+                </div>
               </div>
-              <h5 class="m-0 text-danger font-weight-bold text-right" style="font-family: 'Times New Roman', Times, serif;">{{$part->getDiscount()}}</h5>
-              <p class="text-secondary" style="height:35px;font-size:13px; font-family: Verdana, Geneva, Tahoma, sans-serif;">{{$part->name}}</p>
-              <h6 class="m-0 text-secondary" style="font-family: 'Times New Roman', Times, serif;">{{$part->getNormalPrice()}}</h6>
-              <p class="text-secondary" style="font-size:13px;">{{$part->getTotalStock()}} Pieces Available</p>
-            </a>
-            @if(Auth::check())
-              {!! Form::open(['action' => 'ModelControllers\CartController@store', 'method' => 'POST']) !!}
-                  {{Form::hidden('consumer_id', Auth::id(), [])}}
-                  {{Form::hidden('part_id', $part->id, [])}}
-                  {{Form::number('quantity', 1, ['min' => 1, 'max' => $part->getTotalStock(), 'class' => 'no-outline'])}}
-                  <button class="btn btn-primary float-right no-outline rounded-0 btn-sm" type="submit">Add to <i class="fa fa-shopping-cart"></i></button>
-              {!! Form::close() !!}
-            @else
-              <button class="btn-primary float-right no-outline rounded-0 btn-sm" data-toggle="modal" data-target="#LoginModalCenter" type="button">Add to <i class="fa fa-shopping-cart"></i></button>
-            @endif
-          </div>
+              <div class="row m-0">
+                <div class="col-6" style="height:70px;position:absolute;bottom:10px;left:10px;">
+                  <h5 class="text-capitalize" style="font-size:16px;font-family: 'Times New Roman', Times, serif;color:rgba(33,37,41,0.8);font-weight:normal;"><span class="text-danger font-weight-bold">{{$part->getDiscount()}}</span></h5>
+                  <h6 class="m-0 text-secondary" style="font-family: 'Times New Roman', Times, serif;">{{$part->getNormalPrice()}}</h6>
+                  <p class="text-secondary" style="font-size:13px;">{{$part->getTotalStock()}} Pieces Available</p>
+                </div>
+                <div class="col-6" style="height:100px;position:absolute;bottom:10px;right:0px;">
+                  <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $part->id) }}">
+                    <img class="float-right m-0 p-0" src="{{url($part->getImage())}}" data-bs-hover-animate="pulse" style="height:100px; object-fit:contain;">
+                  </a>
+                </div>
+              </div>
+            </div>
           @endforeach
       </div>
     </div>

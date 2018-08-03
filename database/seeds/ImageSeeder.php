@@ -234,10 +234,10 @@ class ImageSeeder extends Seeder
           ]);
         }
 
-        foreach ($carimages as $image) {
+        foreach ($carimages as $carimage) {
           DB::table('images')->insert([
               'image_type' => 'car',
-              'uri' => $image,
+              'uri' => $carimage,
           ]);
         }
 

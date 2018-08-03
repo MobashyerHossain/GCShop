@@ -26,6 +26,11 @@ class Image extends Model
         }
     }
 
+    public function getExtraCarImageStartPointId(){
+        $image = Image::where('image_type', 'extra_car_images')->first();
+        return $image->id;
+    }
+
     public function getCarModelImageStartPointId(){
         $image = Image::where('image_type', 'car_model')->first();
         if($image){

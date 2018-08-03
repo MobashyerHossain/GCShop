@@ -43,12 +43,12 @@ class Part extends Model
     }
 
     public function getNormalPrice(){
-      return '$ '.(number_format((float)$this->selling_price, 2, '.', '')).' USD';
+      return '$ '.(number_format((float)$this->selling_price, 2, '.', ''));
     }
 
     public function getDiscountedPrice(){
       $price = ($this->selling_price - ($this->current_discount*$this->selling_price));
-      return '$ '.(number_format((float)$price, 2, '.', '')).' USD';
+      return '$ '.(number_format((float)$price, 2, '.', ''));
     }
 
     public function getDiscount(){

@@ -86,7 +86,7 @@
                                     @foreach($carmaker->getModels() as $carmodel)
                                       <li class="list-group-item p-0 m-0 pl-3 bg-transparent">
                                         <span class="d-inline-flex text-light"><i class="fa fa-caret-right" style="margin-right:15px;"></i></span>
-                                        <a class="d-inline-flex nav-link text-light" href="{{ route('find.car.model',$carmodel->id) }}" style="padding:8px 0px;color:rgba(33,37,41,0.8);font-size:12px;">{{$carmodel->getShortedName(25)}}</a>
+                                        <a class="d-inline-flex nav-link text-light" href="{{ route('find.car.model',$carmodel->id) }}" style="padding:8px 0px;color:rgba(33,37,41,0.8);font-size:12px;">{{$carmodel->getShortedName(20)}}</a>
                                       </li>
                                     @endforeach
                                 </ul>

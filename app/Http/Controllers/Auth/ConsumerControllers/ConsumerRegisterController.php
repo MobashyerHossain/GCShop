@@ -46,8 +46,8 @@ class ConsumerRegisterController extends Controller
         try {
           $consumer->notify(new ConsumerRegistrationNotification($consumer));
         } catch (\Exception $e) {
-          return redirect()->route('index')->with('please_verify', 'Cant connect to internet');
+          return redirect()->back()->with('please_verify', 'Cant connect to internet');
         }
-        return redirect()->route('index')->with('please_verify', 'To complete your registration please follow the link sent to your eamil');
+        return redirect()->back()->with('please_verify', 'To complete your registration please follow the link sent to your eamil');
     }
 }

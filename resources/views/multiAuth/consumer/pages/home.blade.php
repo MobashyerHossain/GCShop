@@ -57,7 +57,7 @@
                             <div class="col-3 border" style="padding:15px;position:relative;height:200px;">
                               <a class="nav nav-link m-0 p-0" href="{{ route('find.car.model', $carmodel->id) }}">
                                 <h5 class="text-capitalize" style="font-size:16px;color:rgba(33,37,41,0.8);font-weight:normal;">{{$carmodel->name}}</h5>
-                                <img class="float-right" src="{{url($carmodel->getImage())}}" data-bs-hover-animate="pulse" style="position:absolute;bottom:10px;right:10px;width:60%;">
+                                <img class="float-right" src="{{url($carmodel->getImage())}}" data-bs-hover-animate="pulse" style="position:absolute;bottom:10px;right:10px;height:100px;">
                               </a>
                             </div>
                           @endforeach
@@ -111,21 +111,35 @@
               <!-- category show -->
               <div class="row" style="margin:0px;background-color:#ffffff;padding:0px;">
                   <!-- category image -->
-                  <div class="col-2" style="background-image:url('{{$partcategory->getImage()}}');background-size:contain;background-repeat:no-repeat;background-position:center;">
-                      <h4 class="text-uppercase" style="font-size:10px;margin-top:20px;color:rgba(33,37,41,0.8);"></h4>
+                  <div class="col-2">
+                      <a href="{{route('find.part.category', $partcategory->id)}}">
+                        <img class="m-0 p-0" src="{{url($partcategory->getImage())}}" style="width:100%; height:100%; object-fit:contain;" alt="">
+                      </a>
                   </div>
 
                   <!-- sub categories -->
                   <div class="col">
                       <div class="row">
                           @foreach($partcategory->getSubCategories() as $partsubcategory)
-                          <div class="col-4 border" style="padding:15px;">
+                          <div class="col border-left" style="padding:15px;position:relative;height:200px;">
                             <a class="nav nav-link m-0 p-0" href="{{ route('find.part.subCategory', $partsubcategory->id) }}">
                               <h5 class="text-capitalize" style="color:rgba(33,37,41,0.8);font-weight:normal;">{{$partsubcategory->name}}</h5>
-                              <img class="float-right m-2 text-bottom" src="{{url($partsubcategory->getImage())}}" data-bs-hover-animate="pulse" style="width:50%;">
+                              <img class="float-right m-2 text-bottom" src="{{url($partsubcategory->getImage())}}" data-bs-hover-animate="pulse" style="position:absolute;bottom:10px;right:10px;height:100px;">
                             </a>
                           </div>
                           @endforeach
+                          <!-- coming soon -->
+                          <div class="col border-left" style="padding:15px;position:relative;height:200px;">
+                            <table style="height: 100%; width:100%">
+                              <tbody>
+                                <tr>
+                                  <td class="align-middle">
+                                    <h4 class="text-capitalize text-center" style="color:rgba(33,37,41,0.8);">More<br>Coming Soon</h4>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -142,39 +156,50 @@
                     <div class="rounded" style="height:5px;color:rgba(33,37,41,0.8);background-color:rgba(33,37,41,0.11);"></div>
                 </div>
             </div>
-            <div class="row mt-0 mb-0" style="margin-left:-5px;margin-right:-5px;">
+            <div class="row mt-0 mb-0 bg-white" style="margin-left:-5px;margin-right:-5px;">
                 @foreach($recommendeds as $recommended)
-                  <div class="col-2 mb-3 border-0 bg-transparent" style="padding-left:5px;padding-right:5px;">
-                    <div class="border rounded recommended-bg" style="height:390px;padding:10px;background-color:#ffffff; cursor:pointer;position:relative;">
-                      @if($recommended->getType() == 'car')
-                        <a class="nav nav-link m-0 p-0" href="{{ route('find.car.details', $recommended->id) }}">
-                      @else
-                        <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $recommended->id) }}">
-                      @endif
-                          <div class="" style="height:200px;">
-                            <img class="justify-content-center" src="{{url($recommended->getImage())}}" style="width:100%; height:200px; object-fit:contain;">
-                          </div>
-                          <div class="mt-2 mb-2">
-                            <h5 class="m-0 text-danger font-weight-bold text-right" style="font-family: 'Times New Roman', Times, serif;">{{$recommended->getDiscount()}}</h5>
-                            <p class="text-secondary" style="height:35px;font-size:13px; font-family: Verdana, Geneva, Tahoma, sans-serif;">{{$recommended->name}}</p>
-                            <h6 class="m-0 text-secondary" style="font-family: 'Times New Roman', Times, serif;">{{$recommended->getNormalPrice()}}</h6>
-                            <p class="text-secondary" style="font-size:13px;">{{$recommended->getTotalStock()}} Pieces Available</p>
-                          </div>
+                  <div class="col-3 border" style="padding:15px;height:200px;">
+                    <div class="row m-0">
+                      <div class="col">
+                        @if($recommended->getType() == 'car')
+                          <a class="nav nav-link m-0 p-0" href="{{ route('find.car.details', $recommended->id) }}">
+                        @else
+                          <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $recommended->id) }}">
+                        @endif
+                          <h5 class="text-capitalize" style="font-size:16px;font-family: 'Times New Roman', Times, serif;color:rgba(33,37,41,0.8);font-weight:normal;">{{$recommended->name}}</h5>
                         </a>
-                        @if($recommended->getType() == 'part')
+                      </div>
+                      <div class="col-3 text-center m-0 p-0">
+                        @if($recommended->getType() == 'car')
+                        @else
                           @if(Auth::check())
                             {!! Form::open(['action' => 'ModelControllers\CartController@store', 'method' => 'POST']) !!}
                                 {{Form::hidden('consumer_id', Auth::id(), [])}}
                                 {{Form::hidden('part_id', $recommended->id, [])}}
-                                {{Form::number('quantity', 1, ['min' => 1, 'max' => $recommended->getTotalStock()])}}
-                                <button style="position:absolute;bottom:5px;right:5px"class="btn btn-primary no-outline rounded-0" type="submit">Add to <i class="fa fa-shopping-cart"></i></button>
+                                {{Form::number('quantity', 1, ['min' => 1, 'max' => $recommended->getTotalStock(), 'style' => 'width:40px;height:20px;position:absolute;right:20px;top:0px;'])}}
+                                <button style="position:absolute;right:0px;top:-3px;"class="btn btn-link no-outline rounded-0 p-0 m-0" type="submit"><i class="fa fa-shopping-cart"></i></button>
                             {!! Form::close() !!}
                           @else
-                            <button style="position:absolute;bottom:5px;right:5px"class="btn btn-primary no-outline rounded-0" data-toggle="modal" data-target="#LoginModalCenter" type="button">Add to <i class="fa fa-shopping-cart"></i></button>
+                            <button style="position:absolute;right:0px;top:-3px;"class="btn btn-link no-outline rounded-0 p-0 m-0" data-toggle="modal" data-target="#LoginModalCenter" type="button"><i class="fa fa-shopping-cart"></i></button>
                           @endif
-                        @else
-                          <button style="position:absolute;bottom:5px;right:5px"class="btn btn-primary no-outline rounded-0" type="submit">Book It</button>
                         @endif
+                      </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-6" style="height:70px;position:absolute;bottom:10px;left:10px;">
+                        <h5 class="text-capitalize" style="font-size:16px;font-family: 'Times New Roman', Times, serif;color:rgba(33,37,41,0.8);font-weight:normal;"><span class="text-danger font-weight-bold">{{$recommended->getDiscount()}}</span></h5>
+                        <h6 class="m-0 text-secondary" style="font-size:15px;font-family: 'Times New Roman', Times, serif;">{{$recommended->getNormalPrice()}}</h6>
+                        <p class="text-secondary" style="font-family: 'Times New Roman', Times, serif;font-size:13px;">{{$recommended->getTotalStock()}} Pieces</p>
+                      </div>
+                      <div class="col-6" style="height:90px;position:absolute;bottom:10px;right:0px;">
+                        @if($recommended->getType() == 'car')
+                          <a class="nav nav-link m-0 p-0" href="{{ route('find.car.details', $recommended->id) }}">
+                        @else
+                          <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $recommended->id) }}">
+                        @endif
+                          <img class="float-right m-0 p-0" src="{{url($recommended->getImage())}}" data-bs-hover-animate="pulse" style="height:90px; object-fit:contain;">
+                        </a>
+                      </div>
                     </div>
                   </div>
                 @endforeach
@@ -228,6 +253,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Part manufacturers logo-->
             <div class="col" style="margin-left:10px;padding:0px;">
                 <div style="margin:5px 0px;">
@@ -242,7 +268,7 @@
                     <div class="row" style="background-color:transparent;margin:0px;">
                         @foreach($partmanufacturers as $partmanufacturer)
                           <div class="col-2" style="margin:0px;background-color:transparent;cursor:pointer;padding:10px;">
-                            <a href="{{route('find.part.manufacturer', $partmanufacturer->id)}}">
+                            <a href="{{ route('find.part.manufacturer', $partmanufacturer->id)}}">
                               <img class="justify-content-center" src="{{url($partmanufacturer->getLogo())}}" data-bs-hover-animate="pulse" style="width:100%;">
                             </a>
                           </div>

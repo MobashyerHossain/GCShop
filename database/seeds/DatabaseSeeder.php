@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
             'RoleSeeder',
             'AdminSeeder',
             'ShowRoomStaffSeeder',
+            'ProductDetailSeeder',
+            'ExtraCarImage',
         ]);
     }
 }

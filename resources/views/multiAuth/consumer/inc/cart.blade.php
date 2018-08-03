@@ -62,7 +62,7 @@
             @endforeach
           </ul>
         </div>
-        <h6 class="p-1" style="font-family: 'Times New Roman', Times, serif; font-size:15px;padding:0px;margin-bottom:10px;color:rgba(33,37,41,0.8);">
+        <h6 class="p-1 border-top" style="font-family: 'Times New Roman', Times, serif; font-size:15px;padding:0px;margin-bottom:10px;color:rgba(33,37,41,0.8);">
           Total Cost : <span class="float-right mr-3" style="font-family: 'Times New Roman', Times, serif;">{{Auth::user()->getTotalCostPerCart()}}</span>
         </h6>
         <a href="#" class="btn btn-sm no-outline float-right btn-primary mb-2 mr-2 rounded-0">Go To Checkout</a>

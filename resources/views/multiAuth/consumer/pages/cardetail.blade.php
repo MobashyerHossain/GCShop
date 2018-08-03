@@ -15,7 +15,7 @@
       <nav aria-label="breadcrumb" style="margin-left:-10px; margin-bottom:0px;">
         <ol class="breadcrumb" style="background-color:transparent;">
           <li class="breadcrumb-item">
-            <a style="text-decoration: none;" href="#">{{$car->getModel()->getMaker()->name}}</a>
+            <a style="text-decoration: none;" href="{{route('find.car.maker', $car->getModel()->getMaker()->id)}}">{{$car->getModel()->getMaker()->name}}</a>
           </li>
           <li class="breadcrumb-item">
             <a style="text-decoration: none;" href="{{ route('find.car.model', $car->getModel()->id) }}">{{$car->getModel()->name}}</a>
@@ -54,16 +54,43 @@
                           <i class="fa fa-heart-o" style="float:right;font-size:30px;z-index:1px;margin-top:10px;color:rgba(232,17,45,0.53);"></i>
                         </a>
                       @endif
-                      <img src="{{url($car->getImage())}}" style="width:100%;padding-bottom:5px; height:200px; object-fit: cover;">
-                      <a href="#" class="nav-link" style="padding-top:0px;">
+                      <a href="#" class="no-outline" style="text-decoration:none; padding-top:0px;" data-toggle="modal" data-target="#viewFullScreen">
+                        <img src="{{url($car->getImage())}}" style="width:100%;padding-bottom:5px; height:200px; object-fit: cover;">
                         <i class="fa fa-search-plus"></i>View Full Screen
                       </a>
-                      <div class="row" style="margin:0px;margin-bottom:15px;">
-                        @for($i=0; $i<4; $i++)
-                          <div class="col text-left p-2" style="padding:0px;">
-                            <img src="{{url($car->getImage())}}" data-bs-hover-animate="pulse" style="width:100%; height:80px; object-fit: contain;">
+
+                      <!-- Fullscreen car image Modal -->
+                      <div class="modal fade" id="viewFullScreen" tabindex="-1" role="dialog" aria-labelledby="viewFullScreenTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content rounded-0 border-0">
+                            <div class="modal-body">
+                              <img src="{{url($car->getImage())}}" data-bs-hover-animate="pulse" style="width:100%; object-fit: contain;">
+                            </div>
                           </div>
-                        @endfor
+                        </div>
+                      </div>
+
+                      <!-- Extra Car Image -->
+                      <div class="row" style="margin-right:-10px;margin-left:-10px;margin-bottom:15px;">
+                        @foreach($car->getExtraImage() as $extra)
+                          <!-- Button trigger modal -->
+                          <div class="col-4 text-left p-2" style="padding:0px;">
+                            <a href="" data-toggle="modal" data-target="#carfullview{{$extra->id}}">
+                              <img src="{{url($extra->getImage())}}" data-bs-hover-animate="pulse" style="width:100%; object-fit: contain;">
+                            </a>
+                          </div>
+
+                          <!-- Extra image Modal -->
+                          <div class="modal fade" id="carfullview{{$extra->id}}" tabindex="-1" role="dialog" aria-labelledby="carfullview{{$extra->id}}Title" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content rounded-0 border-0">
+                                <div class="modal-body">
+                                  <img src="{{url($extra->getImage())}}" data-bs-hover-animate="pulse" style="width:100%; object-fit: contain;">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        @endforeach
                       </div>
                   </div>
 

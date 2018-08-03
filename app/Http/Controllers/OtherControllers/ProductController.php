@@ -123,19 +123,18 @@ class ProductController extends Controller
           return view('multiAuth.consumer.pages.partsBySubCategory', ['parts' => $partsubCategory->getParts()]);
         }
         else{
-          return view('error.subNotFound');
+          return view('error.subNotFound', ['x' => 'subcat']);
         }
     }
 
     //parts by manufacturer
     public function findByManufacturer($partManufacturerId){
         $partManufacturer = PartManufacturer::find($partManufacturerId);
-        return $partManufacturer;
         if ($partManufacturer) {
             return redirect()->route('show.part.manufacturer', ['partManufacturerName' => $partManufacturer->name]);
         }
         else{
-            return view('error.subNotFound');
+            return view('error.subNotFound', ['x' => 'man']);
         }
     }
 
@@ -150,17 +149,17 @@ class ProductController extends Controller
     }
 
     //parts by category
-    public function findCategory($partCategoryId){
+    public function findByCategory($partCategoryId){
         $partCategory = PartCategory::find($partCategoryId);
         if ($partCategory) {
             return redirect()->route('show.part.category', ['partCategoryName' => $partCategory->name]);
         }
         else{
-            return view('error.subNotFound');
+            return view('error.subNotFound', ['x' => 'cat']);
         }
     }
 
-    public function showCategory($partCategoryName){
+    public function showByCategory($partCategoryName){
         $partCategory = PartCategory::where('name', $partCategoryName)->first();
         if($partCategory){
           return view('multiAuth.consumer.pages.partsByCategory', ['partSubCategories' => $partCategory->getSubCategories()]);
@@ -187,7 +186,7 @@ class ProductController extends Controller
           return view('multiAuth.consumer.pages.carsByMaker', ['carModels' => $carMaker->getModels()]);
         }
         else{
-          return view('error.subNotFound');
+          return view('error.subNotFound', ['x' => 'mak']);
         }
     }
 }
