@@ -26,4 +26,8 @@ class PartSubCategory extends Model
     public function getParts(){
         return Part::where('sub_category_id', $this->id)->get();
     }
+
+    public function getType(){
+      return 'partsubcategory';
+    }
 }

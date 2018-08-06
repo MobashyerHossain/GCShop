@@ -106,4 +106,14 @@ class MyFavouriteController extends Controller
             return redirect()->route('find.car.details', ['carId' => $productId]);
         }
     }
+
+    public function destroyFromProfile($id)
+    {
+        $favourite = MyFavourite::find($id);
+        $productId = $favourite->product_id;
+        $productType = $favourite->product_type;
+        $favourite->delete();
+
+        return redirect()->route('consumer.profile');
+    }
 }

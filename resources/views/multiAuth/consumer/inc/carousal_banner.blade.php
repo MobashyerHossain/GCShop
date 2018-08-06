@@ -1,5 +1,5 @@
 <div id="banner_carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
-    <div class="carousel-inner" role="listbox" style="background-image:url('{{$banner->uri}}');background-repeat:no-repeat;background-size:cover;height:500px;background-position:top;">
+    <div class="carousel-inner" role="listbox" style="background-image:url('{{$banner_car->getModel()->getImage()}}');background-repeat:no-repeat;background-size:cover;height:500px;background-position:top;">
       <div class="row m-0 p-0">
         <div class="col-3 d-none d-md-block m-0 p-0" style="position: relative;">
           <!-- category col -->
@@ -35,17 +35,25 @@
               <div class="jumbotron" style="background-color:transparent;padding-top:40px;">
                   <h1 class="text-center text-capitalize" style="color:rgb(255,255,255);">Want a test Drive</h1>
                   <p class="text-center">
-                    <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="#" style="background-color:#1ca8d5;">Reserve now</a>
+                    @if(Auth::check())
+                      <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="{{route('find.carHandling.form', ['form_type' => 'carTesting', 'car_id' => $banner_car->id])}}" style="background-color:#1ca8d5;">Reserve Now</a>
+                    @else
+                      <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="" data-toggle="modal" data-target="#LoginModalCenter" style="background-color:#1ca8d5;">Reserve Now</a>
+                    @endif
                     <span class="d-flex justify-content-center text-justify" style="color:rgb(255,255,255);font-size:20px;">The new Lamborghini Centenario</span>
                   </p>
               </div>
           </div>
           <div class="carousel-item">
               <div class="jumbotron" style="background-color:transparent;padding-top:40px;">
-                  <h1 class="text-center text-capitalize" style="color:rgb(255,255,255);">Want to Buy Somthing New</h1>
+                  <h1 class="text-center text-capitalize" style="color:rgb(255,255,255);">Want to Buy This Car</h1>
                   <p class="text-center">
-                    <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="#" style="background-color:#1ca8d5;">Book now</a>
-                    <span class="d-flex justify-content-center text-justify" style="color:rgb(255,255,255);font-size:20px;">100's of cars to choose from</span>
+                    @if(Auth::check())
+                      <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="{{route('find.carHandling.form', ['form_type' => 'carBooking', 'car_id' => $banner_car->id])}}" style="background-color:#1ca8d5;">Book It Now</a>
+                    @else
+                      <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="" data-toggle="modal" data-target="#LoginModalCenter" style="background-color:#1ca8d5;">Book It Now</a>
+                    @endif
+                    <span class="d-flex justify-content-center text-justify" style="color:rgb(255,255,255);font-size:20px;">If not, there are 100's of mode cars to choose from</span>
                   </p>
               </div>
           </div>
@@ -53,7 +61,11 @@
               <div class="jumbotron" style="background-color:transparent;padding-top:40px;">
                   <h1 class="text-center text-capitalize" style="color:rgb(255,255,255);">Short of funds</h1>
                   <p class="text-center">
-                    <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="#" style="background-color:#1ca8d5;">Apply for Loan</a>
+                    @if(Auth::check())
+                      <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="{{route('find.carHandling.form', ['form_type' => 'carLoaning', 'car_id' => $banner_car->id])}}" style="background-color:#1ca8d5;">Apply for Loan</a>
+                    @else
+                      <a class="btn btn-primary rounded-0 border-0 no-outline" role="button" href="" data-toggle="modal" data-target="#LoginModalCenter" style="background-color:#1ca8d5;">Apply for Loan</a>
+                    @endif
                     <span class="d-flex justify-content-center text-justify" style="color:rgb(255,255,255);font-size:15px;">Is the shortage of capital keeping you from buying Your Dream Car?</span>
                     <span class="d-flex justify-content-center text-justify" style="color:rgb(255,255,255);font-size:15px;">No need to worry we provide the perfect car loan facility</span>
                   </p>
@@ -62,7 +74,7 @@
         </div>
 
         <div class="col-3 d-none d-md-block">
-          <!-- subcategory col -->
+        <!-- subcategory col -->
           <!-- car makers col -->
           <div class="p-3 w-75 collapse multi-collapse" id="carmakercollapse" style="position: absolute;top:30%;right:0px;background-color:rgba(0,0,0,0.24);">
               <div class="row" style="padding:0px;margin-bottom:0px;">

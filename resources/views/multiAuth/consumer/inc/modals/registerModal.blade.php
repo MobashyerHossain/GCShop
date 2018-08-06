@@ -16,7 +16,7 @@
                 <!--first name-->
                 <div class="form-group row p-0">
                     <div class="col-12">
-                        <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" required>
+                        <input id="first_name" type="text" class="no-outline form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" required>
 
                         @if ($errors->has('first_name'))
                             <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                 <!--last name-->
                 <div class="form-group row p-0">
                     <div class="col-12">
-                        <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" required>
+                        <input id="last_name" type="text" class="no-outline form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" required>
 
                         @if ($errors->has('last_name'))
                             <span class="invalid-feedback" role="alert">
@@ -55,7 +55,7 @@
             <!--email-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
+                    <input id="email" type="email" class="no-outline form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
 
                     @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
             <div class="form-group row">
                 <!--birth date-->
                 <div class="col-md-6 col-12">
-                    <input id="date_of_birth" type="date" class="form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" name="date_of_birth" value="{{ old('date_of_birth') }}" placeholder="Date of Birth" required>
+                    <input id="date_of_birth" type="date" class="no-outline form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" name="date_of_birth" value="{{ old('date_of_birth') }}" placeholder="Date of Birth" required>
 
                     @if ($errors->has('date_of_birth'))
                         <span class="invalid-feedback" role="alert">
@@ -82,7 +82,7 @@
             <!--password-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="reg_password" type="password" minlength="6" class="form-control{{ $errors->has('reg_password') ? ' is-invalid' : '' }}" name="reg_password" placeholder="Password" required>
+                    <input id="reg_password" type="password" minlength="6" class="no-outline form-control{{ $errors->has('reg_password') ? ' is-invalid' : '' }}" name="reg_password" placeholder="Password" required>
 
                     @if ($errors->has('reg_password'))
                         <span class="invalid-feedback" role="alert">
@@ -95,7 +95,7 @@
             <!--confirm password-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="reg_password-confirm" type="password" minlength="6" class="form-control" name="reg_password_confirmation" placeholder="Confirm Password" required>
+                    <input id="reg_password-confirm" type="password" minlength="6" class="no-outline form-control" name="reg_password_confirmation" placeholder="Confirm Password" required>
                 </div>
             </div>
 

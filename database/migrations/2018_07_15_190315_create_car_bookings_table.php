@@ -15,7 +15,7 @@ class CreateCarBookingsTable extends Migration
     {
         Schema::create('car_bookings', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('booking_advance', 10, 2)->default(100000);
+            $table->double('booking_advance', 10, 2)->default(10000);
 
             //foreign keys
             $table->integer('consumer_id')->unsigned();

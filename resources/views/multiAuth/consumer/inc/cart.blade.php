@@ -17,7 +17,7 @@
           <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">{{Auth::user()->getTotalAmountProducts()}} Products</a>
         </li>
         <li class="list-group-item border-top-0 m-0 p-0 border-bottom-0 font-weight-bold" style="background-color:transparent;">
-          <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">$ {{Auth::user()->getTotalCostPerCart()}} USD</a>
+          <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">{{Auth::user()->getTotalCostPerCart()}}</a>
         </li>
       </ul>
     @endguest
@@ -31,7 +31,21 @@
       @if(count(Auth::user()->getCartProducts()) <= 0)
         <h5 class="border-bottom" style="font-family:'Times New Roman', Times, serif;margin:0px;padding:10px;background-color:#f5f5f5;">No Products</h5>
       @else
-        <h5 class="border-bottom" style="font-family:'Times New Roman', Times, serif;margin:0px;padding:10px;background-color:#f5f5f5;">List of Products</h5>
+        <div class="row m-0 border-bottom pb-0" style="font-family:'Times New Roman', Times, serif;margin:0px;padding:10px;background-color:#f5f5f5;">
+          <div class="col-7">
+            <h5>List of Products</h5>
+          </div>
+          <div class="col-5">
+            {!!Form::open(['action' => ['ModelControllers\CartController@deleteAllfromCart', Auth::id()], 'method' => 'POST'])!!}
+              {{Form::hidden('_method', 'DELETE')}}
+              <a style="font-size:14px;"class="d-inline-flex float-right"onclick="this.parentNode.submit();" style="cursor:pointer;">
+                <p>Clear Cart  <i class="fa fa-trash text-danger" style="font-size:20px;"></i></p>
+              </a>
+            {!!Form::close()!!}
+          </div>
+        </div>
+
+        <!--Item List-->
         <div style="overflow-y: scroll; height:250px;">
           <ul class="list-group border-0">
             @foreach(Auth::user()->getCartProducts() as $product)
@@ -50,7 +64,7 @@
                             <div class="col-4">
                               {!!Form::open(['action' => ['ModelControllers\CartController@destroy', $product->id], 'method' => 'POST'])!!}
                                 {{Form::hidden('_method', 'DELETE')}}
-                                <a style="font-size:14px;" data-bs-hover-animate="pulse" class="d-inline-flex"onclick="this.parentNode.submit();" style="cursor:pointer;">
+                                <a style="font-size:14px;" class="d-inline-flex"onclick="this.parentNode.submit();" style="cursor:pointer;">
                                   <i class="text-danger fa fa-trash float-right"></i>
                                 </a>
                               {!!Form::close()!!}

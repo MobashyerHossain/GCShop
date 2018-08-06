@@ -21,30 +21,35 @@ class ProductController extends Controller
         $car = Car::find($carId);
         if ($car) {
             if (Auth::check()) {
-                $view = new ResentView();
-                $view->product_type = 'car';
-                $view->product_group_id = $car->getModel()->id;
-                $view->consumer_id = Auth::id();
-                $view->save();
+                //updating cars sub level view
+                $view = ResentView::where('consumer_id', Auth::id())->where('product_type', 'car')->where('product_id', $car->id)->first();
+                if(count($view) > 0){
+                  $view->times_visited = $view->times_visited+1;
+                  $view->save();
+                }
+                else{
+                  $view = new ResentView();
+                  $view->product_type = 'car';
+                  $view->product_id = $car->id;
+                  $view->consumer_id = Auth::id();
+                  $view->save();
+                }
+
+                //updating carmodel sub level view
+                $viewSub = ResentView::where('consumer_id', Auth::id())->where('product_type', 'carmodel')->where('product_id', $car->getModel()->id)->first();
+                if(count($viewSub) > 0){
+                  $viewSub->times_visited = $viewSub->times_visited+1;
+                  $viewSub->save();
+                }
+                else{
+                  $viewSub = new ResentView();
+                  $viewSub->product_type = 'carmodel';
+                  $viewSub->product_id = $car->getModel()->id;
+                  $viewSub->consumer_id = Auth::id();
+                  $viewSub->save();
+                }
             }
             return redirect()->route('show.car.details', ['carMakerName' => $car->getModel()->getMaker()->name, 'carModelName' => $car->getModel()->name, 'carName' => $car->name]);
-        }
-        else{
-          return view('error.productNotFound');
-        }
-    }
-
-    public function findPart($partId){
-        $part = Part::find($partId);
-        if ($part) {
-            if (Auth::check()) {
-                $view = new ResentView();
-                $view->product_type = 'part';
-                $view->product_group_id = $part->getSubCategory()->id;
-                $view->consumer_id = Auth::id();
-                $view->save();
-            }
-            return redirect()->route('show.part.details', ['partCategoryName' => $part->getSubCategory()->getCategory()->name, 'partSubCategoryName' => $part->getSubCategory()->name, 'partManufacturerName' => $part->getManufacturer()->name, 'partName' => $part->name]);
         }
         else{
           return view('error.productNotFound');
@@ -55,6 +60,45 @@ class ProductController extends Controller
         $car = Car::where('name', $carName)->first();
         if($car){
           return view('multiAuth.consumer.pages.carDetail', ['car' => $car]);
+        }
+        else{
+          return view('error.productNotFound');
+        }
+    }
+
+    public function findPart($partId){
+        $part = Part::find($partId);
+        if ($part) {
+            if (Auth::check()) {
+                //updating parts view
+                $view = ResentView::where('consumer_id', Auth::id())->where('product_type', 'part')->where('product_id', $part->id)->first();
+                if(count($view) > 0){
+                  $view->times_visited = $view->times_visited+1;
+                  $view->save();
+                }
+                else{
+                  $view = new ResentView();
+                  $view->product_type = 'part';
+                  $view->product_id = $part->id;
+                  $view->consumer_id = Auth::id();
+                  $view->save();
+                }
+
+                //updating partsubcategory sub level view
+                $viewSub = ResentView::where('consumer_id', Auth::id())->where('product_type', 'partsubcategory')->where('product_id', $part->getSubCategory()->id)->first();
+                if(count($viewSub) > 0){
+                  $viewSub->times_visited = $viewSub->times_visited+1;
+                  $viewSub->save();
+                }
+                else{
+                  $viewSub = new ResentView();
+                  $viewSub->product_type = 'partsubcategory';
+                  $viewSub->product_id = $part->getSubCategory()->id;
+                  $viewSub->consumer_id = Auth::id();
+                  $viewSub->save();
+                }
+            }
+            return redirect()->route('show.part.details', ['partCategoryName' => $part->getSubCategory()->getCategory()->name, 'partSubCategoryName' => $part->getSubCategory()->name, 'partManufacturerName' => $part->getManufacturer()->name, 'partName' => $part->name]);
         }
         else{
           return view('error.productNotFound');
@@ -76,11 +120,18 @@ class ProductController extends Controller
         $carModel = CarModel::find($modelId);
         if ($carModel) {
             if (Auth::check()) {
-                $view = new ResentView();
-                $view->product_type = 'car';
-                $view->product_group_id = $carModel->id;
-                $view->consumer_id = Auth::id();
-                $view->save();
+                $viewSub = ResentView::where('consumer_id', Auth::id())->where('product_type', 'carmodel')->where('product_id', $carModel->id)->first();
+                if(count($viewSub) > 0){
+                  $viewSub->times_visited = $viewSub->times_visited+1;
+                  $viewSub->save();
+                }
+                else{
+                  $viewSub = new ResentView();
+                  $viewSub->product_type = 'carmodel';
+                  $viewSub->product_id = $carModel->id;
+                  $viewSub->consumer_id = Auth::id();
+                  $viewSub->save();
+                }
             }
             return redirect()->route('show.car.model', ['carMakerName' => $carModel->getMaker()->name, 'modelName' => $carModel->name]);
         }
@@ -104,11 +155,18 @@ class ProductController extends Controller
         $partsubCategory = PartSubCategory::find($subCategoryId);
         if ($partsubCategory) {
             if (Auth::check()) {
-                $view = new ResentView();
-                $view->product_type = 'part';
-                $view->product_group_id = $partsubCategory->id;
-                $view->consumer_id = Auth::id();
-                $view->save();
+                $viewSub = ResentView::where('consumer_id', Auth::id())->where('product_type', 'partsubcategory')->where('product_id', $partsubCategory->id)->first();
+                if(count($viewSub) > 0){
+                  $viewSub->times_visited = $viewSub->times_visited+1;
+                  $viewSub->save();
+                }
+                else{
+                  $viewSub = new ResentView();
+                  $viewSub->product_type = 'partsubcategory';
+                  $viewSub->product_id = $partsubCategory->id;
+                  $viewSub->consumer_id = Auth::id();
+                  $viewSub->save();
+                }
             }
             return redirect()->route('show.part.subCategory', ['partCategoryName' => $partsubCategory->getCategory()->name, 'subCategoryName' => $partsubCategory->name]);
         }
@@ -152,6 +210,22 @@ class ProductController extends Controller
     public function findByCategory($partCategoryId){
         $partCategory = PartCategory::find($partCategoryId);
         if ($partCategory) {
+            if (Auth::check()) {
+                foreach ($partCategory->getSubCategories() as $partsubCategory) {
+                    $viewSub = ResentView::where('consumer_id', Auth::id())->where('product_type', 'partsubcategory')->where('product_id', $partsubCategory->id)->first();
+                    if(count($viewSub) > 0){
+                      $viewSub->times_visited = $viewSub->times_visited+1;
+                      $viewSub->save();
+                    }
+                    else{
+                      $viewSub = new ResentView();
+                      $viewSub->product_type = 'partsubcategory';
+                      $viewSub->product_id = $partsubCategory->id;
+                      $viewSub->consumer_id = Auth::id();
+                      $viewSub->save();
+                    }
+                }
+            }
             return redirect()->route('show.part.category', ['partCategoryName' => $partCategory->name]);
         }
         else{
@@ -173,6 +247,22 @@ class ProductController extends Controller
     public function findMaker($carMakerId){
         $carMaker = CarMaker::find($carMakerId);
         if ($carMaker) {
+            if (Auth::check()) {
+                foreach ($carMaker->getModels() as $carModel) {
+                    $viewSub = ResentView::where('consumer_id', Auth::id())->where('product_type', 'carmodel')->where('product_id', $carModel->id)->first();
+                    if(count($viewSub) > 0){
+                      $viewSub->times_visited = $viewSub->times_visited+1;
+                      $viewSub->save();
+                    }
+                    else{
+                      $viewSub = new ResentView();
+                      $viewSub->product_type = 'carmodel';
+                      $viewSub->product_id = $carModel->id;
+                      $viewSub->consumer_id = Auth::id();
+                      $viewSub->save();
+                    }
+                }
+            }
             return redirect()->route('show.car.maker', ['carMakerName' => $carMaker->name]);
         }
         else{

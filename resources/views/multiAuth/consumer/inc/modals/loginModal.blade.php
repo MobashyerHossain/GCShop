@@ -13,7 +13,7 @@
             <!--email-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="logemail" type="email" class="form-control{{ $errors->has('logemail') ? 'is-invalid' : '' }}" name="logemail" value="{{ old('logemail') }}" placeholder="Email" required>
+                    <input id="logemail" type="email" class="no-outline form-control{{ $errors->has('logemail') ? 'is-invalid' : '' }}" name="logemail" value="{{ old('logemail') }}" placeholder="Email" required>
 
                     @if ($errors->has('logemail'))
                         <span class="invalid-feedback" role="alert">
@@ -26,7 +26,7 @@
             <!--password-->
             <div class="form-group row">
                 <div class="col-12">
-                    <input id="logpassword" type="password" class="form-control{{ $errors->has('logpassword') ? ' is-invalid' : '' }}" name="logpassword" placeholder="Password" required>
+                    <input id="logpassword" type="password" class="no-outline form-control{{ $errors->has('logpassword') ? ' is-invalid' : '' }}" name="logpassword" placeholder="Password" required>
 
                     @if ($errors->has('logpassword'))
                         <span class="invalid-feedback" role="alert">
@@ -43,12 +43,12 @@
                     <div class="col-12 col-md-6 m-0 p-0">
                       <div class="checkbox">
                           <label>
-                              <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
+                              <input class="no-outline" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
                           </label>
                       </div>
                     </div>
                     <div class="col-12 col-md-6 m-0 p-0">
-                      <a class="btn btn-link nav-link m-0 p-0 text-right " href="{{ route('consumer.password.request') }}">
+                      <a class="btn btn-link nav-link m-0 p-0 text-right no-outline" href="{{ route('consumer.password.request') }}">
                           {{ __('Forgot Your password?') }}
                       </a>
                     </div>

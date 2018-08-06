@@ -40,7 +40,8 @@ Route::prefix('consumer')->group(function(){
     //verification
   Route::get('/verification/{id}', 'Auth\ConsumerControllers\ConsumerController@verifyAccount')->name('consumer.verify');
 
-  //views
+  //others
+  Route::get('/profile', 'Auth\ConsumerControllers\ConsumerController@profile')->name('consumer.profile');
 
 });
 
@@ -120,4 +121,18 @@ Route::prefix('product_details')->group(function(){
   //Part Details
   Route::get('part/{partId}', 'OtherControllers\ProductController@findPart')->name('find.part.details');
   Route::get('part/{partCategoryName}/{partSubCategoryName}/{partManufacturerName}/{partName}', 'OtherControllers\ProductController@showPart')->name('show.part.details');
+
 });
+
+//Car Handling Route
+Route::get('carHandling/{form_type}/{car_id}', 'OtherControllers\CarHandlingController@findForm')->name('find.carHandling.form');
+Route::get('carHandling/{form_type}/{car_maker}/{car_model}/{car_name}', 'OtherControllers\CarHandlingController@showForm')->name('show.carHandling.form');
+
+//Customized Routes
+  //Cart
+  Route::delete('cart/deleteAll/{consumer_Id}', 'ModelControllers\CartController@deleteAllfromCart')->name('cart.delete.all');
+  Route::get('myOrder', 'ModelControllers\CartController@myOrder')->name('cart.myorder');
+  //MyFavourite
+  Route::delete('deleteFavourite/{id}', 'ModelControllers\MyFavouriteController@destroyFromProfile')->name('delete.favourite.from.profile');
+  //Image
+  Route::post('profilePic', 'ModelControllers\ImageController@storeProfilePicture')->name('profilepic.upload');

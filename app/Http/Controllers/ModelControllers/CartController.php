@@ -94,4 +94,14 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
+    public function deleteAllfromCart($consumer_Id){
+        $carts = Cart::where('consumer_id', $consumer_Id)->where('sold', false)->get();
+
+        foreach ($carts as $cart) {
+            $cart->delete();
+        }
+
+        return redirect()->back();
+    }
 }

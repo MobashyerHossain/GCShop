@@ -1,8 +1,35 @@
-<!--Show Login Error-->
-<script>user_not_found
-  if("{{Session::has('user_not_found')}}"){
-    swal("Login Failed!", "{{Session::get('user_not_found')}}", "error");
+<!--button to upload prifle pic-->
+<script type="text/javascript">
+  function proPic(){
+    document.getElementById("pro").click();
   }
+</script>
+
+<!--search Box handle-->
+<script>
+  $(document).ready(function(){
+    $("#siteSearchInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      if(value != 0){
+        $("#searchlist #slist").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+        $('#search_box').css('display', 'block');
+      }
+      else {
+        $('#search_box').css('display', 'none');
+      }
+    });
+
+    $(document).click(function (e) {
+      e.stopPropagation();
+      //check if the clicked area is dropDown or not
+      if ($('#search_box').has(e.target).length === 0) {
+        $('#siteSearchInput').val('');
+        $('#search_box').hide();
+      }
+    });
+  });
 </script>
 
 <!--Account Verification Request Alart-->

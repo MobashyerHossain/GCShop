@@ -51,7 +51,7 @@
                   <div class="col">
                       <div class="row">
                           @foreach($carModel->getCars() as $car)
-                            <div class="col-3 border" style="padding:15px;height:200px;">
+                            <div class="col-3 border pl-0" style="padding:15px;height:200px;">
                               <div class="row m-0">
                                 <div class="col">
                                   <a class="nav nav-link m-0 p-0" href="{{ route('find.car.details', $car->id) }}">
@@ -59,18 +59,24 @@
                                   </a>
                                 </div>
                                 <div class="col-3 text-center m-0 p-0">
-
+                                  @if(Auth::check())
+                                    <a href="{{route('find.carHandling.form', ['form_type' => 'carBooking', 'car_id' => $car->id])}}" style="line-height:15px;text-decoration:none;position:absolute;right:60px;top:-3px;" data-toggle="tooltip" data-placement="top" title="Book This Car" class="bg-primary text-white p-1 pt-0 pb-0 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">B</a>
+                                    <a href="{{route('find.carHandling.form', ['form_type' => 'carTesting', 'car_id' => $car->id])}}" style="line-height:15px;text-decoration:none;position:absolute;right:30px;top:-3px;" data-toggle="tooltip" data-placement="top" title="Take it for a Test Drive" class="bg-primary text-white p-1 pt-0 pb-0 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">T</a>
+                                    <a href="{{route('find.carHandling.form', ['form_type' => 'carLoaning', 'car_id' => $car->id])}}" style="line-height:15px;text-decoration:none;position:absolute;right:0px;top:-3px;" data-toggle="tooltip" data-placement="top" title="Apply for Car Loan" class="bg-primary text-white p-1 pt-0 pb-0 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">L</a>
+                                  @else
+                                    <button style="position:absolute;right:0px;top:-3px;"class="btn btn-link no-outline rounded-0 p-0 m-0" data-toggle="modal" data-target="#LoginModalCenter" type="button"><i class="fa fa-car"></i></button>
+                                  @endif
                                 </div>
                               </div>
                               <div class="row m-0">
-                                <div class="col-6" style="height:70px;position:absolute;bottom:10px;left:10px;">
+                                <div class="col-6" style="height:70px;position:absolute;bottom:10px;left:px;">
                                   <h5 class="text-capitalize" style="font-size:16px;font-family: 'Times New Roman', Times, serif;color:rgba(33,37,41,0.8);font-weight:normal;"><span class="text-danger font-weight-bold">{{$car->getDiscount()}}</span></h5>
                                   <h6 class="m-0 text-secondary" style="font-size:15px;font-family: 'Times New Roman', Times, serif;">{{$car->getNormalPrice()}}</h6>
-                                  <p class="text-secondary" style="font-family: 'Times New Roman', Times, serif;font-size:13px;">{{$car->getTotalStock()}} Pieces</p>
+                                  <p class="text-secondary" style="font-family: 'Times New Roman', Times, serif;font-size:13px;">{{$car->getTotalStock()}} Pieces left</p>
                                 </div>
                                 <div class="col-6" style="height:90px;position:absolute;bottom:10px;right:0px;">
                                   <a class="nav nav-link m-0 p-0" href="{{ route('find.car.details', $car->id) }}">
-                                    <img class="float-right m-0 p-0" src="{{url($car->getImage())}}" data-bs-hover-animate="pulse" style="height:90px; object-fit:contain;">
+                                    <img class="float-right m-0 p-0" src="{{url($car->getImage())}}" data-bs-hover-animate="pulse" style="height:90px;width:180px;object-fit:cover;">
                                   </a>
                                 </div>
                               </div>

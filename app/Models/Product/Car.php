@@ -3,6 +3,7 @@
 namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Other\Image;
 use App\Models\Other\MoreImage;
@@ -10,7 +11,7 @@ use App\Models\Product\CarModel;
 use App\Models\Product\ProductDetail;
 use App\Models\Product\ProductInventory;
 use App\Models\Other\MyFavourite;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Purchase\ResentView;
 
 class Car extends Model
 {
@@ -72,5 +73,9 @@ class Car extends Model
       else{
         return $this->name;
       }
+    }
+
+    public function getTotalViews(){
+      return ResentView::where('product_type', 'part')->where('product_id', $this->id)->sum('times_visited');
     }
 }

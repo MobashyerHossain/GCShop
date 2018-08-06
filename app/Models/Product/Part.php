@@ -3,6 +3,7 @@
 namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Other\Image;
 use App\Models\Product\PartSubCategory;
@@ -12,7 +13,7 @@ use App\Models\Product\PartsForCar;
 use App\Models\Product\ProductInventory;
 use App\Models\Purchase\Cart;
 use App\Models\Other\MyFavourite;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Purchase\ResentView;
 
 class Part extends Model
 {
@@ -78,5 +79,9 @@ class Part extends Model
       else{
         return $this->name;
       }
+    }
+
+    public function getTotalViews(){
+      return ResentView::where('product_type', 'part')->where('product_id', $this->id)->sum('times_visited');
     }
 }

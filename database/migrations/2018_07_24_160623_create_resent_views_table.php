@@ -15,8 +15,9 @@ class CreateResentViewsTable extends Migration
     {
         Schema::create('resent_views', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('product_type', ['car', 'part']);
-            $table->integer('product_group_id')->unsigned();    //Car Maker or Part SubCategoey
+            $table->enum('product_type', ['car', 'part', 'carmodel', 'partsubcategory']);
+            $table->integer('product_id')->unsigned();    //Car Maker or Part SubCategoey
+            $table->biginteger('times_visited')->default(1);
 
             //foreign key
             $table->integer('consumer_id')->unsigned();

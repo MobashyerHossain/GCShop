@@ -97,6 +97,10 @@
                                       <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">Piece Available</td>
                                       <td class="border-top-0" style="font-family: 'Times New Roman', Times, serif;">: {{$part->getTotalStock()}}</td>
                                   </tr>
+                                  <tr class="border-top-0">
+                                      <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">Total Viewed</td>
+                                      <td class="border-top-0" style="font-family: 'Times New Roman', Times, serif;">: {{$part->getTotalViews()}}</td>
+                                  </tr>
                               </tbody>
                           </table>
                       </div>
@@ -177,7 +181,19 @@
                               <div class="col" style="padding:5px;">
                                   <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getShortedName(30)}}</p>
                                   <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getNormalPrice()}}</p>
-                                  <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getTotalStock()}} Pieces Available</p>
+                                  <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getTotalStock()}} Pieces Left</p>
+                              </div>
+                              <div class="col-2 mr-2">
+                                @if(Auth::check())
+                                  {!! Form::open(['action' => 'ModelControllers\CartController@store', 'method' => 'POST']) !!}
+                                      {{Form::hidden('consumer_id', Auth::id(), [])}}
+                                      {{Form::hidden('part_id', $part->id, [])}}
+                                      {{Form::number('quantity', 1, ['min' => 1, 'max' => $part->getTotalStock(), 'style' => 'width:40px;height:20px;'])}}
+                                      <button class="btn btn-link no-outline rounded-0 p-0 m-0" type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                  {!! Form::close() !!}
+                                @else
+                                  <button class="btn btn-link no-outline rounded-0 p-0 m-0" data-toggle="modal" data-target="#LoginModalCenter" type="button"><i class="fa fa-shopping-cart"></i></button>
+                                @endif
                               </div>
                           </div>
                         </a>

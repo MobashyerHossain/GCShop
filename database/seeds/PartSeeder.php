@@ -45,7 +45,7 @@ class PartSeeder extends Seeder
               ),
 
               array(
-                'name' => 'Steger ST6315',
+                'name' => 'Steger ST6355',
                 'buying_price' => 149.22,
                 'manufacturer_id' => 24,
                 'sub_category_id' => 2,

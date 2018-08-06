@@ -9,7 +9,7 @@ use App\Models\Other\Image;
 class Image extends Model
 {
     protected $fillable = [
-        'uri',
+        'uri', 'image_type',
     ];
 
     public function getDefaultProfilePic(){

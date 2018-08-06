@@ -31,4 +31,8 @@ class CarModel extends Model
         return $this->name;
       }
     }
+
+    public function getType(){
+      return 'carmodel';
+    }
 }
