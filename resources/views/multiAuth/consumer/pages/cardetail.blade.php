@@ -52,10 +52,6 @@
                                       <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">Piece Available</td>
                                       <td class="border-top-0" style="font-family: 'Times New Roman', Times, serif;">: {{$car->getTotalStock()}}</td>
                                   </tr>
-                                  <tr class="border-top-0">
-                                      <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">Total Viewed</td>
-                                      <td class="border-top-0" style="font-family: 'Times New Roman', Times, serif;">: {{$car->getTotalViews()}}</td>
-                                  </tr>
                               </tbody>
                           </table>
                       </div>

@@ -52,10 +52,6 @@
                                       <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">Piece Available</td>
                                       <td class="border-top-0" style="font-family: 'Times New Roman', Times, serif;">: {{$car->getTotalStock()}}</td>
                                   </tr>
-                                  <tr class="border-top-0">
-                                      <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">Total Viewed</td>
-                                      <td class="border-top-0" style="font-family: 'Times New Roman', Times, serif;">: {{$car->getTotalViews()}}</td>
-                                  </tr>
                                   @foreach($car->getDetails() as $cardetail)
                                     <tr  class="border-top-0">
                                       <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">{{$cardetail->detail_criteria}}</td>
@@ -84,99 +80,15 @@
                               </li>
                           </ul>
                           <div class="tab-content mt-4">
+                              <!-- Booking tab -->
                               <div class="tab-pane fade show active" role="tabpanel" id="tab-1">
-                                <form method="POST" action="{{ route('consumer.register.submit') }}" aria-label="{{ __('Register') }}">
-                                    @csrf
-                                    <div class="row p-0 m-0">
-                                      <div class="col-12 col-md-8 p-0">
-                                        <!--first name-->
-                                        <div class="form-group row p-0">
-                                            <div class="col-12">
-                                                <input id="first_name" type="text" class="no-outline form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" required>
-
-                                                @if ($errors->has('first_name'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('first_name') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <!--last name-->
-                                        <div class="form-group row p-0">
-                                            <div class="col-12">
-                                                <input id="last_name" type="text" class="no-outline form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" required>
-
-                                                @if ($errors->has('last_name'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('last_name') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    <!--email-->
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <input id="email" type="email" class="no-outline form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required>
-
-                                            @if ($errors->has('email'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <!--birth date-->
-                                    <div class="form-group row">
-                                        <!--birth date-->
-                                        <div class="col-md-6 col-12">
-                                            <input id="date_of_birth" type="date" class="no-outline form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" name="date_of_birth" value="{{ old('date_of_birth') }}" placeholder="Date of Birth" required>
-
-                                            @if ($errors->has('date_of_birth'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('date_of_birth') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <!--password-->
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <input id="reg_password" type="password" minlength="6" class="no-outline form-control{{ $errors->has('reg_password') ? ' is-invalid' : '' }}" name="reg_password" placeholder="Password" required>
-
-                                            @if ($errors->has('reg_password'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('reg_password') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <!--confirm password-->
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <input id="reg_password-confirm" type="password" minlength="6" class="no-outline form-control" name="reg_password_confirmation" placeholder="Confirm Password" required>
-                                        </div>
-                                    </div>
-
-                                    <!--submit button-->
-                                    <div class="form-group row mb-0">
-                                        <div class="col-3 mr-auto ml-auto">
-                                            <button type="submit" class="btn btn-primary">
-                                                {{ __('Register') }}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                @include('multiAuth.consumer.inc.payment')
                               </div>
+                              <!-- Testing tab -->
                               <div class="tab-pane fade" role="tabpanel" id="tab-2">
-
+                                @include('multiAuth.consumer.inc.payment')
                               </div>
+                              <!-- Loaning tab -->
                               <div class="tab-pane fade" role="tabpanel" id="tab-3">
 
                               </div>
@@ -210,6 +122,7 @@
 
 @section('script')
   @include('multiAuth.consumer.js.homejs')
+  <!--scroll helper-->
   <script>
     $( document ).ready(function() {
         var pathname = window.location.pathname;

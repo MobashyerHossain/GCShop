@@ -32,12 +32,13 @@
               <div class="row" style="margin-bottom:20px; height:400px; background-color:#ffffff;">
                   <!-- part image -->
                   <div class="col-5 text-center border">
+                      <p class="float-left p-2">{{$part->getTotalViews()}} views</p>
                       @if(Auth::check())
                         @if(count($part->isAlreadyFavourited()) > 0)
                           {!!Form::open(['action' => ['ModelControllers\MyFavouriteController@destroy', $part->isAlreadyFavourited()->id], 'method' => 'POST'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
                             <a onclick="this.parentNode.submit();" style="cursor:pointer;">
-                              <i class="fa fa-heart" style="float:right;font-size:30px;z-index:1px;margin-top:10px;color:rgba(232,17,45,0.53);"></i>
+                              <i class="fa fa-heart" style="float:right;font-size:30px;margin-top:10px;color:rgba(232,17,45,0.53);"></i>
                             </a>
                           {!!Form::close()!!}
                         @else
@@ -45,13 +46,13 @@
                               {{Form::hidden('product_type', $part->getType(), [])}}
                               {{Form::hidden('product_id', $part->id, [])}}
                               <a onclick="this.parentNode.submit();" style="cursor:pointer;">
-                                <i class="fa fa-heart-o" style="float:right;font-size:30px;z-index:1px;margin-top:10px;color:rgba(232,17,45,0.53);"></i>
+                                <i class="fa fa-heart-o" style="float:right;font-size:30px;margin-top:10px;color:rgba(232,17,45,0.53);"></i>
                               </a>
                           {!! Form::close() !!}
                         @endif
                       @else
                         <a onclick="" data-toggle="modal" data-target="#LoginModalCenter" style="cursor:pointer;">
-                          <i class="fa fa-heart-o" style="float:right;font-size:30px;z-index:1px;margin-top:10px;color:rgba(232,17,45,0.53);"></i>
+                          <i class="fa fa-heart-o" style="float:right;font-size:30px;margin-top:10px;color:rgba(232,17,45,0.53);"></i>
                         </a>
                       @endif
                       <a href="#" class="no-outline" style="text-decoration:none; padding-top:0px;" data-toggle="modal" data-target="#viewFullScreen">
@@ -96,10 +97,6 @@
                                   <tr class="border-top-0">
                                       <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">Piece Available</td>
                                       <td class="border-top-0" style="font-family: 'Times New Roman', Times, serif;">: {{$part->getTotalStock()}}</td>
-                                  </tr>
-                                  <tr class="border-top-0">
-                                      <td class="border-top-0" style="width:30%; font-family: 'Times New Roman', Times, serif;">Total Viewed</td>
-                                      <td class="border-top-0" style="font-family: 'Times New Roman', Times, serif;">: {{$part->getTotalViews()}}</td>
                                   </tr>
                               </tbody>
                           </table>

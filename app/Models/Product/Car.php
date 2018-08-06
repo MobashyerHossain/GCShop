@@ -42,8 +42,14 @@ class Car extends Model
     }
 
     public function getDiscountedPrice(){
-      $price = ($this->selling_price - ($this->current_discount*$this->selling_price));
-      return '$ '.(number_format((float)$price, 2, '.', ''));
+      $discountedprice = ($this->selling_price - ($this->current_discount*$this->selling_price));
+      return '$ '.(number_format((float)$discountedprice, 2, '.', ''));
+    }
+
+    public function getFractionalPrice($frac){
+      $discountedprice = ($this->selling_price - ($this->current_discount*$this->selling_price));
+      $fracprice = $discountedprice * ($frac/100);
+      return '$ '.(number_format((float)$fracprice, 2, '.', ''));
     }
 
     public function getDiscount(){
@@ -76,6 +82,6 @@ class Car extends Model
     }
 
     public function getTotalViews(){
-      return ResentView::where('product_type', 'part')->where('product_id', $this->id)->sum('times_visited');
+      return ResentView::where('product_type', 'car')->where('product_id', $this->id)->sum('times_visited');
     }
 }

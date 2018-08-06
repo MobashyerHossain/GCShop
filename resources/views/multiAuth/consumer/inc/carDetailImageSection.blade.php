@@ -1,4 +1,5 @@
 <div class="col-5 text-center border">
+    <p class="float-left p-2">{{$car->getTotalViews()}} views</p>
     @if(Auth::check())
       @if(count($car->isAlreadyFavourited()) > 0)
         {!!Form::open(['action' => ['ModelControllers\MyFavouriteController@destroy', $car->isAlreadyFavourited()->id], 'method' => 'POST'])!!}

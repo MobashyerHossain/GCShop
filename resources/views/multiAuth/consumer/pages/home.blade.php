@@ -185,10 +185,10 @@
                                 {{Form::hidden('consumer_id', Auth::id(), [])}}
                                 {{Form::hidden('part_id', $recommended->id, [])}}
                                 {{Form::number('quantity', 1, ['min' => 1, 'max' => $recommended->getTotalStock(), 'style' => 'width:40px;height:20px;position:absolute;right:20px;top:0px;'])}}
-                                <button style="position:absolute;right:0px;top:-3px;"class="btn btn-link no-outline rounded-0 p-0 m-0" type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                <button style="position:absolute;right:0px;top:-3px;" class="btn btn-link no-outline rounded-0 p-0 m-0" type="submit"><i class="fa fa-shopping-cart"></i></button>
                             {!! Form::close() !!}
                           @else
-                            <button style="position:absolute;right:0px;top:-3px;"class="btn btn-link no-outline rounded-0 p-0 m-0" data-toggle="modal" data-target="#LoginModalCenter" type="button"><i class="fa fa-shopping-cart"></i></button>
+                            <button style="position:absolute;right:0px;top:-3px;" class="btn btn-link no-outline rounded-0 p-0 m-0" data-toggle="modal" data-target="#LoginModalCenter" type="button"><i class="fa fa-shopping-cart"></i></button>
                           @endif
                         @endif
                       </div>

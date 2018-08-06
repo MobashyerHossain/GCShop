@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvoicesTable extends Migration
+class CreateCarditCardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateInvoicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('cardit_cards', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('total_amount', 10, 2);
+            $table->string('card_brand')->nullable();
+            $table->string('card_number')->nullable();
+            $table->string('card_last_four')->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
 
             //foreign key
-            $table->integer('card_id')->unsigned();
-            $table->foreign('card_id')->references('id')->on('cardit_cards')->onDelete('cascade');
             $table->integer('consumer_id')->unsigned();
             $table->foreign('consumer_id')->references('id')->on('consumers')->onDelete('cascade');
             $table->timestamps();
@@ -33,6 +34,6 @@ class CreateInvoicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('cardit_cards');
     }
 }
