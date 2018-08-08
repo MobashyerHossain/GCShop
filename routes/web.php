@@ -42,6 +42,7 @@ Route::prefix('consumer')->group(function(){
 
   //others
   Route::get('/profile', 'Auth\ConsumerControllers\ConsumerController@profile')->name('consumer.profile');
+  Route::post('/profile/update/{id}', 'Auth\ConsumerControllers\ConsumerController@update')->name('consumer.profile.edit');
 
 });
 

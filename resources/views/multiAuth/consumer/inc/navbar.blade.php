@@ -102,6 +102,13 @@
                     <li class="list-group-item border-top-0 m-0" style="padding:2px;background-color:transparent;">
                       <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">My Orders</a>
                     </li>
+                    <li class="list-group-item border-top-0 m-0" style="padding:2px;background-color:transparent;">
+                      @if(Auth::check())
+                        <a href="{{ route('myfavourites.index')}}" style="text-decoration:none;color:rgba(33,37,41,0.8);">My Favourites</a>
+                      @else
+                        <a href="" style="text-decoration:none;color:rgba(33,37,41,0.8);" data-toggle="modal" data-target="#LoginModalCenter">My Favourites</a>
+                      @endif
+                    </li>
                   @guest
                   @else
                     <li class="list-group-item border-top-0 m-0" style="padding:2px;background-color:transparent;">

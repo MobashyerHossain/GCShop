@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ConsumerResetPasswordNotification;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\Models\Purchase\Cart;
 use App\Models\Other\Image;
@@ -92,24 +93,24 @@ class Consumer extends Authenticatable
     }
 
     public function getMyRecentViewedItems(){
-      return ResentView::where('consumer_id', $this->id)->orderBy('created_at', 'desc')->limit(6)->get();
+        return ResentView::where('consumer_id', $this->id)->orderBy('created_at', 'desc')->limit(6)->get();
     }
 
     public function getUnAuthRecommendation(){
-      $carNo = Car::all()->count();
-      $partNo = Part::all()->count();
-      $recommendeds = array(
-          Car::inRandomOrder()->first(),
-          Part::inRandomOrder()->first(),
-          Car::inRandomOrder()->first(),
-          Part::inRandomOrder()->first(),
-          Car::inRandomOrder()->first(),
-          Part::inRandomOrder()->first(),
-          Car::inRandomOrder()->first(),
-          Part::inRandomOrder()->first(),
-      );
-      shuffle($recommendeds);
-      return $recommendeds;
+        $carNo = Car::all()->count();
+        $partNo = Part::all()->count();
+        $recommendeds = array(
+            Car::inRandomOrder()->first(),
+            Part::inRandomOrder()->first(),
+            Car::inRandomOrder()->first(),
+            Part::inRandomOrder()->first(),
+            Car::inRandomOrder()->first(),
+            Part::inRandomOrder()->first(),
+            Car::inRandomOrder()->first(),
+            Part::inRandomOrder()->first(),
+        );
+        shuffle($recommendeds);
+        return $recommendeds;
     }
 
     public function getRecommendation(){
@@ -169,5 +170,9 @@ class Consumer extends Authenticatable
         else {
             return $this->getUnAuthRecommendation();
         }
+    }
+
+    public function getDateOfBirth(){
+        return Carbon::parse($this->date_of_birth)->format('jS F Y');
     }
 }

@@ -1,7 +1,19 @@
-<!--button to upload prifle pic-->
-<script type="text/javascript">
+<script>
+  //button to upload prifle pic
   function proPic(){
     document.getElementById("pro").click();
+  }
+
+  //show profile edit form
+  function showEditForm(){
+    document.getElementById("infoForm").style.display = "none";
+    document.getElementById("editForm").style.display = "block";
+  }
+
+  //show profile edit form
+  function showInfoForm(){
+    document.getElementById("editForm").style.display = "none";
+    document.getElementById("infoForm").style.display = "block";
   }
 </script>
 
@@ -32,22 +44,18 @@
   });
 </script>
 
-<!--Account Verification Request Alart-->
 <script>
+  //Account Verification Request Alart
   if("{{Session::has('please_verify')}}"){
     swal("Please Verify!", "{{Session::get('please_verify')}}", "info");
   }
-</script>
 
-<!--Account Not Verification Alart-->
-<script>
+  //Account Not Verification Alart
   if("{{Session::has('not_verified')}}"){
     swal("Not Varified!", "{{Session::get('not_verified')}}", "error");
   }
-</script>
 
-<!--Account Verification verified Alart-->
-<script>
+  //Account Verification verified Alart
   if("{{Session::has('verification_status')}}"){
     swal("Good Job!", "{{Session::get('verification_status')}}", "success");
   }
@@ -79,14 +87,4 @@
       }
     });
   });
-</script>
-
-<script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
 </script>

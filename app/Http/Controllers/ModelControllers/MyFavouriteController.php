@@ -17,7 +17,7 @@ class MyFavouriteController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->route('consumer.profile')->with('show_favourites', 'show my favourites');
     }
 
     /**

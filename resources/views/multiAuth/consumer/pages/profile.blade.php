@@ -26,12 +26,22 @@
       <!-- part image and detail -->
       <div class="row mt-0" style="margin:10px 0px;">
           <div class="col" style="margin-right:10px;background-color:rgba(255,255,255,0);">
-              <div class="row" style="margin-bottom:20px; height:400px; background-color:#ffffff;">
-                
+              <div class="row" style="background-color:#ffffff;">
+                <div class="border col-4 text-center" style="padding:30px 15px;">
+                  {!! Form::open(['action' => 'ModelControllers\ImageController@storeProfilePicture', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {{Form::file('profile_pic', ['id' => 'pro', 'style' => 'display:none;', 'onchange' => 'form.submit()'])}}
+                  {!! Form::close() !!}
+                  <img class="rounded-circle img-fluid ml-md-3" onclick="proPic()" src="{{url(Auth::user()->getProfilePic())}}" style="cursor:pointer;width:130px;height:130px;object-fit:cover;">
+                  <h5 style="letter-spacing:15px;margin:20px 0px;">{{Auth::user()->getFullName()}}</h5>
+                </div>
+                <div class="border col" style="padding:15px 15px;">
+                    @include('multiAuth.consumer.inc.profileInfoForm')
+                    @include('multiAuth.consumer.inc.profileEditForm')
+                </div>
               </div>
 
               <!-- my favourites -->
-              <div style="margin:30px 0px;">
+              <div id="my_favourite_items" style="margin:30px 0px;">
                   <!-- separetor -->
                   <div class="row" style="padding:0px;margin-bottom:10px;margin-right:0px;margin-left:0px;">
                       <div class="col-4 align-self-center" style="padding:0px;">
@@ -175,6 +185,26 @@
 
 @section('script')
   @include('multiAuth.consumer.js.homejs')
+  <script>
+    //error while updating info
+    $( document ).ready(function() {
+      if({{count($errors) > 0}}){
+        document.getElementById("infoForm").style.display = "none";
+        document.getElementById("editForm").style.display = "block";
+      }
+    });
+  </script>
+
+  <script>
+    //scroll to my favourites
+    $( document ).ready(function() {
+      if("{{Session::has('show_favourites')}}"){
+        $('html, body').animate({
+            scrollTop: $('#my_favourite_items').offset().top - 70
+        }, 'slow');
+      }
+    });
+  </script>
 
   <script src="{{ asset('FrontEnd/Consumers/assets/js/jquery.min.js') }}"></script>
   <script src="{{ asset('FrontEnd/Consumers/assets/js/Customizable-Carousel-swipe-enabled.js') }}"></script>

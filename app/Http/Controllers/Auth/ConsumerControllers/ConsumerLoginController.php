@@ -36,6 +36,6 @@ class ConsumerLoginController extends Controller
     public function consumerLogout()
     {
         Auth::guard('consumer')->logout();
-        return redirect()->back();
+        return redirect()->route('index');
     }
 }
