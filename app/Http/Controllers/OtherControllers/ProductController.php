@@ -5,6 +5,7 @@ namespace App\Http\Controllers\OtherControllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 
 use App\Models\Product\Car;
 use App\Models\Product\CarMaker;
@@ -14,6 +15,9 @@ use App\Models\Product\PartCategory;
 use App\Models\Product\PartSubCategory;
 use App\Models\Product\PartManufacturer;
 use App\Models\Purchase\ResentView;
+use App\Models\Purchase\Invoice;
+
+use App\Mail\DigitalReciept;
 
 class ProductController extends Controller
 {
@@ -121,7 +125,7 @@ class ProductController extends Controller
         if ($carModel) {
             if (Auth::check()) {
                 $viewSub = ResentView::where('consumer_id', Auth::id())->where('product_type', 'carmodel')->where('product_id', $carModel->id)->first();
-                if(count($viewSub) > 0){
+                if($viewSub){
                   $viewSub->times_visited = $viewSub->times_visited+1;
                   $viewSub->save();
                 }
@@ -156,7 +160,7 @@ class ProductController extends Controller
         if ($partsubCategory) {
             if (Auth::check()) {
                 $viewSub = ResentView::where('consumer_id', Auth::id())->where('product_type', 'partsubcategory')->where('product_id', $partsubCategory->id)->first();
-                if(count($viewSub) > 0){
+                if($viewSub){
                   $viewSub->times_visited = $viewSub->times_visited+1;
                   $viewSub->save();
                 }
@@ -278,5 +282,26 @@ class ProductController extends Controller
         else{
           return view('error.subNotFound', ['x' => 'mak']);
         }
+    }
+
+    //payment complete
+    public function checkOut(){
+        $carts = Auth::user()->getCartProducts();
+
+        $invoce = new Invoice();
+        $invoce->total_amount = Auth::user()->getTotalCostPerCart();
+        $invoce->consumer_id = Auth::id();
+        $invoce->save();
+
+        foreach ($carts as $cart) {
+            $cart->sold = true;
+            $cart->invoice_id = $invoce->id;
+            $cart->save();
+        }
+
+        //send digital reciept mail
+        Mail::to(Auth::user()->email)->send(new DigitalReciept($invoce));
+
+        return redirect()->back()->with('product_check_out', 'You successfully purchased the the products in your cart. The products will be delivered to your home in 3-4 days.');
     }
 }

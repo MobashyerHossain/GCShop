@@ -10,16 +10,11 @@ use App\Models\Product\Car;
 
 class TestDriving extends Model
 {
-    //getter
-    public function getConsumer(){
-      return Consumer::find('consumer_id');
+    public function getCar(){
+        return Car::find($this->car_id);
     }
 
     public function getConsumer(){
-      return Car::find('car_id');
-    }
-
-    public function getConsumer(){
-      return ShowRoom::find('showroom_id');
+        return Consumer::find($this->consumer_id);
     }
 }

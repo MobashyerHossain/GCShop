@@ -5,11 +5,6 @@
 @section('content')
   @include('multiAuth.consumer.inc.navbar')
   <div class="content">
-    <!-- Login Modal -->
-    @include('multiAuth.consumer.inc.modals.loginModal')
-    <!-- Register Modal -->
-    @include('multiAuth.consumer.inc.modals.registerModal')
-
     <!-- Banner -->
     <div style="height:290px;box-shadow:0 2px 10px rgba(0, 0, 0, 0.2);" class="m-0 p-0 bg-white">
       <img class="mt-5" src="{{url($parts[0]->getManufacturer()->getLogo())}}" style="width:100%; height:120px; object-fit:contain;" alt="">
@@ -79,7 +74,7 @@
       </div>
     </div>
   </div>
-  @include('multiAuth.consumer.inc.footer')
+
 @endsection
 
 @section('style')

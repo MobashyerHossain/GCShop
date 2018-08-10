@@ -124,3 +124,12 @@
       </div>
   </div>
 </nav>
+
+<!-- Login Modal -->
+@include('multiAuth.consumer.inc.modals.loginModal')
+
+<!-- Register Modal -->
+@include('multiAuth.consumer.inc.modals.registerModal')
+
+<!-- Checkout Modal -->
+@include('multiAuth.consumer.inc.modals.payment')

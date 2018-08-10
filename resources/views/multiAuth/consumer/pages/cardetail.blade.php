@@ -5,11 +5,6 @@
 @section('content')
   @include('multiAuth.consumer.inc.navbar')
   <div class="content">
-    <!-- Login Modal -->
-    @include('multiAuth.consumer.inc.modals.loginModal')
-    <!-- Register Modal -->
-    @include('multiAuth.consumer.inc.modals.registerModal')
-
     <div class="text-secondary" style="margin:10px 60px;color:rgba(33,37,41,0.8);">
       <!-- breadcrumbs -->
       <nav aria-label="breadcrumb" style="margin-left:-10px; margin-bottom:0px;">
@@ -35,9 +30,15 @@
 
                   <!-- part summary -->
                   <div class="col border" style="padding:15px;font-family: 'Times New Roman', Times, serif;">
-                      <h4 class="float-left text-capitalize">{{$car->name}} {{$car->getModel()->name}}</h4>
-                      <h1 class="float-right text-danger">{{$car->getDiscount()}}</h1>
-                      <div class="table-responsive" style="margin-top:80px;">
+                      <div class="row m-0 p-0">
+                        <div class="col p-0">
+                          <h4 class="float-left text-capitalize">{{$car->name}} {{$car->getModel()->name}}</h4>
+                        </div>
+                        <div class="col-3 p-0">
+                          <h1 class="float-right text-danger">{{$car->getDiscount()}}</h1>
+                        </div>
+                      </div>
+                      <div class="table-responsive" style="margin-top:40px;">
                           <table class="table table-sm">
                               <tbody>
                                   <tr class="border-top-0">
@@ -55,46 +56,36 @@
                               </tbody>
                           </table>
                       </div>
-                      <div style="position:absolute; bottom:30px; width:100%;">
-                        <div class="row m-0 p-0 mr-3">
-                          @if(Auth::check())
-                            <div class="col">
-                              <a href="{{route('find.carHandling.form', ['form_type' => 'carBooking', 'car_id' => $car->id])}}" class="btn btn-primary text-center no-outline rounded-0">Book It</a>
-                            </div>
-                            <div class="col">
-                              <a href="{{route('find.carHandling.form', ['form_type' => 'carTesting', 'car_id' => $car->id])}}" class="btn btn-primary text-center no-outline rounded-0">Test It</a>
-                            </div>
-                            <div class="col">
-                              <a href="{{route('find.carHandling.form', ['form_type' => 'carLoaning', 'car_id' => $car->id])}}" class="btn btn-primary text-center no-outline rounded-0">Apply for Loan</a>
-                            </div>
-                          @else
-                            <div class="col">
-                              <a href="" data-toggle="modal" data-target="#LoginModalCenter" class="btn btn-primary text-center no-outline rounded-0">Book It</a>
-                            </div>
-                            <div class="col">
-                              <a href="" data-toggle="modal" data-target="#LoginModalCenter" class="btn btn-primary text-center no-outline rounded-0">Test It</a>
-                            </div>
-                            <div class="col">
-                              <a href="" data-toggle="modal" data-target="#LoginModalCenter" class="btn btn-primary text-center no-outline rounded-0">Apply for Loan</a>
-                            </div>
-                          @endif
-                        </div>
-                      </div>
                   </div>
               </div>
 
-              <!-- detail pane -->
-              <div class="row border" style="margin-top:20px;background-color:#ffffff;">
+              <!-- car detail pane -->
+              <div id="Tab_Pane" class="row border" style="margin-top:20px;background-color:#ffffff;">
                   <div class="col">
                       <div>
                           <ul class="nav nav-pills border-bottom" style="margin-top:10px;">
-                              <li class="nav-item"><a class="nav-link border rounded-0 border-bottom-0 active" role="tab" data-toggle="pill" href="#tab-1" style="padding:5px;">Car Details</a></li>
-                              <li class="nav-item"><a class="nav-link border rounded-0 border-bottom-0" role="tab" data-toggle="pill" href="#tab-2" style="padding:5px;margin:0px 5px;">Maker Details</a></li>
+                              <li class="nav-item">
+                                <a class="nav-link border rounded-0 border-bottom-0 active" role="tab" data-toggle="pill" href="#tab-1" style="padding:5px;">Car Details</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link border rounded-0 border-bottom-0" role="tab" data-toggle="pill" href="#tab-2" style="padding:5px;">Maker Details</a>
+                              </li>
+                              @if(Auth::check())
+                              <li class="nav-item">
+                                <a class="nav-link border rounded-0 border-bottom-0" role="tab" data-toggle="pill" href="#tab-3" style="padding:5px;">Book This Car</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link border rounded-0 border-bottom-0" role="tab" data-toggle="pill" href="#tab-4" style="padding:5px;">Take a Test Drive</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link border rounded-0 border-bottom-0" role="tab" data-toggle="pill" href="#tab-5" style="padding:5px;">Apply for a Loan</a>
+                              </li>
+                              @endif
                           </ul>
                           <div class="tab-content">
                               <div class="tab-pane fade show active" role="tabpanel" id="tab-1">
                                   <div class="table-responsive" style="margin-top:20px;margin-bottom:10px;">
-                                      <p>{{$car->getModel()->details}}.</p>
+                                      <p class="text-justify">{{$car->getModel()->details}}.</p>
                                       @if(count($car->getDetails()) > 0)
                                         <table class="table table-sm">
                                             <tbody>
@@ -114,7 +105,7 @@
                                   <div class="row">
                                       <div class="col-8">
                                           <div class="table-responsive" style="margin-top:20px;margin-bottom:10px;">
-                                              <p>{{$car->getModel()->getMaker()->details}}</p>
+                                              <p class="text-justify">{{$car->getModel()->getMaker()->details}}</p>
                                           </div>
                                       </div>
                                       <div class="col" style="padding:10px;">
@@ -122,16 +113,51 @@
                                       </div>
                                   </div>
                               </div>
+                              @if(Auth::check())
+                              <!-- Booking tab -->
+                              <div class="tab-pane fade mt-3" role="tabpanel" id="tab-3">
+                                @if(count($car->getBookingInfo()) > 0)
+                                  <div style="margin:80px 0px;">
+                                    <h3 class="text-center text-capitalize">you have already booked a unit of this car</h3>
+                                    <p class="text-center">You have {{$car->getBookingInfo()->getTimeRemainingToClaim()}} to claim it</p>
+                                  </div>
+                                @else
+                                  @include('multiAuth.consumer.inc.carBookingForm')
+                                @endif
+                              </div>
+                              <!-- Testing tab -->
+                              <div class="tab-pane fade mt-3" role="tabpanel" id="tab-4">
+                                @if(count($car->getTestDrivingInfo()) > 0)
+                                  <div style="margin:80px 0px;">
+                                    <h3 class="text-center text-capitalize">you have already reserved a unit of this car for test drive</h3>
+                                    <p class="text-center">You reserved it for {{$car->getTestDrivingInfo()->date_of_drive}} from {{$car->getTestDrivingInfo()->drive_from}} PM to {{$car->getTestDrivingInfo()->drive_to}} PM</p>
+                                  </div>
+                                @else
+                                  @include('multiAuth.consumer.inc.carTestDrivingForm')
+                                @endif
+                              </div>
+                              <!-- Loaning tab -->
+                              <div class="tab-pane fade mt-3" role="tabpanel" id="tab-5">
+                                @if(count($car->getLoanInfo()) > 0)
+                                  <div style="margin:80px 0px;">
+                                    <h3 class="text-center text-capitalize">you have already applied for a loan</h3>
+                                  </div>
+                                @else
+                                  @include('multiAuth.consumer.inc.carLoanForm')
+                                @endif
+                              </div>
+                              @endif
                           </div>
                       </div>
                   </div>
               </div>
+              @include('multiAuth.consumer.inc.recommendedItems')
           </div>
           @include('multiAuth.consumer.inc.carDetailsSidebar')
       </div>
     </div>
   </div>
-  @include('multiAuth.consumer.inc.footer')
+
 @endsection
 
 @section('style')
@@ -152,6 +178,33 @@
 
 @section('script')
   @include('multiAuth.consumer.js.homejs')
+  <script>
+      $( document ).ready(function() {
+          var pathname = window.location.pathname;
+
+          if(pathname.indexOf("carBooking") != -1){
+              $('a[href="#tab-3"]').click();
+              $('html, body').animate({
+                  scrollTop: $('#Tab_Pane').offset().top - 70
+              }, 'slow');
+          }
+          else if(pathname.indexOf("carTesting") != -1){
+              $('a[href="#tab-4"]').click();
+              $('html, body').animate({
+                  scrollTop: $('#Tab_Pane').offset().top - 70
+              }, 'slow');
+          }
+          else if(pathname.indexOf("carLoaning") != -1){
+              $('a[href="#tab-5"]').click();
+              $('html, body').animate({
+                  scrollTop: $('#Tab_Pane').offset().top - 70
+              }, 'slow');
+          }
+          else{
+
+          }
+      });
+  </script>
 
   <script src="{{ asset('FrontEnd/Consumers/assets/js/jquery.min.js') }}"></script>
   <script src="{{ asset('FrontEnd/Consumers/assets/js/Customizable-Carousel-swipe-enabled.js') }}"></script>

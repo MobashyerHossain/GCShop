@@ -5,11 +5,6 @@
 @section('content')
   @include('multiAuth.consumer.inc.navbar')
   <div class="content">
-    <!-- Login Modal -->
-    @include('multiAuth.consumer.inc.modals.loginModal')
-    <!-- Register Modal -->
-    @include('multiAuth.consumer.inc.modals.registerModal')
-
     <!-- Banner -->
     <div style="height:290px;box-shadow:0 2px 10px rgba(0, 0, 0, 0.2);" class="row m-0 p-0 bg-white">
       <div class="col m-0 p-0">
@@ -96,7 +91,7 @@
       </div>
     </div>
   </div>
-  @include('multiAuth.consumer.inc.footer')
+
 @endsection
 
 @section('style')

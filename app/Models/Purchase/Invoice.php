@@ -11,7 +11,7 @@ class Invoice extends Model
 {
     //getter
     public function getConsumer(){
-      return Consumer::find('consumer_id');
+      return Consumer::find($this->consumer_id);
     }
 
     public function getTotalAmount(){

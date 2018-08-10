@@ -125,9 +125,25 @@ Route::prefix('product_details')->group(function(){
 
 });
 
+//Part Payment
+Route::prefix('payment')->group(function(){
+  Route::get('checkout', 'OtherControllers\ProductController@checkOut')->name('part.payment');
+});
+
 //Car Handling Route
-Route::get('carHandling/{form_type}/{car_id}', 'OtherControllers\CarHandlingController@findForm')->name('find.carHandling.form');
-Route::get('carHandling/{form_type}/{car_maker}/{car_model}/{car_name}', 'OtherControllers\CarHandlingController@showForm')->name('show.carHandling.form');
+Route::prefix('carHandling')->group(function(){
+  Route::get('{form_type}/{car_id}', 'OtherControllers\CarHandlingController@findForm')->name('find.carHandling.form');
+  Route::get('{form_type}/{car_maker}/{car_model}/{car_name}', 'OtherControllers\CarHandlingController@showForm')->name('show.carHandling.form');
+
+  //carbooking
+  Route::post('carBooking', 'OtherControllers\CarHandlingController@bookCar')->name('car.booking');
+
+  //cartestdriving
+  Route::post('carTestDriving', 'OtherControllers\CarHandlingController@testDriveCar')->name('car.testDriving');
+
+  //cartestdriving
+  Route::post('applyForCarLoan', 'OtherControllers\CarHandlingController@applyForCarLoan')->name('car.loan.apply');
+});
 
 //Customized Routes
   //Cart

@@ -31,10 +31,6 @@ class LoginController extends Controller
           return (new ShowRoomStaffLoginController)->login($request);
         }
         else if (count(Consumer::where('email', $request->Input('logemail'))->first()) > 0) {
-          $consumer = Consumer::where('email', $request->Input('logemail'))->first();
-          if ($consumer->verification_status == 0) {
-            return redirect()->route('index')->with('not_verified', 'Your Account is still not verified. Please follow the link in your email to verify your Account.');
-          }
           //if successfull, than redirect to Consumer Dashboard
           return (new ConsumerLoginController)->login($request);
         }

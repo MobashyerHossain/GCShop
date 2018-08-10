@@ -12,6 +12,9 @@ use App\Models\Product\ProductDetail;
 use App\Models\Product\ProductInventory;
 use App\Models\Other\MyFavourite;
 use App\Models\Purchase\ResentView;
+use App\Models\Purchase\CarBooking;
+use App\Models\Purchase\TestDriving;
+use App\Models\Purchase\LoanInfo;
 
 class Car extends Model
 {
@@ -57,7 +60,7 @@ class Car extends Model
     }
 
     public function getTotalStock(){
-        return ProductInventory::where('product_type', 'car')->where('product_id', $this->id)->sum('quantity');
+        return ProductInventory::where('product_type', 'car')->where('product_id', $this->id)->sum('quantity') - count($this->getTotalBooked());
     }
 
     public function getInventory(){
@@ -83,5 +86,21 @@ class Car extends Model
 
     public function getTotalViews(){
       return ResentView::where('product_type', 'car')->where('product_id', $this->id)->sum('times_visited');
+    }
+
+    public function getBookingInfo(){
+        return CarBooking::where('consumer_id', Auth::id())->where('car_id', $this->id)->first();
+    }
+
+    public function getTotalBooked(){
+        return CarBooking::where('car_id', $this->id)->where('status', 'onhold')->orWhere('status', 'sold')->get();
+    }
+
+    public function getTestDrivingInfo(){
+        return TestDriving::where('consumer_id', Auth::id())->where('car_id', $this->id)->first();
+    }
+
+    public function getLoanInfo(){
+        return LoanInfo::where('consumer_id', Auth::id())->where('car_id', $this->id)->first();
     }
 }

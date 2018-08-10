@@ -9,7 +9,7 @@
         <form method="POST" action="{{ route('consumer.register.submit') }}" aria-label="{{ __('Register') }}" enctype='multipart/form-data'>
             @csrf
             <div class="row p-0 m-0">
-              <div class="col-12 col-md-8 p-0">
+              <div class="col-12 p-0">
                 <!--first name-->
                 <div class="form-group row p-0">
                     <div class="col-12">
@@ -33,17 +33,6 @@
                                 <strong>{{ $errors->first('last_name') }}</strong>
                             </span>
                         @endif
-                    </div>
-                </div>
-              </div>
-              <div class="col-4 ml-auto mr-auto col-md-4">
-                <!--profile picture-->
-                <div class="form-group row">
-                    <div class="col-12 p-0 m-0">
-                      <a onclick="uploadImage()">
-                        <img id="pro_pic" class="float-right m-0 p-0 rounded" src="{{url('storage/images/default/default_profile_pic.png')}}" alt="Profile Picture" style="width:65%; height:90px; object-fit: cover; cursor:pointer;">
-                      </a>
-                      <input type="file" id="profile_pic" name="profile_pic" value="{{ old('profile_pic') }}" class="d-none"/>
                     </div>
                 </div>
               </div>

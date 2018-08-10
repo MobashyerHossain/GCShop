@@ -30,4 +30,8 @@ class PartSubCategory extends Model
     public function getType(){
       return 'partsubcategory';
     }
+
+    public function getARandomPart(){
+        return Part::where('sub_category_id', $this->id)->inRandomOrder()->first();
+    }
 }

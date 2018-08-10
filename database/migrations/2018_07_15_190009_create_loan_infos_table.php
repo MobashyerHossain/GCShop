@@ -32,8 +32,10 @@ class CreateLoanInfosTable extends Migration
             $table->foreign('applicant_tax_clearence')->references('id')->on('images')->onDelete('cascade');
             $table->integer('applicant_passport')->unsigned()->nullable();
             $table->foreign('applicant_passport')->references('id')->on('images')->onDelete('cascade');
-            $table->integer('additional')->unsigned()->nullable();
-            $table->foreign('additional')->references('id')->on('images')->onDelete('cascade');
+            $table->integer('additional_1')->unsigned()->nullable();
+            $table->foreign('additional_1')->references('id')->on('images')->onDelete('cascade');
+            $table->integer('additional_2')->unsigned()->nullable();
+            $table->foreign('additional_2')->references('id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

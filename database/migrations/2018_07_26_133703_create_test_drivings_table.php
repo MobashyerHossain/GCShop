@@ -15,7 +15,9 @@ class CreateTestDrivingsTable extends Migration
     {
         Schema::create('test_drivings', function (Blueprint $table) {
             $table->increments('id');
-            $table->datetime('date_time_of_test_drive');            
+            $table->date('date_of_drive');
+            $table->time('drive_from');
+            $table->time('drive_to');
 
             //foreign key
             $table->integer('consumer_id')->unsigned();

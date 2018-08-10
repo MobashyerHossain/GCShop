@@ -35,4 +35,8 @@ class CarModel extends Model
     public function getType(){
       return 'carmodel';
     }
+
+    public function getARandomCar(){
+        return Car::where('model_id', $this->id)->inRandomOrder()->first();
+    }
 }

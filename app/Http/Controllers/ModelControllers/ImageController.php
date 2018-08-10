@@ -49,9 +49,34 @@ class ImageController extends Controller
           // stored path
           $newfilename = $filename.'_'.time().'.'.$extension;
           // upload image
-          $path = $request->file('profile_pic')->storeAs('public/images', $newfilename);
+          $path = $request->file('profile_pic')->storeAs('public/images/Others/', $newfilename);
           //final pathname
-          $finalpathname = 'storage/images/'.$newfilename;
+          $finalpathname = 'storage/images/Others/'.$newfilename;
+
+          return Image::create([
+            'uri' => $finalpathname,
+          ]);
+        }
+        else{
+          return Image::find((new Image)->getDefaultProfilePic());
+        }
+    }
+
+    public function storeOnlyImage(Request $request, $name)
+    {
+        if($request->hasFile($name)){
+          // filename with .ext
+          $filenameExt = $request->file($name)->getClientOriginalName();
+          // filename without .ext
+          $filename = pathinfo($filenameExt, PATHINFO_FILENAME);
+          // get .ext
+          $extension = $request->file($name)->getClientOriginalExtension();
+          // stored path
+          $newfilename = $filename.'_'.time().'.'.$extension;
+          // upload image
+          $path = $request->file($name)->storeAs('public/images/Others/', $newfilename);
+          //final pathname
+          $finalpathname = 'storage/images/Others/'.$newfilename;
 
           return Image::create([
             'uri' => $finalpathname,
@@ -74,9 +99,9 @@ class ImageController extends Controller
           // stored path
           $newfilename = $filename.'_'.time().'.'.$extension;
           // upload image
-          $path = $request->file('profile_pic')->storeAs('public/images/profile pics/', $newfilename);
+          $path = $request->file('profile_pic')->storeAs('public/images/Profile Pic/', $newfilename);
           //final pathname
-          $finalpathname = 'storage/images/profile pics/'.$newfilename;
+          $finalpathname = 'storage/images/Profile Pic/'.$newfilename;
 
           $image = Image::create([
             'uri' => $finalpathname,

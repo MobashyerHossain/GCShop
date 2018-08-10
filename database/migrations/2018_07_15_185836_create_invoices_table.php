@@ -18,8 +18,6 @@ class CreateInvoicesTable extends Migration
             $table->double('total_amount', 10, 2);
 
             //foreign key
-            $table->integer('card_id')->unsigned();
-            $table->foreign('card_id')->references('id')->on('cardit_cards')->onDelete('cascade');
             $table->integer('consumer_id')->unsigned();
             $table->foreign('consumer_id')->references('id')->on('consumers')->onDelete('cascade');
             $table->timestamps();

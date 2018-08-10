@@ -29,9 +29,6 @@ class ConsumerRegisterController extends Controller
     public function register(Request $request){
         $this->validation($request);
 
-        //upload image
-        $image = (new ImageController)->store($request);
-
         //create user
         $consumer = Consumer::create([
           'first_name' => $request->Input('first_name'),
@@ -39,7 +36,6 @@ class ConsumerRegisterController extends Controller
           'email' => $request->Input('email'),
           'date_of_birth' => $request->Input('date_of_birth'),
           'password' => Hash::make($request->Input('reg_password')),
-          'profile_pic' => $image->id,
         ]);
 
         //send verification mail

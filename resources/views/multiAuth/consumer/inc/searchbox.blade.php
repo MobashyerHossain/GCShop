@@ -1,8 +1,7 @@
 <?php
-  $carmakers = App\Models\Product\CarMaker::all();
-  $partcategories = App\Models\Product\PartCategory::all();
-  $partmanufacturers = App\Models\Product\PartManufacturer::all();
-  $recommendeds = (new App\Http\Controllers\Auth\ConsumerControllers\ConsumerController())->getRecommendation();
+  $carmakers = App\Models\Product\CarMaker::inRandomOrder()->get();
+  $partcategories = App\Models\Product\PartCategory::inRandomOrder()->get();
+  $partmanufacturers = App\Models\Product\PartManufacturer::inRandomOrder()->get();
 ?>
 <!--Search Engine-->
 <div class="col-5">

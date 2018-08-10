@@ -4,7 +4,7 @@ namespace App\Models\MultiAuth;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Notifications\ShowRoomStaffResetPasswordNotification;
+use App\Notifications\ResetPassword\ShowRoomStaffResetPasswordNotification;
 
 use App\Models\Other\Image;
 use App\Models\Other\Address;

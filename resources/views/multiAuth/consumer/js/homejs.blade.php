@@ -59,6 +59,31 @@
   if("{{Session::has('verification_status')}}"){
     swal("Good Job!", "{{Session::get('verification_status')}}", "success");
   }
+
+  //car booked
+  if("{{Session::has('car_booked')}}"){
+    swal("Car Booked!", "{{Session::get('car_booked')}}", "success");
+  }
+
+  //car already booked
+  if("{{Session::has('car_already_booked')}}"){
+    swal("Car Already Booked!", "{{Session::get('car_already_booked')}}", "error");
+  }
+
+  //car tested
+  if("{{Session::has('car_test_driven')}}"){
+    swal("Car Reserved for Testing!", "{{Session::get('car_test_driven')}}", "success");
+  }
+
+  //loan applied
+  if("{{Session::has('loan_applied')}}"){
+    swal("Your Application has been Submitted!", "{{Session::get('loan_applied')}}", "success");
+  }
+
+  //loan applied
+  if("{{Session::has('product_check_out')}}"){
+    swal("Parts Purchased Succesfully!", "{{Session::get('product_check_out')}}", "success");
+  }
 </script>
 
 <!--Script for uploading and changing profile pic-->
@@ -86,5 +111,13 @@
         $('#pro_pic').attr('src', 'storage/images/male.png');
       }
     });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    if (sessionStorage.scrollTop != "undefined") {
+      $(window).scrollTop(sessionStorage.scrollTop);
+    }
   });
 </script>

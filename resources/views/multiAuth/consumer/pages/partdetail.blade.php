@@ -5,11 +5,6 @@
 @section('content')
   @include('multiAuth.consumer.inc.navbar')
   <div class="content">
-    <!-- Login Modal -->
-    @include('multiAuth.consumer.inc.modals.loginModal')
-    <!-- Register Modal -->
-    @include('multiAuth.consumer.inc.modals.registerModal')
-
     <div class="text-secondary" style="margin:30px 60px;color:rgba(33,37,41,0.8);">
       <!-- breadcrumbs -->
       <nav aria-label="breadcrumb">
@@ -160,6 +155,7 @@
                       </div>
                   </div>
               </div>
+              @include('multiAuth.consumer.inc.recommendedItems')
           </div>
 
           <!-- You may also like -->
@@ -170,30 +166,32 @@
                     @foreach($partsubcategory->getParts() as $morepart)
                       @if($morepart->id != $part->id)
                       <li class="list-group-item"style="padding:0px 0px;">
-                        <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $morepart->id) }}">
-                          <div class="row" style="margin:5px 0px;">
-                              <div class="col-3" style="padding:5px;">
+                        <div class="row" style="margin:5px 0px;">
+                            <div class="col-3" style="padding:5px;">
+                              <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $morepart->id) }}">
                                 <img src="{{ url($morepart->getImage())}}" class="border-0" style="width:100%;">
-                              </div>
-                              <div class="col" style="padding:5px;">
-                                  <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getShortedName(30)}}</p>
-                                  <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getNormalPrice()}}</p>
-                                  <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getTotalStock()}} Pieces Left</p>
-                              </div>
-                              <div class="col-2 mr-2">
-                                @if(Auth::check())
-                                  {!! Form::open(['action' => 'ModelControllers\CartController@store', 'method' => 'POST']) !!}
-                                      {{Form::hidden('consumer_id', Auth::id(), [])}}
-                                      {{Form::hidden('part_id', $part->id, [])}}
-                                      {{Form::number('quantity', 1, ['min' => 1, 'max' => $part->getTotalStock(), 'style' => 'width:40px;height:20px;'])}}
-                                      <button class="btn btn-link no-outline rounded-0 p-0 m-0" type="submit"><i class="fa fa-shopping-cart"></i></button>
-                                  {!! Form::close() !!}
-                                @else
-                                  <button class="btn btn-link no-outline rounded-0 p-0 m-0" data-toggle="modal" data-target="#LoginModalCenter" type="button"><i class="fa fa-shopping-cart"></i></button>
-                                @endif
-                              </div>
-                          </div>
-                        </a>
+                              </a>
+                            </div>
+                            <div class="col" style="padding:5px;">
+                              <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $morepart->id) }}">
+                                <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getShortedName(30)}}</p>
+                                <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getNormalPrice()}}</p>
+                                <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$morepart->getTotalStock()}} Pieces Left</p>
+                              </a>
+                            </div>
+                            <div class="col-2 mr-2">
+                              @if(Auth::check())
+                                {!! Form::open(['action' => 'ModelControllers\CartController@store', 'method' => 'POST']) !!}
+                                    {{Form::hidden('consumer_id', Auth::id(), [])}}
+                                    {{Form::hidden('part_id', $morepart->id, [])}}
+                                    {{Form::number('quantity', 1, ['min' => 1, 'max' => $morepart->getTotalStock(), 'style' => 'width:40px;height:20px;'])}}
+                                    <button class="btn btn-link no-outline rounded-0 p-0 m-0" type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                {!! Form::close() !!}
+                              @else
+                                <button class="btn btn-link no-outline rounded-0 p-0 m-0" data-toggle="modal" data-target="#LoginModalCenter" type="button"><i class="fa fa-shopping-cart"></i></button>
+                              @endif
+                            </div>
+                        </div>
                       </li>
                       @endif
                     @endforeach
@@ -203,7 +201,7 @@
       </div>
     </div>
   </div>
-  @include('multiAuth.consumer.inc.footer')
+
 @endsection
 
 @section('style')
