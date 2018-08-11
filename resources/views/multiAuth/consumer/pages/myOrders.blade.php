@@ -5,157 +5,68 @@
 @section('content')
   @include('multiAuth.consumer.inc.navbar')
   <div class="content">
-    <div class="text-secondary" style="margin:10px 60px;color:rgba(33,37,41,0.8);">
-      <!-- breadcrumbs -->
-      <nav aria-label="breadcrumb" style="margin-left:-10px; margin-bottom:0px;">
-        <ol class="breadcrumb" style="background-color:transparent;">
-          <li class="breadcrumb-item active">
-            Profile
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">
-            {{Auth::user()->getFullName()}}
-          </li>
-        </ol>
-      </nav>
-
+    <div class="text-secondary mt-5" style="margin:10px 60px;color:rgba(33,37,41,0.8);">
       <!-- part image and detail -->
       <div class="row mt-0" style="margin:10px 0px;">
           <div class="col" style="margin-right:10px;background-color:rgba(255,255,255,0);">
-              <div class="row" style="background-color:#ffffff;">
-                <div class="border col-4 text-center" style="padding:30px 15px;">
-                  {!! Form::open(['action' => 'ModelControllers\ImageController@storeProfilePicture', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-                    {{Form::file('profile_pic', ['id' => 'pro', 'style' => 'display:none;', 'onchange' => 'form.submit()'])}}
-                  {!! Form::close() !!}
-                  <img class="rounded-circle img-fluid ml-md-3" onclick="proPic()" src="{{url(Auth::user()->getProfilePic())}}" style="cursor:pointer;width:130px;height:130px;object-fit:cover;">
-                  <h5 style="letter-spacing:15px;margin:20px 0px;">{{Auth::user()->getFullName()}}</h5>
-                </div>
-                <div class="border col" style="padding:15px 15px;">
-                    @include('multiAuth.consumer.inc.profileInfoForm')
-                    @include('multiAuth.consumer.inc.profileEditForm')
-                </div>
-              </div>
+            <div class="row m-0 p-3" style="background-color:#ffffff;">
+              <h6 class="mt-1 mb-3">All of your past Orders has been listed here Sorted by date</h6>
+              <div id="accordion" style="width:100%;">
+                <?php $i=0; ?>
+                @foreach(Auth::user()->getInvoices() as $invoice)
+                <?php $i++; ?>
+                  <div class="card rounded-0 mb-2">
+                    <div class="card-header p-1 pl-3" id="heading{{$invoice->id}}">
+                      <h5 class="m-0 p-0">
+                        <button class="p-0 m-0 btn btn-link collapsed" style="text-decoration:none;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;" data-toggle="collapse" data-target="#collapse{{$invoice->id}}" aria-expanded="true" aria-controls="collapse{{$invoice->id}}">
+                            Purchased on <span class="font-weight-bold">{{Carbon\Carbon::parse($invoice->created_at)->toDateString()}}</span> at <span class="font-weight-bold">{{Carbon\Carbon::parse($invoice->created_at)->toTimeString()}}</span>
+                        </button>
+                      </h5>
+                    </div>
+                    @if($i == 1)
+                    <div id="collapse{{$invoice->id}}" class="collapse show" aria-labelledby="heading{{$invoice->id}}" data-parent="#accordion">
+                    @else
+                    <div id="collapse{{$invoice->id}}" class="collapse" aria-labelledby="heading{{$invoice->id}}" data-parent="#accordion">
+                    @endif
+                      <div class="card-body p-0 m-0">
+                        <table class="ml-auto mr-auto mt-3 mb-3" style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;border-collapse:collapse;width:98%">
+                          <tr>
+                            <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;font-weight:bold;width:350px;border: 1px solid #c6c6c6;padding: 8px;">Items</td>
+                            <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;font-weight:bold;width:100px;border: 1px solid #c6c6c6;padding: 8px;text-align:center;">Quantity</td>
+                            <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;font-weight:bold;width:160px;border: 1px solid #c6c6c6;padding: 8px;">Price Per Piece</td>
+                            <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;font-weight:bold;width:160px;border: 1px solid #c6c6c6;padding: 8px;">Cost</td>
+                          </tr>
 
-              <!-- my favourites -->
-              <div id="my_favourite_items" class="mb-0" style="margin:30px -10px;">
-                  <!-- separetor -->
-                  <div class="row" style="padding:0px;margin-bottom:10px;margin-right:0px;margin-left:0px;">
-                      <div class="col-4 align-self-center" style="padding:0px;">
-                          <h4 class="text-uppercase d-inline" style="margin:0px;color:rgba(33,37,41,0.8);">My Favourites</h4>
-                      </div>
-                      <div class="col align-self-center" style="padding:0px;">
-                          <div class="rounded" style="height:5px;color:rgba(33,37,41,0.8);background-color:rgba(33,37,41,0.11);"></div>
-                      </div>
-                  </div>
+                          @foreach($invoice->getCartItems() as $cart)
+                            <tr>
+                              <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;width:350px;border: 1px solid #c6c6c6;padding: 8px;">
+                                <a href="{{route('find.part.details', $cart->getPart()->id)}}" style="text-decoration:none;color:#969696;">
+                                  <img src="{{url($cart->getPart()->getImage())}}" class="mr-2" style="width:10%;" alt=""><span style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;">{{$cart->getPart()->name}}</span>
+                                </a>
+                              </td>
+                              <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;width:100px;border: 1px solid #c6c6c6;padding: 8px;text-align:center;">{{$cart->quantity}}</td>
+                              <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;width:160px;border: 1px solid #c6c6c6;padding: 8px;">{{$cart->getPart()->getDiscountedPrice()}}</td>
+                              <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;width:160px;border: 1px solid #c6c6c6;padding: 8px;">{{$cart->getTotalPartCost()}}</td>
+                            </tr>
+                          @endforeach
 
-                  <!-- Items -->
-                  <div class="row mt-0 mb-0 bg-white" style="margin-left:-5px;margin-right:-5px;">
-                      @if(count(Auth::user()->getMyFavourites()) <= 0)
-                        <div class="col border pl-0" style="padding:15px;height:180px;">
-                          <table style="height: 100%; width:100%">
-                            <tbody>
-                              <tr>
-                                <td class="align-middle">
-                                  <h4 class="text-capitalize text-center" style="color:rgba(33,37,41,0.8);">No Favourite Items</h4>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      @else
-                        @foreach(Auth::user()->getMyFavourites() as $favourite)
-                          <div class="col-4 border pl-0" style="padding:15px;height:180px;">
-                            <div class="row m-0">
-                              <div class="col">
-                                @if($favourite->getProduct()->getType() == 'car')
-                                  <a class="nav nav-link m-0 p-0" href="{{ route('find.car.details', $favourite->getProduct()->id) }}">
-                                @else
-                                  <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $favourite->getProduct()->id) }}">
-                                @endif
-                                  <h5 class="text-capitalize" style="font-size:16px;font-family: 'Times New Roman', Times, serif;color:rgba(33,37,41,0.8);font-weight:normal;">{{$favourite->getProduct()->name}}</h5>
-                                </a>
-                              </div>
-                              <div class="col-3 text-center m-0 p-0">
-                                {!!Form::open(['action' => ['ModelControllers\MyFavouriteController@destroyFromProfile', $favourite->id], 'method' => 'POST'])!!}
-                                  {{Form::hidden('_method', 'DELETE')}}
-                                  <a onclick="this.parentNode.submit();" style="cursor:pointer;">
-                                    <i class="fa fa-heart" style="float:right;font-size:25px;z-index:1px;margin-top:0px;color:rgba(232,17,45,0.53);"></i>
-                                  </a>
-                                {!!Form::close()!!}
-                              </div>
-                            </div>
-                            <div class="row m-0">
-                              <div class="col-6" style="height:70px;position:absolute;bottom:10px;left:0px;">
-                                <h5 class="text-capitalize" style="font-size:16px;font-family: 'Times New Roman', Times, serif;color:rgba(33,37,41,0.8);font-weight:normal;"><span class="text-danger font-weight-bold">{{$favourite->getProduct()->getDiscount()}}</span></h5>
-                                <h6 class="m-0 text-secondary" style="font-size:15px;font-family: 'Times New Roman', Times, serif;">{{$favourite->getProduct()->getNormalPrice()}}</h6>
-                                <p class="text-secondary" style="font-family: 'Times New Roman', Times, serif;font-size:13px;">{{$favourite->getProduct()->getTotalStock()}} Pieces Left</p>
-                              </div>
-                              <div class="col-6" style="height:90px;position:absolute;bottom:10px;right:0px;">
-                                @if($favourite->getProduct()->getType() == 'car')
-                                  <a class="nav nav-link m-0 p-0" href="{{ route('find.car.details', $favourite->getProduct()->id) }}">
-                                @else
-                                  <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $favourite->getProduct()->id) }}">
-                                @endif
-                                  <img class="m-0 p-0" src="{{url($favourite->getProduct()->getImage())}}" data-bs-hover-animate="pulse" style="height:90px;width:100%;object-fit:contain;">
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        @endforeach
-                      @endif
+                          <tr>
+                            <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;font-weight:bold;width:350px;border:1px solid #c6c6c6;border-right:0px;padding: 8px;">Total</td>
+                            <td style="font-weight:bold;width:100px;border-bottom:1px solid #c6c6c6;padding: 8px;"></td>
+                            <td style="font-weight:bold;width:160px;border-bottom:1px solid #c6c6c6;padding: 8px;"></td>
+                            <td style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;font-weight:bold;width:160px;border:1px solid #c6c6c6;border-left:0px;padding: 8px;">$ {{$invoice->total_amount}} USD</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
                   </div>
+                @endforeach
               </div>
+            </div>
           </div>
 
           <!-- Recommendation -->
-          <div class="col-3" style="margin-left:10px;background-color:#ffffff;padding:0px 10px;">
-            <h6 style="margin:10px 0px;">Recommendations</h6>
-            <ul class="list-group list-group-flush">
-              @foreach((new App\Models\MultiAuth\Consumer())->getRecommendation() as $recommendedProduct)
-                @if($recommendedProduct->getType() == 'car')
-                  <li class="list-group-item"style="padding:0px 0px;">
-                    <a class="nav nav-link m-0 p-0" href="{{ route('find.car.details', $recommendedProduct->id) }}">
-                      <div class="row" style="margin:5px 0px;">
-                          <div class="col-3 m-0" style="padding:5px;">
-                            <img src="{{ url($recommendedProduct->getImage())}}" class="border-0" style="width:100%;"><br>
-                            <a href="{{route('find.carHandling.form', ['form_type' => 'carBooking', 'car_id' => $recommendedProduct->id])}}" style="line-height:8px;text-decoration:none;font-size:12px;" data-toggle="tooltip" data-placement="top" title="Book This Car" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">B</a>
-                            <a href="{{route('find.carHandling.form', ['form_type' => 'carTesting', 'car_id' => $recommendedProduct->id])}}" style="line-height:8px;text-decoration:none;font-size:12px;" data-toggle="tooltip" data-placement="top" title="Take it for a Test Drive" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">T</a>
-                            <a href="{{route('find.carHandling.form', ['form_type' => 'carLoaning', 'car_id' => $recommendedProduct->id])}}" style="line-height:8px;text-decoration:none;font-size:12px;" data-toggle="tooltip" data-placement="top" title="Apply for Car Loan" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">L</a>
-                          </div>
-                          <div class="col m-0" style="padding:5px;">
-                            <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$recommendedProduct->getShortedName(30)}}</p>
-                            <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$recommendedProduct->getNormalPrice()}}</p>
-                            <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$recommendedProduct->getTotalStock()}} Pieces Available</p>
-                          </div>
-                      </div>
-                    </a>
-                  </li>
-                @else
-                  <li class="list-group-item"style="padding:0px 0px;">
-                    <a class="nav nav-link m-0 p-0" href="{{ route('find.part.details', $recommendedProduct->id) }}">
-                      <div class="row" style="margin:5px 0px;">
-                          <div class="col-3" style="padding:5px;">
-                            <img src="{{ url($recommendedProduct->getImage())}}" class="border-0" style="width:100%;">
-                          </div>
-                          <div class="col" style="padding:5px;">
-                              <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$recommendedProduct->getShortedName(20)}}</p>
-                              <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$recommendedProduct->getNormalPrice()}}</p>
-                              <p class="m-0 text-secondary" style="font-size:13px;font-family: 'Times New Roman', Times, serif;">{{$recommendedProduct->getTotalStock()}} Pieces Left</p>
-                          </div>
-                          <div class="col-2">
-                            {!! Form::open(['action' => 'ModelControllers\CartController@store', 'method' => 'POST']) !!}
-                                {{Form::hidden('consumer_id', Auth::id(), [])}}
-                                {{Form::hidden('part_id', $recommendedProduct->id, [])}}
-                                {{Form::number('quantity', 1, ['min' => 1, 'max' => $recommendedProduct->getTotalStock(), 'style' => 'width:40px;height:20px;position:absolute;right:20px;top:3px;'])}}
-                                <button style="position:absolute; right:0px;"class="btn btn-link no-outline rounded-0 p-0 m-0" type="submit"><i class="fa fa-shopping-cart"></i></button>
-                            {!! Form::close() !!}
-                          </div>
-                      </div>
-                    </a>
-                  </li>
-                @endif
-              @endforeach
-            </ul>
-          </div>
+          @include('multiAuth.consumer.inc.profileProductRecommendation')
       </div>
     </div>
   </div>

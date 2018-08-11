@@ -148,7 +148,7 @@ Route::prefix('carHandling')->group(function(){
 //Customized Routes
   //Cart
   Route::delete('cart/deleteAll/{consumer_Id}', 'ModelControllers\CartController@deleteAllfromCart')->name('cart.delete.all');
-  Route::get('myOrder', 'ModelControllers\CartController@myOrder')->name('cart.myorder');
+  Route::get('myOrder', 'ModelControllers\CartController@showMyOrders')->name('cart.myOrders');
   //MyFavourite
   Route::delete('deleteFavourite/{id}', 'ModelControllers\MyFavouriteController@destroyFromProfile')->name('delete.favourite.from.profile');
   //Image

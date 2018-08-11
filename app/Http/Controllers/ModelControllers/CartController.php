@@ -87,8 +87,7 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         $cart = Cart::find($id);
         $cart->delete();
 
@@ -103,5 +102,9 @@ class CartController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function showMyOrders(){
+      return view('multiAuth.consumer.pages.myOrders');
     }
 }

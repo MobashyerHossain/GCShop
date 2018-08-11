@@ -100,7 +100,7 @@
                       @endif
                     </li>
                     <li class="list-group-item border-top-0 m-0" style="padding:2px;background-color:transparent;">
-                      <a href="#" style="text-decoration:none;color:rgba(33,37,41,0.8);">My Orders</a>
+                      <a href="{{route('cart.myOrders')}}" style="text-decoration:none;color:rgba(33,37,41,0.8);">My Orders</a>
                     </li>
                     <li class="list-group-item border-top-0 m-0" style="padding:2px;background-color:transparent;">
                       @if(Auth::check())

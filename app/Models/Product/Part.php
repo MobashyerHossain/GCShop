@@ -57,7 +57,7 @@ class Part extends Model
     }
 
     public function getTotalStock(){
-        return ProductInventory::where('product_type', 'part')->where('product_id', $this->id)->sum('quantity');
+        return ProductInventory::where('product_type', 'part')->where('product_id', $this->id)->sum('quantity') - Cart::where('part_id', $this->id)->sum('quantity');
     }
 
     public function getInventory(){

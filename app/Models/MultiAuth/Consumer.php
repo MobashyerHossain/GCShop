@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use App\Models\Purchase\Cart;
+use App\Models\Purchase\Invoice;
 use App\Models\Other\Image;
 use App\Models\Product\CarMaker;
 use App\Models\Product\Car;
@@ -152,5 +153,9 @@ class Consumer extends Authenticatable
 
     public function getDateOfBirth(){
         return Carbon::parse($this->date_of_birth)->format('jS F Y');
+    }
+
+    public function getInvoices(){
+        return Invoice::where('consumer_id', $this->id)->orderBy('created_at', 'desc')->get();
     }
 }
