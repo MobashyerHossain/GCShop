@@ -19,10 +19,19 @@ Route::post('/', 'Auth\LoginController@login')->name('login.submit');
 Route::resource('images', 'ModelControllers\ImageController');
 Route::resource('myfavourites', 'ModelControllers\MyFavouriteController');
 Route::resource('carts', 'ModelControllers\CartController');
+Route::resource('cars', 'ModelControllers\CarController');
+Route::resource('carMakers', 'ModelControllers\CarMakerController');
+Route::resource('carModels', 'ModelControllers\CarModelController');
+Route::resource('parts', 'ModelControllers\PartController');
+Route::resource('partCategories', 'ModelControllers\PartCategoryController');
+Route::resource('partSubCategories', 'ModelControllers\PartSubCategoryController');
+Route::resource('partManufacturers', 'ModelControllers\PartManufacturerController');
 
 //Consumer Routes
 Route::prefix('consumer')->group(function(){
   Route::get('/home', 'Auth\ConsumerControllers\ConsumerController@index')->name('consumer.home');
+  Route::get('/profile', 'Auth\ConsumerControllers\ConsumerController@profile')->name('consumer.profile');
+  Route::post('/profile/update/{id}', 'Auth\ConsumerControllers\ConsumerController@update')->name('consumer.profile.edit');
 
   //Auth Routes
     //login
@@ -39,17 +48,13 @@ Route::prefix('consumer')->group(function(){
   Route::get('/password/reset/{token}', 'Auth\ConsumerControllers\ConsumerResetPasswordController@showResetForm')->name('consumer.password.reset');
     //verification
   Route::get('/verification/{id}', 'Auth\ConsumerControllers\ConsumerController@verifyAccount')->name('consumer.verify');
-
-  //others
-  Route::get('/profile', 'Auth\ConsumerControllers\ConsumerController@profile')->name('consumer.profile');
-  Route::post('/profile/update/{id}', 'Auth\ConsumerControllers\ConsumerController@update')->name('consumer.profile.edit');
-
 });
 
 //Admin Routes
 Route::prefix('admin')->group(function(){
   Route::get('/dashboard', 'Auth\AdminControllers\AdminController@index')->name('admin.dashboard')->middleware('auth:admin');
   Route::get('/profile', 'Auth\AdminControllers\AdminController@profile')->name('admin.profile')->middleware('auth:admin');
+  Route::post('/profile/update/{id}', 'Auth\AdminControllers\AdminController@update')->name('admin.profile.edit');
 
   //Auth Routes
     //login
@@ -71,6 +76,9 @@ Route::prefix('admin')->group(function(){
 //Show Room Routes
 Route::prefix('showroomstaff')->group(function(){
   Route::get('/dashboard', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@index')->name('showroomstaff.dashboard')->middleware('auth:showroomstaff');
+  Route::get('/profile', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@profile')->name('showroomstaff.profile')->middleware('auth:showroomstaff');
+  Route::post('/profile/update/{id}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@update')->name('showroom.profile.edit');
+  Route::get('/addproduct', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@addProductView')->name('showroom.addproduct')->middleware('auth:showroomstaff');
 
   //Auth Routes
     //login
@@ -84,9 +92,6 @@ Route::prefix('showroomstaff')->group(function(){
   Route::get('/password/reset/{token}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffResetPasswordController@showResetForm')->name('showroomstaff.password.reset');
     //verification
   Route::get('/verify', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@verifyAccount')->name('showroomstaff.verify');
-
-  //views
-  Route::view('/addproduct', 'multiAuth.showroomstaff.pages.addProduct')->name('addproduct');
 });
 
 //Oauth Route
@@ -127,7 +132,7 @@ Route::prefix('product_details')->group(function(){
 
 //Part Payment
 Route::prefix('payment')->group(function(){
-  Route::get('checkout', 'OtherControllers\ProductController@checkOut')->name('part.payment');
+  Route::Post('checkout', 'OtherControllers\ProductController@checkOut')->name('part.payment');
 });
 
 //Car Handling Route

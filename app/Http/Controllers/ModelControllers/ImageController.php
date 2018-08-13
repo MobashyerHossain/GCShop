@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\MultiAuth\Consumer;
+use App\Models\MultiAuth\Admin;
+use App\Models\MultiAuth\ShowRoomStaff;
 
 class ImageController extends Controller
 {
@@ -83,7 +85,7 @@ class ImageController extends Controller
           ]);
         }
         else{
-          return Image::find((new Image)->getDefaultProfilePic());
+          return Image::find(4);
         }
     }
 
@@ -108,9 +110,21 @@ class ImageController extends Controller
             'image_type' => 'profile_picture',
           ]);
 
-          $consumer = Consumer::find(Auth::id());
-          $consumer->profile_pic = $image->id;
-          $consumer->save();
+          if($request->Input('user_type') == 'consumer'){
+            $consumer = Consumer::find(Auth::id());
+            $consumer->profile_pic = $image->id;
+            $consumer->save();
+          }
+          else if($request->Input('user_type') == 'admin'){
+            $admin = Admin::find(Auth::guard('admin')->id());
+            $admin->profile_pic = $image->id;
+            $admin->save();
+          }
+          else{
+            $showroomstaff = ShowRoomStaff::find(Auth::guard('showroomstaff')->id());
+            $showroomstaff->profile_pic = $image->id;
+            $showroomstaff->save();
+          }
 
           return redirect()->back();
         }

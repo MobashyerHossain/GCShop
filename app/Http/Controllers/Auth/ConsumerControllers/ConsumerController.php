@@ -46,7 +46,7 @@ class ConsumerController extends Controller
           'date_of_birth' => 'required',
           'local_address' => 'required|max:199',
           'phone_number' => 'required|max:30',
-          'postal_code' => 'required|max:4',
+          'postal_code' => 'required|max:6',
           'city' => 'required|max:20',
           'country' => 'required|max:20',
         ]);

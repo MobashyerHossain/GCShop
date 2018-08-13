@@ -16,6 +16,7 @@
     <h4 style="margin-bottom:20px;">{{$invoice->getConsumer()->getFullName()}}</h4>
 
     <p>This is the digital reciept of your purchase from {{ config('app.name', 'Laravel') }} on {{$invoice->created_at}}.</p>
+    <p>Your prefered payment method for this transaction is <span class="text-capitalized font-weight-bold">{{$invoice->payment_method}}</span>.</p>
 
     <table style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;border-collapse:collapse;display:block;margin-left:auto;margin-right:auto;width:720px;margin-bottom:50px;margin-top:30px;">
       <tr>

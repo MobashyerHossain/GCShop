@@ -10,7 +10,7 @@
       <div class="form-group row p-0">
           <!--Applicant Profession-->
           <div class="col-12 col-md-6">
-              <label for="applicant_profession" style="margin:0px;font-size:12px;">Profession of Applicant</label>
+              <label for="applicant_profession" style="margin:0px;font-size:12px;"><span class="text-danger fa fa-asterisk" style="font-size:10px;"></span> Profession of Applicant</label>
               <input id="applicant_profession" type="text" class="rounded-0 no-outline form-control{{ $errors->has('applicant_profession') ? ' is-invalid' : '' }}" name="applicant_profession" value="{{ old('applicant_profession') }}" placeholder="Profession of Applicant" required>
 
               @if ($errors->has('applicant_profession'))
@@ -22,7 +22,7 @@
 
           <!--Requested Percentage-->
           <div class="col-12 col-md-6">
-              <label for="requested_percentage" style="margin:0px;font-size:12px;">Loan Percentage</label>
+              <label for="requested_percentage" style="margin:0px;font-size:12px;"><span class="text-danger fa fa-asterisk" style="font-size:10px;"></span> Loan Percentage</label>
               <input id="requested_percentage" type="number" min="30" max="90" class="rounded-0 no-outline form-control{{ $errors->has('requested_percentage') ? ' is-invalid' : '' }}" name="requested_percentage" value="{{ old('requested_percentage') }}" placeholder="State a Loan Percentage" required>
 
               @if ($errors->has('requested_percentage'))
@@ -36,13 +36,13 @@
       <div class="form-group row p-0">
           <!--Nid-->
           <div class="col-12 col-md-6">
-              <label for="national_id" style="margin:0px;font-size:12px;">Copy of National ID Card</label>
+              <label for="national_id" style="margin:0px;font-size:12px;"><span class="text-danger fa fa-asterisk" style="font-size:10px;"></span> Copy of National ID Card</label>
               <input id="national_id" type="file" class="rounded-0 no-outline form-control" name="national_id" placeholder="" required>
           </div>
 
           <!--Bank Statement-->
           <div class="col-12 col-md-6">
-              <label for="bank_statement" style="margin:0px;font-size:12px;">Copy of Bank Statement</label>
+              <label for="bank_statement" style="margin:0px;font-size:12px;"><span class="text-danger fa fa-asterisk" style="font-size:10px;"></span> Copy of Bank Statement</label>
               <input id="bank_statement" type="file" class="rounded-0 no-outline form-control" name="bank_statement" placeholder="" required>
           </div>
       </div>
@@ -50,7 +50,7 @@
       <div class="form-group row p-0">
           <!--Tax Clearence-->
           <div class="col-12 col-md-6">
-              <label for="tex_clearence" style="margin:0px;font-size:12px;">Copy of Tax Clearence Certificate</label>
+              <label for="tex_clearence" style="margin:0px;font-size:12px;"><span class="text-danger fa fa-asterisk" style="font-size:10px;"></span> Copy of Tax Clearence Certificate</label>
               <input id="tex_clearence" type="file" class="rounded-0 no-outline form-control" name="tex_clearence" placeholder="" required>
           </div>
 

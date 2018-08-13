@@ -5,12 +5,17 @@ namespace App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Product\CarMaker;
+use App\Models\Product\CarModel;
 use App\Models\Product\Car;
 use App\Models\Other\Image;
 
 class CarModel extends Model
 {
     //getter
+    public function getAllModels(){
+        return CarModel::all();
+    }
+
     public function getCars(){
         return Car::where('model_id', $this->id)->get();
     }

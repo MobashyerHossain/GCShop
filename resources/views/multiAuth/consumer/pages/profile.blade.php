@@ -24,6 +24,7 @@
               <div class="row" style="background-color:#ffffff;">
                 <div class="border col-4 text-center" style="padding:30px 15px;">
                   {!! Form::open(['action' => 'ModelControllers\ImageController@storeProfilePicture', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {{Form::hidden('user_type', 'consumer')}}
                     {{Form::file('profile_pic', ['id' => 'pro', 'style' => 'display:none;', 'onchange' => 'form.submit()'])}}
                   {!! Form::close() !!}
                   <img class="rounded-circle img-fluid ml-md-3" onclick="proPic()" src="{{url(Auth::user()->getProfilePic())}}" style="cursor:pointer;width:130px;height:130px;object-fit:cover;">
@@ -131,7 +132,7 @@
 @stop
 
 @section('script')
-  @include('multiAuth.consumer.js.homejs')
+  @include('multiAuth.consumer.js.consumerJS')
   <script>
     //error while updating info
     $( document ).ready(function() {

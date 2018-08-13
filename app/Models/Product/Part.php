@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Other\Image;
 use App\Models\Product\PartSubCategory;
+use App\Models\Product\Part;
 use App\Models\Product\PartManufacturer;
 use App\Models\Product\ProductDetail;
 use App\Models\Product\PartsForCar;
@@ -18,6 +19,10 @@ use App\Models\Purchase\ResentView;
 class Part extends Model
 {
     //getter
+    public function getAllParts(){
+        return Part::all();
+    }
+
     public function getImage(){
         if($this->image_id == 3){
           return $this->getSubCategory()->getImage();

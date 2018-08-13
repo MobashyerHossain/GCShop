@@ -177,7 +177,7 @@
 @stop
 
 @section('script')
-  @include('multiAuth.consumer.js.homejs')
+  @include('multiAuth.consumer.js.consumerJS')
   <script>
       $( document ).ready(function() {
           var pathname = window.location.pathname;

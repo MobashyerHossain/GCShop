@@ -117,7 +117,7 @@
 @stop
 
 @section('script')
-  @include('multiAuth.consumer.js.homejs')
+  @include('multiAuth.consumer.js.consumerJS')
 
   <script src="{{ asset('FrontEnd/Consumers/assets/js/jquery.min.js') }}"></script>
   <script src="{{ asset('FrontEnd/Consumers/assets/js/Customizable-Carousel-swipe-enabled.js') }}"></script>

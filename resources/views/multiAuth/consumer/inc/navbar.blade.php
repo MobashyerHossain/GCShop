@@ -40,6 +40,7 @@
                     </div>
                 @else
                   {!! Form::open(['action' => 'ModelControllers\ImageController@storeProfilePicture', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {{Form::hidden('user_type', 'consumer')}}
                     {{Form::file('profile_pic', ['id' => 'pro', 'style' => 'display:none;', 'onchange' => 'form.submit()'])}}
                   {!! Form::close() !!}
                   <img class="float-left rounded-circle m-0" onclick="proPic()" src="{{url(Auth::user()->getProfilePic())}}" alt="" style="width:40px;height:40px;object-fit:cover;">

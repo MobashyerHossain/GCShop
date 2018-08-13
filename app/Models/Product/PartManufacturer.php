@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Other\Image;
 use App\Models\Product\Part;
+use App\Models\Product\PartManufacturer;
 
 class PartManufacturer extends Model
 {
+    //getter
+    public function getAllManufacturers(){
+        return PartManufacturer::all();
+    }
+
     public function getLogo(){
         if(Image::find($this->logo)){
           return (Image::find($this->logo))->uri;

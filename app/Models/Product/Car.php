@@ -15,10 +15,15 @@ use App\Models\Purchase\ResentView;
 use App\Models\Purchase\CarBooking;
 use App\Models\Purchase\TestDriving;
 use App\Models\Purchase\LoanInfo;
+use App\Models\Product\Car;
 
 class Car extends Model
 {
     //getter
+    public function getAllCars(){
+        return Car::all();
+    }
+
     public function getImage(){
         if($this->image_id == 2){
           return $this->getModel()->getImage();

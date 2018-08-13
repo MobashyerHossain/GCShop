@@ -34,7 +34,6 @@ class ConsumerRegisterController extends Controller
           'first_name' => $request->Input('first_name'),
           'last_name' => $request->Input('last_name'),
           'email' => $request->Input('email'),
-          'date_of_birth' => $request->Input('date_of_birth'),
           'password' => Hash::make($request->Input('reg_password')),
         ]);
 
@@ -44,6 +43,6 @@ class ConsumerRegisterController extends Controller
         } catch (\Exception $e) {
           return redirect()->back()->with('please_verify', 'Cant connect to internet');
         }
-        return redirect()->back()->with('please_verify', 'To complete your registration please follow the link sent to your eamil');
+        return redirect()->back()->with('please_verify', 'We have sent you an email. Please confirm!');
     }
 }

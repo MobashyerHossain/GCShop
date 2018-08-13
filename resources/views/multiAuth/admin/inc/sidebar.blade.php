@@ -6,10 +6,12 @@
     -->
     <div class="sidebar-wrapper pt-2">
         <div class="author col-12 text-center">
-          <a href="{{ route('admin.profile') }}">
-              <img class="avatar border-gray rounded-circle m-2" style="width:80px;" src="{{ url(Auth::user()->getProfilePic()) }}" alt="{{Auth::user()->getProfilePic()}}">
-              <h5 class="title">{{ Auth::user()->getFullName() }}</h5>
-          </a>
+          {!! Form::open(['action' => 'ModelControllers\ImageController@storeProfilePicture', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+            {{Form::hidden('user_type', 'admin')}}
+            {{Form::file('profile_pic', ['id' => 'pro', 'style' => 'display:none;', 'onchange' => 'form.submit()'])}}
+          {!! Form::close() !!}
+          <img class="avatar border-gray rounded-circle m-2" onclick="proPic()" style="width:80px;height:80px;object-fit:cover;cursor:pointer;" src="{{ url(Auth::user()->getProfilePic()) }}" alt="{{Auth::user()->getProfilePic()}}">
+          <h5 class="title">{{ Auth::user()->getFullName() }}</h5>
         </div>
         <ul class="nav">
             <li class="" onclick="">
@@ -21,35 +23,35 @@
             <li class="">
                 <a class="nav-link" href="{{ route('admin.profile') }}">
                     <i class="nc-icon nc-circle-09"></i>
-                    <p>User Profile</p>
+                    <p>My Profile</p>
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="./table.html">
-                    <i class="nc-icon nc-notes"></i>
-                    <p>Table List</p>
+                <a class="nav-link" href="">
+                    <i class="fa fa-plus"></i>
+                    <p>Add Admin</p>
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="./typography.html">
-                    <i class="nc-icon nc-paper-2"></i>
-                    <p>Typography</p>
+                <a class="nav-link" href="">
+                    <i class="fa fa-plus"></i>
+                    <p>Add ShowRoom</p>
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="./icons.html">
+                <a class="nav-link" href="">
                     <i class="nc-icon nc-atom"></i>
-                    <p>Icons</p>
+                    <p>Loan Requests</p>
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="./maps.html">
-                    <i class="nc-icon nc-pin-3"></i>
-                    <p>Maps</p>
+                <a class="nav-link" href="">
+                    <i class="fa fa-users"></i>
+                    <p>All Admins</p>
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="./notifications.html">
+                <a class="nav-link" href="">
                     <i class="nc-icon nc-bell-55"></i>
                     <p>Notifications</p>
                 </a>
@@ -57,20 +59,3 @@
         </ul>
     </div>
 </div>
-
-<script>
-  // Get the container element
-  var btnContainer = document.getElementByClassName("side-nav");
-
-  // Get all buttons with class="btn" inside the container
-  var btns = btnContainer.getElementsByClassName("");
-
-  // Loop through the buttons and add the active class to the current/clicked button
-  for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-  }
-</script>

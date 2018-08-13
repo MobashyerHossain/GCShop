@@ -148,7 +148,7 @@ class CarModelSeeder extends Seeder
                 ),
 
                 array(
-                  'name' => 'The Mercedes-Benz SL',
+                  'name' => 'Mercedes-Benz SL',
                   'details' => "The Mercedes-Benz SL-Class is a grand touring car manufactured by Mercedes since 1954",
                   'Year_from_to' => '1954-present',
                   'maker_id' => 4,

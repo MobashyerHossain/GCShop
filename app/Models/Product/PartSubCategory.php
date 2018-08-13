@@ -5,11 +5,17 @@ namespace App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Product\PartCategory;
+use App\Models\Product\PartSubCategory;
 use App\Models\Product\Part;
 use App\Models\Other\Image;
 
 class PartSubCategory extends Model
 {
+    //getter
+    public function getAllSubCategories(){
+        return PartSubCategory::all();
+    }
+
     public function getCategory(){
         return PartCategory::find($this->category_id);
     }
