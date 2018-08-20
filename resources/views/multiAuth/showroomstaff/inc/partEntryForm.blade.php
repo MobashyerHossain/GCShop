@@ -1,4 +1,5 @@
-<form class="product-option" id="part-entry" >
+<form class="product-option" id="part-entry" method="POST" action="{{ route('parts.store') }}" enctype='multipart/form-data'>
+    @csrf
     <div class="form-row">
         <!-- Name -->
         <div class="col-12 col-md-6" style="padding:10px;">
@@ -106,14 +107,14 @@
         <!-- Part Category -->
         <div class="col col-6" style="padding:10px;">
             <div class="input-group">
-                <select id="part_category" name="part_category" style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0">
-                  <option value="0" selected hidden disabled>Category</option>
-                  @foreach((new App\Models\Product\PartCategory())->getAllCategories() as $category)
+                <select id="part_category_select" name="part_category" style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0" required>
+                  <option value="" selected hidden disabled>Category</option>
+                  @foreach(App\Models\Product\PartCategory::all() as $category)
                     <option value="{{$category->id}}">{{$category->name}}</option>
                   @endforeach
                 </select>
                 <div class="input-group-append">
-                  <button class="btn btn-primary no-outline rounded-0 pt-1 pb-1" type="button"><span class="fa fa-plus mr-2"></span>New</button>
+                  <button class="btn btn-primary no-outline rounded-0 pt-1 pb-1" type="button"  data-toggle="modal" data-target="#partCategoryModal"><span class="fa fa-plus mr-2"></span>New</button>
                 </div>
             </div>
         </div>
@@ -121,42 +122,65 @@
         <!-- Part sub category -->
         <div class="col col-6" style="padding:10px;">
             <div class="input-group">
-                <select id="part_subCategory" name="part_subCategory" style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0">
-                  <option value="0" selected hidden disabled>Sub Category</option>
-                  @foreach((new App\Models\Product\PartSubCategory())->getAllSubCategories() as $subCategory)
-                    <option value="{{$subCategory->id}}">{{$subCategory->name}}</option>
+                <select id="part_sub_category_select" name="part_sub_category" style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0" required>
+                  <option value="" selected hidden disabled>Sub Category</option>
+                  <option value="carmodel" disabled>Choose a Category first</option>
+                  @foreach(App\Models\Product\PartSubCategory::all() as $subCategory)
+                    <option value="{{$subCategory->id}}" class="category{{$subCategory->getCategory()->id}}">{{$subCategory->name}}</option>
                   @endforeach
                 </select>
                 <div class="input-group-append">
-                  <button class="btn btn-primary no-outline rounded-0 pt-1 pb-1" type="button"><span class="fa fa-plus mr-2"></span>New</button>
+                  <button class="btn btn-primary no-outline rounded-0 pt-1 pb-1" type="button"  data-toggle="modal" data-target="#partSubCategoryModal"><span class="fa fa-plus mr-2"></span>New</button>
                 </div>
             </div>
         </div>
 
         <!-- Part Manufacturer -->
-        <div class="col col-6" style="padding:10px;">
+        <div class="col col-12" style="padding:10px;">
             <div class="input-group">
-                <select id="part_manufacturer" name="part_manufacturer"style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0">
-                  <option value="0" selected hidden disabled>Manufacturer</option>
-                  @foreach((new App\Models\Product\PartManufacturer())->getAllManufacturers() as $manufacturer)
+                <select id="part_manufacturer_select" name="part_manufacturer"style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0" required>
+                  <option value="" selected hidden disabled>Manufacturer</option>
+                  @foreach(App\Models\Product\PartManufacturer::all() as $manufacturer)
                     <option value="{{$manufacturer->id}}">{{$manufacturer->name}}</option>
                   @endforeach
                 </select>
                 <div class="input-group-append">
-                  <button class="btn btn-primary no-outline rounded-0 pt-1 pb-1" type="button"><span class="fa fa-plus mr-2"></span>New</button>
+                  <button class="btn btn-primary no-outline rounded-0 pt-1 pb-1" type="button"  data-toggle="modal" data-target="#partManufacturerModal"><span class="fa fa-plus mr-2"></span>New</button>
                 </div>
             </div>
-        </div>
-
-        <!-- Image -->
-        <div class="col-12 col-md-3" style="padding:10px;">
-          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadPartImage()" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Image</button>
-          <input id="part_image" class="d-none" type="file"/>
         </div>
 
         <!-- Add Details Button-->
         <div class="col-12 col-md-3" style="padding:10px;">
           <button id="add_part_detail_fields" class="btn btn-primary no-outline rounded-0 w-100" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Add Part Details</button>
+        </div>
+
+        <!-- Image -->
+        <div class="col-12 col-md-3" style="padding:10px;">
+          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('part_image_main')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Main Image</button>
+          <input id="part_image_main" name="part_image_main" class="d-none" onchange="readURL(this, '#image_part_main')" type="file"/>
+          <img id="image_part_main" src="" style="width:100%;height:80px;object-fit:cover;" alt="">
+        </div>
+
+        <!-- Image -->
+        <div class="col-12 col-md-2" style="padding:10px;">
+          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('part_image_extra1')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Extra Image</button>
+          <input id="part_image_extra1" name="part_image_extra1" class="d-none" onchange="readURL(this, '#image_part_extra1')" type="file"/>
+          <img id="image_part_extra1" src="" style="width:100%;height:80px;object-fit:cover;" alt="">
+        </div>
+
+        <!-- Image -->
+        <div class="col-12 col-md-2" style="padding:10px;">
+          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('part_image_extra2')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Extra Image</button>
+          <input id="part_image_extra2" name="part_image_extra2" class="d-none" onchange="readURL(this, '#image_part_extra2')" type="file"/>
+          <img id="image_part_extra2" src="" style="width:100%;height:80px;object-fit:cover;" alt="">
+        </div>
+
+        <!-- Image -->
+        <div class="col-12 col-md-2" style="padding:10px;">
+          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('part_image_extra3')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Extra Image</button>
+          <input id="part_image_extra3" name="part_image_extra3" class="d-none" onchange="readURL(this, '#image_part_extra3')" type="file"/>
+          <img id="image_part_extra3" src="" style="width:100%;height:80px;object-fit:cover;" alt="">
         </div>
 
         <!-- Part Details-->
@@ -165,7 +189,9 @@
 
         <!-- Submit -->
         <div class="col-6 ml-auto mr-auto" style="padding:10px;">
-          <button class="btn btn-primary no-outline rounded-0" type="submit" style="margin-right:25%;margin-left:25%;width:50%;">Add Part to Inventory</button>
+          <button class="no-outline rounded-0 btn btn-primary pt-1 pb-1 text-center" type="submit" style="margin-right:25%;margin-left:25%;width:50%;">
+              {{ __('Add Part to Inventory') }}
+          </button>
         </div>
     </div>
 </form>

@@ -21,14 +21,14 @@
         </ol>
       </nav>
 
-      <!-- part image and detail -->
+      <!-- car image and detail -->
       <div class="row mt-0" style="margin:10px 0px;">
           <div class="col" style="margin-right:10px;background-color:rgba(255,255,255,0);">
               <div class="row" style="margin-bottom:20px; height:400px; background-color:#ffffff;">
-                  <!-- part image -->
+                  <!-- car image -->
                   @include('multiAuth.consumer.inc.carDetailImageSection')
 
-                  <!-- part summary -->
+                  <!-- car summary -->
                   <div class="col border" style="padding:15px;font-family: 'Times New Roman', Times, serif;">
                       <div class="row m-0 p-0">
                         <div class="col p-0">
@@ -55,6 +55,29 @@
                                   </tr>
                               </tbody>
                           </table>
+                      </div>
+                      <div class="row m-0" style="position:absolute; bottom:20px; width:100%;">
+                        @if(Auth::check())
+                          <div class="col">
+                            <a href="{{route('find.carHandling.form', ['form_type' => 'carBooking', 'car_id' => $car->id])}}" style="text-decoration:none;font-size:15px;" data-toggle="tooltip" data-placement="top" title="Book This Car" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">Book Car</a>
+                          </div>
+                          <div class="col">
+                            <a href="{{route('find.carHandling.form', ['form_type' => 'carTesting', 'car_id' => $car->id])}}" style="text-decoration:none;font-size:15px;" data-toggle="tooltip" data-placement="top" title="Take it for a Test Drive" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">Test Drive</a>
+                          </div>
+                          <div class="col">
+                            <a href="{{route('find.carHandling.form', ['form_type' => 'carLoaning', 'car_id' => $car->id])}}" style="text-decoration:none;font-size:15px;" data-toggle="tooltip" data-placement="top" title="Apply for Car Loan" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">Apply for Loan</a>
+                          </div>
+                        @else
+                          <div class="col">
+                            <a href="" style="text-decoration:none;font-size:15px;" data-toggle="modal" data-target="#LoginModalCenter" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">Book Car</a>
+                          </div>
+                          <div class="col">
+                            <a href="" style="text-decoration:none;font-size:15px;" data-toggle="modal" data-target="#LoginModalCenter" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">Test Drive</a>
+                          </div>
+                          <div class="col">
+                            <a href="" style="text-decoration:none;font-size:15px;" data-toggle="modal" data-target="#LoginModalCenter" class="bg-primary text-white p-1 font-weight-bold btn btn-link no-outline rounded-0 p-0 m-0">Apply for Loan</a>
+                          </div>
+                        @endif
                       </div>
                   </div>
               </div>

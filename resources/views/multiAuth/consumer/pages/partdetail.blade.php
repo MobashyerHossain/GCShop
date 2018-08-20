@@ -65,9 +65,30 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row" style="margin:0px;margin-bottom:15px;">
-                        @for($i=0; $i<4; $i++)
-                          <div class="col text-left p-2" style="padding:0px;">
+                      <div class="row" style="margin-right:10px;margin-left:-5px;position:absolute;bottom:0px;">
+                        @foreach($part->getExtraImage() as $extra)
+                          <!-- Button trigger modal -->
+                          <div class="col-4 text-left p-3" style="padding:0px;">
+                            <a href="" data-toggle="modal" data-target="#partfullview{{$extra->id}}">
+                              <img src="{{url($extra->getImage())}}" data-bs-hover-animate="pulse" style="width:100%; object-fit: contain;">
+                            </a>
+                          </div>
+
+                          <!-- Extra image Modal -->
+                          <div class="modal fade" id="partfullview{{$extra->id}}" tabindex="-1" role="dialog" aria-labelledby="partfullview{{$extra->id}}Title" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                              <div class="modal-content rounded-0 border-0">
+                                <div class="modal-body">
+                                  <img src="{{url($extra->getImage())}}" data-bs-hover-animate="pulse" style="width:100%; height:80px; object-fit: contain;">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        @endforeach
+
+                        @for($i=0; $i<3-count($part->getExtraImage()); $i++)
+                          <!-- same image -->
+                          <div class="col-4 text-left p-3" style="padding:0px;">
                             <img src="{{url($part->getImage())}}" data-bs-hover-animate="pulse" style="width:100%; height:80px; object-fit: contain;">
                           </div>
                         @endfor

@@ -48,8 +48,7 @@
             <div class="form-group row">
                 <!--password-->
                 <div class="col-12 col-md-6">
-                    <input id="reg_password" type="password" minlength="6" class="rounded-0 no-outline form-control{{ $errors->has('reg_password') ? ' is-invalid' : '' }}" name="reg_password" placeholder="Password" required>
-
+                    <input id="reg_password" type="password" minlength="6" maxlength="20" class="rounded-0 no-outline form-control{{ $errors->has('reg_password') ? ' is-invalid' : '' }}" name="reg_password" placeholder="Password (A-Z, a-z, @#$%^&*)" required pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\W+).*$" oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'Password must be of length 6-20 with an Uppercase, a Lowercase and a Spacial Character!');">
                     @if ($errors->has('reg_password'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('reg_password') }}</strong>

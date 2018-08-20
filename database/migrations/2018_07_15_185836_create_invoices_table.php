@@ -16,7 +16,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->double('total_amount', 10, 2);
-            $table->enum('payment_method', ['cradit card', 'home delivary']);
+            $table->enum('payment_method', ['cradit card', 'pay on delivary']);
 
             //foreign key
             $table->integer('consumer_id')->unsigned();

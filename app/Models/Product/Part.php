@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Other\Image;
+use App\Models\Other\MoreImage;
 use App\Models\Product\PartSubCategory;
 use App\Models\Product\Part;
 use App\Models\Product\PartManufacturer;
@@ -19,10 +20,6 @@ use App\Models\Purchase\ResentView;
 class Part extends Model
 {
     //getter
-    public function getAllParts(){
-        return Part::all();
-    }
-
     public function getImage(){
         if($this->image_id == 3){
           return $this->getSubCategory()->getImage();
@@ -30,6 +27,10 @@ class Part extends Model
         if(Image::find($this->image_id)){
           return (Image::find($this->image_id))->uri;
         }
+    }
+
+    public function getExtraImage(){
+        return MoreImage::where('product_type', 'part')->where('product_id', $this->id)->get();
     }
 
     public function getSubCategory(){
@@ -52,6 +53,10 @@ class Part extends Model
       return '$ '.(number_format((float)$this->selling_price, 2, '.', ''));
     }
 
+    public function getBuyingPrice(){
+      return '$ '.(number_format((float)$this->buying_price, 2, '.', ''));
+    }
+
     public function getDiscountedPrice(){
       $price = ($this->selling_price - ($this->current_discount*$this->selling_price));
       return '$ '.(number_format((float)$price, 2, '.', ''));
@@ -63,6 +68,10 @@ class Part extends Model
 
     public function getTotalStock(){
         return ProductInventory::where('product_type', 'part')->where('product_id', $this->id)->sum('quantity') - Cart::where('part_id', $this->id)->sum('quantity');
+    }
+
+    public function getOurStock(){
+        return ProductInventory::where('product_type', 'part')->where('product_id', $this->id)->where('showroom_id', Auth::guard('showroomstaff')->user()->getShowRoom()->id)->sum('quantity');
     }
 
     public function getInventory(){

@@ -26,6 +26,7 @@ Route::resource('parts', 'ModelControllers\PartController');
 Route::resource('partCategories', 'ModelControllers\PartCategoryController');
 Route::resource('partSubCategories', 'ModelControllers\PartSubCategoryController');
 Route::resource('partManufacturers', 'ModelControllers\PartManufacturerController');
+Route::resource('roles', 'ModelControllers\RoleController');
 
 //Consumer Routes
 Route::prefix('consumer')->group(function(){
@@ -75,10 +76,16 @@ Route::prefix('admin')->group(function(){
 
 //Show Room Routes
 Route::prefix('showroomstaff')->group(function(){
-  Route::get('/dashboard', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@index')->name('showroomstaff.dashboard')->middleware('auth:showroomstaff');
-  Route::get('/profile', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@profile')->name('showroomstaff.profile')->middleware('auth:showroomstaff');
-  Route::post('/profile/update/{id}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@update')->name('showroom.profile.edit');
-  Route::get('/addproduct', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@addProductView')->name('showroom.addproduct')->middleware('auth:showroomstaff');
+  Route::get('/dashboard', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@index')->name('showroom.show.dashboard')->middleware('auth:showroomstaff');
+  Route::get('/profile', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@showProfile')->name('showroom.show.profile')->middleware('auth:showroomstaff');
+  Route::post('/profile/update/{id}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@updateProfile')->name('showroom.update.profile');
+  Route::get('/addproduct', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@addProduct')->name('showroom.add.product')->middleware('auth:showroomstaff');
+  Route::get('/updatePart/{type}/{id}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@updateProduct')->name('showroom.update.part')->middleware('auth:showroomstaff');
+  Route::get('/updateCar/{type}/{id}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@updateProduct')->name('showroom.update.car')->middleware('auth:showroomstaff');
+  Route::get('/inventory', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@showInventory')->name('showroom.show.inventory')->middleware('auth:showroomstaff');
+  Route::get('/staff/show', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@showStaffs')->name('showroom.show.staffs')->middleware('auth:showroomstaff');
+  Route::get('/staff/add', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@addStaff')->name('showroom.add.staff')->middleware('auth:showroomstaff');
+  Route::post('/staff/store', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@store')->name('showroom.store.staff')->middleware('auth:showroomstaff');
 
   //Auth Routes
     //login

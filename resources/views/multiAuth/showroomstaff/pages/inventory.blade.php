@@ -1,13 +1,36 @@
 @extends('layout.showroom')
 
-@section('title', 'Showroom DashBoard')
+@section('title', 'Inventory')
 
 @section('content')
   @include('multiAuth.showroomstaff.inc.sidebar')
   <div class="main-panel">
       @include('multiAuth.showroomstaff.inc.navbar')
       <div class="content">
+        <div class="row m-0">
+          <div class="col-12">
+            <ul class="nav nav-tabs mb-4 border-bottom bg-white">
+                <li class="nav-item m-0" style="width:50%;">
+                  <a class="border-0 text-center font-weight-bold rounded-0 nav-link active" role="tab" data-toggle="tab" href="#car_inventory">Cars</a>
+                </li>
+                <li class="nav-item m-0" style="width:50%;">
+                  <a class="border-0 text-center font-weight-bold rounded-0 nav-link" role="tab" data-toggle="tab" href="#part_inventory">Parts</a>
+                </li>
+            </ul>
+          </div>
 
+          <div class="col-12">
+            <!-- Tab Contents -->
+            <div class="tab-content">
+                <div class="tab-pane active" role="tabpanel" id="car_inventory">
+                    @include('multiAuth.showroomstaff.inc.carTableGroup')
+                </div>
+                <div class="tab-pane" role="tabpanel" id="part_inventory">
+                    @include('multiAuth.showroomstaff.inc.partTableGroup')
+                </div>
+            </div>
+          </div>
+        </div>
       </div>
       @include('multiAuth.showroomstaff.inc.footer')
   </div>

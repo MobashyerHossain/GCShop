@@ -1,4 +1,4 @@
-{!! Form::open(['id' => 'editForm', 'action' => ['Auth\ShowRoomStaffControllers\ShowRoomStaffController@update', Auth::id()], 'method' => 'POST', 'style' => 'display:none;']) !!}
+{!! Form::open(['id' => 'editForm', 'action' => ['Auth\ShowRoomStaffControllers\ShowRoomStaffController@updateProfile', Auth::id()], 'method' => 'POST', 'style' => 'display:none;']) !!}
     @csrf
     <div class="form-row">
         <div class="col" style="padding-right:10px;">

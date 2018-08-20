@@ -5,7 +5,7 @@
               <h5 class="mt-0 pt-2 pb-0 mb-1" style="color:#a5a5a5;">Add Car Model</h5>
             </div>
             <div class="modal-body">
-              <form method="POST" action="{{ route('carModels.store') }}" aria-label="{{ __('Register') }}" enctype='multipart/form-data'>
+              <form method="POST" action="{{ route('carModels.store') }}" enctype='multipart/form-data'>
                   @csrf
                   <div class="form-group row p-0">
                       <!--name-->
@@ -23,7 +23,7 @@
                       <div class="col-12 col-md-6">
                         <select id="car_maker" name="car_maker" class="form-control no-outline rounded-0" style="border: 1px solid #a5a5a5;">
                           <option value="0" selected hidden disabled>Car Maker</option>
-                          @foreach((new App\Models\Product\CarMaker())->getAllMakers() as $carmaker)
+                          @foreach(App\Models\Product\CarMaker::all() as $carmaker)
                             <option value="{{$carmaker->id}}">{{$carmaker->name}}</option>
                           @endforeach
                         </select>
@@ -53,8 +53,9 @@
 
                       <!--image-->
                       <div class="col-12 col-md-4">
-                          <button type="button" class="pt-1 pb-1 btn btn-primary no-outline rounded-0 w-100" onclick="uploadCarModelImage()" style="font-size:16px;"><span class="fa fa-plus mr-2"></span>Image</button>
-                          <input id="car_modal_image" name="car_modal_image" class="d-none" type="file"/>
+                          <button type="button" class="pt-1 pb-1 btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('car_modal_image')" style="font-size:16px;"><span class="fa fa-plus mr-2"></span>Image</button>
+                          <input id="car_modal_image" name="car_modal_image" class="d-none" onchange="readURL(this, '#image_model')" type="file"/>
+                          <img id="image_model" src="" style="width:100%;" alt="">
                       </div>
                   </div>
 

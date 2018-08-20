@@ -39,7 +39,7 @@
     </div>
 
     <!-- Extra Car Image -->
-    <div class="row" style="margin-right:-10px;margin-left:-10px;margin-bottom:15px;">
+    <div class="row" style="margin-right:5px;margin-left:-5px;position:absolute;bottom:5px;">
       @foreach($car->getExtraImage() as $extra)
         <!-- Button trigger modal -->
         <div class="col-4 text-left p-2" style="padding:0px;">
@@ -59,5 +59,12 @@
           </div>
         </div>
       @endforeach
+
+      @for($i=0; $i<3-count($car->getExtraImage()); $i++)
+        <!-- same image -->
+        <div class="col-4 text-left p-3" style="padding:0px;">
+          <img src="{{url($car->getImage())}}" data-bs-hover-animate="pulse" style="width:100%; object-fit: contain;">
+        </div>
+      @endfor
     </div>
 </div>

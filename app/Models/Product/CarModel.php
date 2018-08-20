@@ -12,10 +12,6 @@ use App\Models\Other\Image;
 class CarModel extends Model
 {
     //getter
-    public function getAllModels(){
-        return CarModel::all();
-    }
-
     public function getCars(){
         return Car::where('model_id', $this->id)->get();
     }

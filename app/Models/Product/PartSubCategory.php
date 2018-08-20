@@ -12,10 +12,6 @@ use App\Models\Other\Image;
 class PartSubCategory extends Model
 {
     //getter
-    public function getAllSubCategories(){
-        return PartSubCategory::all();
-    }
-
     public function getCategory(){
         return PartCategory::find($this->category_id);
     }

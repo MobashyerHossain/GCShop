@@ -1,22 +1,29 @@
 @extends('layout.showroom')
 
-@section('title', ucfirst(substr(Route::currentRouteName(),10)))
+@section('title', 'Add Products')
 
 @section('content')
   @include('multiAuth.showroomstaff.inc.sidebar')
   <!-- modals -->
   @include('multiAuth.showroomstaff.inc.modals.carMakerModal')
   @include('multiAuth.showroomstaff.inc.modals.carModelModal')
+  @include('multiAuth.showroomstaff.inc.modals.partCategoryModal')
+  @include('multiAuth.showroomstaff.inc.modals.partSubCategoryModal')
+  @include('multiAuth.showroomstaff.inc.modals.partManufacturerModal')
   <div class="main-panel">
       @include('multiAuth.showroomstaff.inc.navbar')
 
       <div class="content">
         <div class="container border-0">
-          <div class="ml-3 mr-3 p-3 mt-1 bg-white">
+          <div class="ml-2 mr-2 p-3 mt-0 bg-white">
               <!-- Tab Options -->
-              <ul class="nav nav-tabs mb-2">
-                  <li class="nav-item"><a class="rounded-0 nav-link active" role="tab" data-toggle="tab" href="#tab-2">+ Car</a></li>
-                  <li class="nav-item"><a class="rounded-0 nav-link" role="tab" data-toggle="tab" href="#tab-3">+ Part</a></li>
+              <ul class="nav nav-tabs mb-4 border-bottom" style="margin: -16px;">
+                  <li class="nav-item" style="width:50%;">
+                    <a class="border-top-0 text-center font-weight-bold rounded-0 nav-link active" role="tab" data-toggle="tab" href="#tab-2">+ Car</a>
+                  </li>
+                  <li class="nav-item" style="width:50%;">
+                    <a class="border-top-0 text-center font-weight-bold rounded-0 nav-link" role="tab" data-toggle="tab" href="#tab-3">+ Part</a>
+                  </li>
               </ul>
 
               <!-- Tab Contents -->
@@ -50,6 +57,7 @@
 @section('script')
   @include('multiAuth.showroomstaff.js.showroomJS')
   <!--   Core JS Files   -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/js/core/popper.min.js') }}" type="text/javascript"></script>
   <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->

@@ -12,8 +12,8 @@ use App\Models\Other\Image;
 class CarMaker extends Model
 {
     //getter
-    public function getAllMakers(){
-        return CarMaker::all();
+    public function getModel($v){
+        return CarModel::where('maker_id', $v)->get();
     }
 
     public function getModels(){

@@ -1,4 +1,5 @@
-<form class="product-option" id="car-entry" >
+<form class="product-option" id="car-entry" method="POST" action="{{ route('cars.store') }}" enctype='multipart/form-data'>
+    @csrf
     <div class="form-row">
         <!-- Name -->
         <div class="col-12 col-md-6" style="padding:10px;">
@@ -106,9 +107,9 @@
         <!-- Car Maker -->
         <div class="col col-6" style="padding:10px;">
             <div class="input-group">
-                <select id="car_maker" name="car_maker" style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0">
-                  <option value="0" selected hidden disabled>Car Maker</option>
-                  @foreach((new App\Models\Product\CarMaker())->getAllMakers() as $carmaker)
+                <select id="car_maker_select" name="car_maker" style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0" required>
+                  <option value="" selected hidden disabled>Car Maker</option>
+                  @foreach(App\Models\Product\CarMaker::all() as $carmaker)
                     <option value="{{$carmaker->id}}">{{$carmaker->name}}</option>
                   @endforeach
                 </select>
@@ -121,27 +122,56 @@
         <!-- Car Model -->
         <div class="col col-6" style="padding:10px;">
             <div class="input-group">
-                <select id="car_model" name="car_model" style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0">
-                  <option value="0" selected hidden disabled>Car Model</option>
-                  @foreach((new App\Models\Product\CarModel())->getAllModels() as $carmodel)
-                    <option value="{{$carmodel->id}}">{{$carmodel->name}}</option>
+                <select id="car_model_select" name="car_model" style="border: 1px solid #a5a5a5;" class="form-control no-outline rounded-0" required>
+                  <option value="" selected hidden disabled>Car Model</option>
+                  <option value="carmodel" disabled>Choose a Maker first</option>
+                  @foreach(App\Models\Product\CarModel::all() as $carmodel)
+                    <option value="{{$carmodel->id}}" class="carmaker{{$carmodel->getMaker()->id}}">{{$carmodel->name}}</option>
                   @endforeach
                 </select>
                 <div class="input-group-append">
                   <button class="btn btn-primary no-outline rounded-0 pt-1 pb-1" type="button" data-toggle="modal" data-target="#carModelModal"><span class="fa fa-plus mr-2"></span>New</button>
                 </div>
             </div>
-        </div>
 
-        <!-- Image -->
-        <div class="col-12 col-md-6" style="padding:10px;">
-          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadCarImage()" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Image</button>
-          <input id="car_image" class="d-none" type="file"/>
+            @if ($errors->has('car_model'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('car_model') }}</strong>
+                </span>
+            @endif
         </div>
 
         <!-- Add Details Button-->
-        <div class="col-12 col-md-6" style="padding:10px;">
+        <div class="col-12 col-md-3" style="padding:10px;">
           <button id="add_car_detail_fields" class="btn btn-primary no-outline rounded-0 w-100" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Add Car Details</button>
+        </div>
+
+        <!-- Image -->
+        <div class="col-12 col-md-3" style="padding:10px;">
+          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('car_image_main')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Main Image</button>
+          <input id="car_image_main" name="car_image_main" class="d-none" onchange="readURL(this, '#image_car_main')" type="file"/>
+          <img id="image_car_main" src="" style="width:100%;height:80px;object-fit:cover;" alt="">
+        </div>
+
+        <!-- Image -->
+        <div class="col-12 col-md-2" style="padding:10px;">
+          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('car_image_extra1')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Extra Image</button>
+          <input id="car_image_extra1" name="car_image_extra1" class="d-none" onchange="readURL(this, '#image_car_extra1')" type="file"/>
+          <img id="image_car_extra1" src="" style="width:100%;height:80px;object-fit:cover;" alt="">
+        </div>
+
+        <!-- Image -->
+        <div class="col-12 col-md-2" style="padding:10px;">
+          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('car_image_extra2')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Extra Image</button>
+          <input id="car_image_extra2" name="car_image_extra2" class="d-none" onchange="readURL(this, '#image_car_extra2')" type="file"/>
+          <img id="image_car_extra2" src="" style="width:100%;height:80px;object-fit:cover;" alt="">
+        </div>
+
+        <!-- Image -->
+        <div class="col-12 col-md-2" style="padding:10px;">
+          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('car_image_extra3')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Extra Image</button>
+          <input id="car_image_extra3" name="car_image_extra3" class="d-none" onchange="readURL(this, '#image_car_extra3')" type="file"/>
+          <img id="image_car_extra3" src="" style="width:100%;height:80px;object-fit:cover;" alt="">
         </div>
 
         <!-- Car Details-->
@@ -150,7 +180,10 @@
 
         <!-- Submit -->
         <div class="col-6 ml-auto mr-auto" style="padding:10px;">
-          <button class="btn btn-primary no-outline rounded-0" type="submit" style="margin-right:25%;margin-left:25%;width:50%;">Add Car to Inventory</button>
+          <!-- Submit -->
+          <button class="no-outline rounded-0 btn btn-primary pt-1 pb-1 text-center" type="submit" style="margin-right:25%;margin-left:25%;width:50%;">
+              {{ __('Add Car to Inventory') }}
+          </button>
         </div>
     </div>
 </form>

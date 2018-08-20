@@ -9,6 +9,8 @@ use App\Notifications\ResetPassword\ShowRoomStaffResetPasswordNotification;
 use App\Models\Other\Image;
 use App\Models\Other\Address;
 use App\Models\Other\PhoneNumber;
+use App\Models\Other\Role;
+use App\Models\Purchase\ShowRoom;
 
 class ShowRoomStaff extends Authenticatable
 {
@@ -57,5 +59,13 @@ class ShowRoomStaff extends Authenticatable
 
     public function getPhoneNumber(){
         return PhoneNumber::find($this->phone_number_id);
+    }
+
+    public function getShowRoom(){
+        return ShowRoom::find($this->showroom_id);
+    }
+
+    public function getRole(){
+        return Role::find($this->role_id);
     }
 }

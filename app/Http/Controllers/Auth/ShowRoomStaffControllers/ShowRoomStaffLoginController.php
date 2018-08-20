@@ -26,7 +26,7 @@ class ShowRoomStaffLoginController extends Controller
       //attept to log the user in
       if (Auth::guard('showroomstaff')->attempt(['email' => $request->logemail, 'password' => $request->logpassword], $request->remember)) {
         //if successfull, than redirect to their intended location
-        return redirect()->intended(route('showroomstaff.dashboard'));
+        return redirect()->intended(route('showroom.show.dashboard'));
       }
 
       //if unsuccessful, than redirect with the form data

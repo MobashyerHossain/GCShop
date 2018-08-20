@@ -19,9 +19,9 @@ class ShowRoomStaffSeeder extends Seeder
     {
         $staffs = array(
             array(
-              'first_name' => 'Julian',
-              'last_name' => 'Witting',
-              'email' => 'JulianWit@gmail.com',
+              'first_name' => 'Joker',
+              'last_name' => 'Jackle',
+              'email' => 'showrs@gmail.com',
               'role_id' => 4,
             ),
             array(

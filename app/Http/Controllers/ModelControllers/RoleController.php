@@ -5,9 +5,9 @@ namespace App\Http\Controllers\ModelControllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Product\CarModel;
+use App\Models\Other\Role;
 
-class CarModelController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,24 +37,12 @@ class CarModelController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'model_name' => 'required|string|max:100',
-            'model_detail' => 'required|string|max:500',
-            'from' => 'required',
-            'to' => 'required',
-            'car_maker' => 'required',
-        ]);
-
-        $carModel = new CarModel();
-        if($request->has(['car_modal_image'])){
-          $image = (new ImageController)->storeOnlyImage($request, 'car_modal_image');
-          $carModel->image_id = $image->id;
-        }
-        $carModel->name = $request->Input('model_name');
-        $carModel->details = $request->Input('model_detail');
-        $carModel->Year_from_to = $request->Input('from').' - '.$request->Input('to');
-        $carModel->maker_id = $request->Input('car_maker');
-        $carModel->save();
+        $job = new Role();
+        $job->work_as = $request->Input('work_as');
+        $job->title = $request->Input('job_title');
+        $job->salary = $request->Input('salary');
+        $job->details = $request->Input('job_detail');
+        $job->save();
 
         return redirect()->back();
     }

@@ -51,7 +51,7 @@ class CarMakerController extends Controller
         $carMaker->details = $request->Input('maker_detail');
         $carMaker->save();
 
-        return redirect()->back()->with('maker_added','New Car Maker named '.$request->Input('maker_name').' Successfully Added.');
+        return redirect()->back();
     }
 
     /**

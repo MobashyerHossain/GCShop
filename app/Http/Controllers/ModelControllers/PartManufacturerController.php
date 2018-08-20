@@ -4,6 +4,9 @@ namespace App\Http\Controllers\ModelControllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Product\PartManufacturer;
 
 class PartManufacturerController extends Controller
 {
@@ -35,7 +38,21 @@ class PartManufacturerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'manufacturer_name' => 'required|string|max:100',
+            'manufacturer_detail' => 'required|string|max:500',
+        ]);
+
+        $partManufacturer = new PartManufacturer();
+        if($request->has(['part_manufacturer_logo'])){
+          $logo = (new ImageController)->storeOnlyImage($request, 'part_manufacturer_logo');
+          $partManufacturer->logo = $logo->id;
+        }
+        $partManufacturer->name = $request->Input('manufacturer_name');
+        $partManufacturer->details = $request->Input('manufacturer_detail');
+        $partManufacturer->save();
+
+        return redirect()->back();
     }
 
     /**

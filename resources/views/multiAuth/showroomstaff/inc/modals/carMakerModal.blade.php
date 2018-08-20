@@ -5,7 +5,7 @@
               <h5 class="mt-0 pt-2 pb-0 mb-1" style="color:#a5a5a5;">Add Car Maker</h5>
             </div>
             <div class="modal-body">
-              <form method="POST" action="{{ route('carMakers.store') }}" aria-label="{{ __('Register') }}" enctype='multipart/form-data'>
+              <form method="POST" action="{{ route('carMakers.store') }}" enctype='multipart/form-data'>
                   @csrf
                   <div class="form-group row p-0">
                       <!--name-->
@@ -21,8 +21,9 @@
 
                       <!--logo-->
                       <div class="col-12 col-md-6">
-                          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadCarMakerLogo()" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Image</button>
-                          <input id="car_maker_logo" name="car_maker_logo" class="d-none" type="file"/>
+                          <button type="button" class="btn btn-primary no-outline rounded-0 w-100" onclick="uploadImage('car_maker_logo')" style="font-size:13px;"><span class="fa fa-plus mr-2"></span>Logo</button>
+                          <input id="car_maker_logo" name="car_maker_logo" class="d-none" onchange="readURL(this, '#image_maker_logo')" type="file"/>
+                          <img id="image_maker_logo" src="" style="width:100%;" alt="">
                       </div>
                   </div>
 

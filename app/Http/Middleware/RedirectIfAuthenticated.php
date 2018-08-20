@@ -30,7 +30,7 @@ class RedirectIfAuthenticated
             break;
           case 'showroomstaff':
             if (Auth::guard($guard)->check()) {
-                return redirect()->route('showroomstaff.dashboard');
+                return redirect()->route('showroom.show.dashboard');
             }
             break;
           default:

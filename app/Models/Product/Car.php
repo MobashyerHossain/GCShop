@@ -20,10 +20,6 @@ use App\Models\Product\Car;
 class Car extends Model
 {
     //getter
-    public function getAllCars(){
-        return Car::all();
-    }
-
     public function getImage(){
         if($this->image_id == 2){
           return $this->getModel()->getImage();
@@ -49,6 +45,10 @@ class Car extends Model
       return '$ '.(number_format((float)$this->selling_price, 2, '.', ''));
     }
 
+    public function getBuyingPrice(){
+      return '$ '.(number_format((float)$this->buying_price, 2, '.', ''));
+    }
+
     public function getDiscountedPrice(){
       $discountedprice = ($this->selling_price - ($this->current_discount*$this->selling_price));
       return '$ '.(number_format((float)$discountedprice, 2, '.', ''));
@@ -66,6 +66,10 @@ class Car extends Model
 
     public function getTotalStock(){
         return ProductInventory::where('product_type', 'car')->where('product_id', $this->id)->sum('quantity') - count($this->getTotalBooked());
+    }
+
+    public function getOurStock(){
+        return ProductInventory::where('product_type', 'car')->where('product_id', $this->id)->where('showroom_id', Auth::guard('showroomstaff')->user()->getShowRoom()->id)->sum('quantity');
     }
 
     public function getInventory(){

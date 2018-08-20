@@ -3,12 +3,12 @@
         <nav>
             <ul class="footer-menu">
                 <li>
-                    <a href="{{ route('showroomstaff.dashboard')}}">
+                    <a href="{{ route('showroom.show.dashboard')}}">
                         Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('showroomstaff.profile')}}">
+                    <a href="{{ route('showroom.show.profile')}}">
                         Portfolio
                     </a>
                 </li>

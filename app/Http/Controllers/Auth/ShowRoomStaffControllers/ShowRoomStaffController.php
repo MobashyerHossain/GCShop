@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Other\Image;
 use App\Models\Other\PhoneNumber;
 use App\Models\Other\Address;
+use App\Models\Product\Part;
+use App\Models\Product\Car;
 
 class ShowRoomStaffController extends Controller
 {
@@ -17,19 +19,42 @@ class ShowRoomStaffController extends Controller
       return view('multiAuth.showroomstaff.pages.dashboard');
     }
 
-    public function profile(){
+    public function showProfile(){
       return view('multiAuth.showroomstaff.pages.profile');
     }
 
-    public function addProductView(){
+    public function addProduct(){
       return view('multiAuth.showroomstaff.pages.addProduct');
+    }
+
+    public function updateProduct($type,$id){
+      if($type == 'part'){
+        $part = Part::find($id);
+        return view('multiAuth.showroomstaff.pages.updatePart')->with(['part' => $part]);
+      }
+      else {
+        $car = Car::find($id);
+        return view('multiAuth.showroomstaff.pages.updateCar')->with(['car' => $car]);
+      }
+    }
+
+    public function showInventory(){
+      return view('multiAuth.showroomstaff.pages.inventory');
+    }
+
+    public function showStaffs(){
+      return view('multiAuth.showroomstaff.pages.staffList');
+    }
+
+    public function addStaff(){
+      return view('multiAuth.showroomstaff.pages.addStaff');
     }
 
     public function verifyAccount(){
       return route('index');
     }
 
-    public function update(Request $request, $id){
+    public function updateProfile(Request $request, $id){
         $this->validate($request, [
           'first_name' => 'required|max:100',
           'last_name' => 'required|max:100',
@@ -80,5 +105,10 @@ class ShowRoomStaffController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function store(Request $request)
+    {
+        return $request;
     }
 }
