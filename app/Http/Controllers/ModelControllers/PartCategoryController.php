@@ -45,7 +45,7 @@ class PartCategoryController extends Controller
 
         $partCategory = new PartCategory();
         if($request->has(['part_category_image'])){
-          $image = (new ImageController)->storeOnlyImage($request, 'part_category_image');
+          $image = (new ImageController)->storeOnlyImage($request, 'part_category_image', 'images/categories/part category/');
           $partCategory->image_id = $image->id;
         }
         $partCategory->name = $request->Input('category_name');

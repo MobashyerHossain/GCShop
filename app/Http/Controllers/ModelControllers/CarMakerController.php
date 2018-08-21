@@ -44,7 +44,7 @@ class CarMakerController extends Controller
 
         $carMaker = new CarMaker();
         if($request->has(['car_maker_logo'])){
-          $logo = (new ImageController)->storeOnlyImage($request, 'car_maker_logo');
+          $logo = (new ImageController)->storeOnlyImage($request, 'car_maker_logo', 'images/logos/car maker/');
           $carMaker->logo = $logo->id;
         }
         $carMaker->name = $request->Input('maker_name');

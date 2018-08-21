@@ -9,52 +9,76 @@
       <div class="content">
         <div class="row">
           @foreach(Auth::user()->getShowRoom()->getEmployees() as $employee)
-            <div class="col-md-4">
-                <div class="card card-user">
-                    <div class="card-image">
-                        <img src="{{ url($employee->getProfilePic()) }}" style="width:100%;object-fit:contain;">
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                          <img class="avatar border-gray" src="{{ url($employee->getProfilePic()) }}">
-                          <h5 class="title text-secondary" style="letter-spacing:5px;">{{ $employee->getFullName() }}</h5>
-                          @if(Auth::user()->getRole()->title == 'showroom manager')
-                            <h5><span class="mr-1 fa fa-edit text-primary"></span><span class="ml-1 fa fa-trash text-danger"></span></h5>
-                          @endif
-                        </div>
-                        <hr>
-                        <div class="">
-                          <table class="text-secondary">
-                            <tr>
-                              <td>Email</td>
-                              <td>:</td>
-                              <td class="col-7 text-right">{{$employee->email}}</td>
-                            </tr>
-                            <tr>
-                              <td>Job</td>
-                              <td>:</td>
-                              <td class="col-7 text-right text-capitalize">{{$employee->getRole()->title}}</td>
-                            </tr>
-                            <tr>
-                              <td>Salary</td>
-                              <td>:</td>
-                              <td class="col-7 text-right">{{$employee->getRole()->getSalary()}}</td>
-                            </tr>
-                            <tr>
-                              <td>Phone</td>
-                              <td>:</td>
-                              <td class="col-7 text-right">{{$employee->getPhoneNumber()->number}}</td>
-                            </tr>
-                            <tr>
-                              <td>Address</td>
-                              <td>:</td>
-                              <td class="col-7 text-right">{{$employee->getAddress()->local}}, {{$employee->getAddress()->city}} - {{$employee->getAddress()->postal_code}}, {{$employee->getAddress()->country}}</td>
-                            </tr>
-                          </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @if($employee->id != Auth::id())
+              <div class="col-md-4">
+                  <div class="card card-user">
+                      <div class="card-image">
+                          <img src="{{ url($employee->getProfilePic()) }}" style="width:100%;object-fit:contain;">
+                      </div>
+                      <div class="card-body">
+                          <div class="author">
+                            <img class="avatar border-gray" src="{{ url($employee->getProfilePic()) }}">
+                            <h5 class="title text-secondary" style="letter-spacing:5px;">{{ $employee->getFullName() }}</h5>
+                            @if(Auth::user()->getRole()->title == 'showroom manager')
+                              <h5>
+                                <a href="{{route('staffCruds.edit', ['id' => $employee->id])}}"><span class="mr-1 fa fa-edit text-primary" class="no-outline"></span></a>
+                                <a href="" data-toggle="modal" data-target="#removeEmployeeModal{{$employee->id}}" class="no-outline"><span class="ml-1 fa fa-trash text-danger"></span></a>
+
+                                <div class="modal fade" id="removeEmployeeModal{{$employee->id}}" tabindex="-1" role="dialog" aria-labelledby="removeEmployeeModalLabel{{$employee->id}}" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-body">
+                                        <p>Are you sure you wish to Fire</p>
+                                        <p class="text-capitalize">{{$employee->getRole()->title}} {{$employee->getFullName()}}</p>
+                                        <p>as an Employee?</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        {!!Form::open(['action' => ['ModelControllers\StaffCrudController@destroy', $employee->id], 'method' => 'POST'])!!}
+                                          {{Form::hidden('_method', 'DELETE')}}
+                                          <a onclick="this.parentNode.submit();" class="btn btn-danger rounded-0" style="color:#7f7f7f;">Fire</a>
+                                        {!!Form::close()!!}
+                                        <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Don't Fire</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </h5>
+                            @endif
+                          </div>
+                          <hr>
+                          <div class="">
+                            <table class="text-secondary">
+                              <tr>
+                                <td>Email</td>
+                                <td>:</td>
+                                <td class="col-7 text-right">{{$employee->email}}</td>
+                              </tr>
+                              <tr>
+                                <td>Job</td>
+                                <td>:</td>
+                                <td class="col-7 text-right text-capitalize">{{$employee->getRole()->title}}</td>
+                              </tr>
+                              <tr>
+                                <td>Salary</td>
+                                <td>:</td>
+                                <td class="col-7 text-right">{{$employee->getRole()->getSalary()}}</td>
+                              </tr>
+                              <tr>
+                                <td>Phone</td>
+                                <td>:</td>
+                                <td class="col-7 text-right">{{$employee->getPhoneNumber()->number}}</td>
+                              </tr>
+                              <tr>
+                                <td>Address</td>
+                                <td>:</td>
+                                <td class="col-7 text-right">{{$employee->getAddress()->local}}, {{$employee->getAddress()->city}} - {{$employee->getAddress()->postal_code}}, {{$employee->getAddress()->country}}</td>
+                              </tr>
+                            </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            @endif
           @endforeach
         </div>
       </div>

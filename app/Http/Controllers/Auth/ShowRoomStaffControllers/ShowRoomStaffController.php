@@ -42,14 +42,6 @@ class ShowRoomStaffController extends Controller
       return view('multiAuth.showroomstaff.pages.inventory');
     }
 
-    public function showStaffs(){
-      return view('multiAuth.showroomstaff.pages.staffList');
-    }
-
-    public function addStaff(){
-      return view('multiAuth.showroomstaff.pages.addStaff');
-    }
-
     public function verifyAccount(){
       return route('index');
     }
@@ -105,10 +97,5 @@ class ShowRoomStaffController extends Controller
         }
 
         return redirect()->back();
-    }
-
-    public function store(Request $request)
-    {
-        return $request;
     }
 }

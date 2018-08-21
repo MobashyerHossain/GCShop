@@ -45,7 +45,7 @@ class PartManufacturerController extends Controller
 
         $partManufacturer = new PartManufacturer();
         if($request->has(['part_manufacturer_logo'])){
-          $logo = (new ImageController)->storeOnlyImage($request, 'part_manufacturer_logo');
+          $logo = (new ImageController)->storeOnlyImage($request, 'part_manufacturer_logo', 'images/logos/part manufacturer/');
           $partManufacturer->logo = $logo->id;
         }
         $partManufacturer->name = $request->Input('manufacturer_name');

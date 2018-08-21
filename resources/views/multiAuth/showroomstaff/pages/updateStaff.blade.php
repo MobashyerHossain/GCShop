@@ -12,14 +12,15 @@
           <div class="container-fluid">
               <div class="row">
                   <div class="col-md-8 bg-white p-3 border">
-                    {!! Form::open(['id' => 'editForm', 'action' => ['ModelControllers\StaffCrudController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['id' => 'editForm', 'action' => ['ModelControllers\StaffCrudController@update', $staff->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                         @csrf
+                        {{Form::hidden('_method', 'PUT')}}
                         <div class="form-row">
                             <!--first_name-->
                             <div class="col" style="padding-right:10px;">
                                 <div class="form-group">
                                   <label for="first_name" style="margin:0px;color:#7a7a7a;">First Name</label>
-                                  <input class="text-capitalize form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{ old('first_name') }}" placeholder="First Name" id="first_name" name="first_name" required>
+                                  <input class="text-capitalize form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$staff->first_name}}" placeholder="First Name" id="first_name" name="first_name" required>
 
                                   @if ($errors->has('first_name'))
                                       <span class="invalid-feedback" role="alert">
@@ -33,7 +34,7 @@
                             <div class="col" style="padding-left:10px;">
                                 <div class="form-group">
                                   <label for="last_name" style="margin:0px;color:#7a7a7a;">Last Name</label>
-                                  <input class="text-capitalize form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{ old('last_name') }}" placeholder="Last Name" id="last_name" name="last_name" required>
+                                  <input class="text-capitalize form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$staff->last_name}}" placeholder="Last Name" id="last_name" name="last_name" required>
 
                                   @if ($errors->has('last_name'))
                                       <span class="invalid-feedback" role="alert">
@@ -49,7 +50,7 @@
                             <div class="col" style="padding-right:10px;">
                                 <div class="form-group">
                                   <label for="email" style="margin:0px;color:#7a7a7a;">Email</label>
-                                  <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} no-outline rounded-0" type="email" value="{{ old('email') }}" placeholder="Email" id="email" name="email" required>
+                                  <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} no-outline rounded-0" type="email" value="{{$staff->email}}" placeholder="Email" id="email" name="email" required>
 
                                   @if ($errors->has('email'))
                                       <span class="invalid-feedback" role="alert">
@@ -65,7 +66,7 @@
                             <div class="col">
                                 <div class="form-group">
                                   <label for="local_address" style="margin:0px;color:#7a7a7a;">Local Adrress</label>
-                                  <input class="form-control{{ $errors->has('local_address') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{ old('local_address') }}" placeholder="Local Address" id="local_address" name="local_address" required>
+                                  <input class="form-control{{ $errors->has('local_address') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$staff->getAddress()->local}}" placeholder="Local Address" id="local_address" name="local_address" required>
 
                                   @if ($errors->has('local_address'))
                                       <span class="invalid-feedback" role="alert">
@@ -80,7 +81,7 @@
                             <div class="col" style="padding-right:10px;">
                                 <div class="form-group">
                                   <label for="phone_number" style="margin:0px;color:#7a7a7a;">Phone Number</label>
-                                  <input class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }} no-outline rounded-0" type="tel" value="{{ old('phone_number') }}" placeholder="Phone Number" id="phone_number" name="phone_number" required>
+                                  <input class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }} no-outline rounded-0" type="tel" value="{{$staff->getPhoneNumber()->number}}" placeholder="Phone Number" id="phone_number" name="phone_number" required>
 
                                   @if ($errors->has('phone_number'))
                                       <span class="invalid-feedback" role="alert">
@@ -94,7 +95,7 @@
                             <div class="col" style="padding-left:10px;">
                                 <div class="form-group">
                                   <label for="postal_code" style="margin:0px;color:#7a7a7a;">Postal Code</label>
-                                  <input class="form-control{{ $errors->has('postal_code') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{ old('postal_code') }}" placeholder="Postal Code" id="postal_code" name="postal_code" required onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                  <input class="form-control{{ $errors->has('postal_code') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$staff->getAddress()->postal_code}}" placeholder="Postal Code" id="postal_code" name="postal_code" required onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
 
                                   @if ($errors->has('postal_code'))
                                       <span class="invalid-feedback" role="alert">
@@ -109,7 +110,7 @@
                             <div class="col" style="padding-right:10px;">
                                 <div class="form-group">
                                   <label for="city" style="margin:0px;color:#7a7a7a;">City</label>
-                                  <input class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }} text-capitalize no-outline rounded-0" type="text" value="{{ old('city') }}" placeholder="City" id="city" name="city" required>
+                                  <input class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }} text-capitalize no-outline rounded-0" type="text" value="{{$staff->getAddress()->city}}" placeholder="City" id="city" name="city" required>
 
                                   @if ($errors->has('city'))
                                       <span class="invalid-feedback" role="alert">
@@ -123,7 +124,7 @@
                             <div class="col" style="padding-left:10px;">
                                 <div class="form-group">
                                   <label for="country" style="margin:0px;color:#7a7a7a;">Country</label>
-                                  <input class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }} text-capitalize no-outline rounded-0" type="text" value="{{ old('country') }}" placeholder="Country" id="country" name="country" required>
+                                  <input class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }} text-capitalize no-outline rounded-0" type="text" value="{{$staff->getAddress()->country}}" placeholder="Country" id="country" name="country" required>
 
                                   @if ($errors->has('country'))
                                       <span class="invalid-feedback" role="alert">
@@ -140,9 +141,12 @@
                               <label for="country" style="margin:0px;color:#7a7a7a;">Job Title</label>
                               <div class="input-group">
                                   <select id="job_title_select" name="job_title" class="form-control text-capitalize no-outline rounded-0 border" required>
-                                    <option value="" selected hidden>Job Title</option>
                                     @foreach(App\Models\Other\Role::where('work_as','showroom staff')->where('title','!=', 'showroom manager')->get() as $job)
-                                      <option value="{{$job->id}}" class="text-capitalize">{{$job->title}}</option>
+                                      @if($staff->role_id == $job->id)
+                                        <option value="{{$job->id}}" class="text-capitalize" selected>{{$job->title}}</option>
+                                      @else
+                                        <option value="{{$job->id}}" class="text-capitalize">{{$job->title}}</option>
+                                      @endif
                                     @endforeach
                                   </select>
 
@@ -162,7 +166,7 @@
                             <div class="col" style="padding-left:10px;">
                                 <div class="form-group">
                                   <label for="salary" style="margin:0px;color:#7a7a7a;">Salary</label>
-                                  <input class="form-control no-outline rounded-0" type="text" value="" placeholder="Salary" id="preset_salary" name="preset_salary" readonly>
+                                  <input class="form-control no-outline rounded-0" type="text" value="{{$staff->getRole()->getSalary()}}" placeholder="Salary" id="preset_salary" name="preset_salary" readonly>
                                   @foreach(App\Models\Other\Role::where('work_as','showroom staff')->where('title','!=', 'showroom manager')->get() as $job)
                                     <input style="display:none;" class="form-control no-outline rounded-0" type="text" value="{{$job->getSalary()}}" placeholder="Salary" id="preset_salary{{$job->id}}" name="preset_salary" readonly>
                                   @endforeach
@@ -175,7 +179,7 @@
 
                         <div class="form-row">
                             <div class="col text-right">
-                              {{Form::submit('Add Employee',['class' => 'rounded-0 no-outline btn btn-primary float-right'])}}
+                              {{Form::submit('Update Employee Info',['class' => 'rounded-0 no-outline btn btn-primary float-right'])}}
                             </div>
                         </div>
                     {!! Form::close() !!}
@@ -186,7 +190,7 @@
                           </div>
                           <div class="card-body">
                               <div class="author">
-                                <img id="em_pro_prev" class="avatar border-gray" onclick="uploadImage('em_pro')" src="{{url('storage/images/default/default_profile_pic.png')}}" style="cursor:pointer;">
+                                <img id="em_pro_prev" class="avatar border-gray" onclick="uploadImage('em_pro')" src="{{url($staff->getProfilePic())}}" style="cursor:pointer;">
                                 <h5 class="title text-secondary" style="letter-spacing:8px;">Click Me</h5>
                               </div>
                           </div>

@@ -27,6 +27,8 @@ Route::resource('partCategories', 'ModelControllers\PartCategoryController');
 Route::resource('partSubCategories', 'ModelControllers\PartSubCategoryController');
 Route::resource('partManufacturers', 'ModelControllers\PartManufacturerController');
 Route::resource('roles', 'ModelControllers\RoleController');
+Route::resource('staffCruds', 'ModelControllers\StaffCrudController')->middleware('auth:showroomstaff');
+Route::resource('adminCruds', 'ModelControllers\StaffCrudController');
 
 //Consumer Routes
 Route::prefix('consumer')->group(function(){
@@ -83,9 +85,6 @@ Route::prefix('showroomstaff')->group(function(){
   Route::get('/updatePart/{type}/{id}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@updateProduct')->name('showroom.update.part')->middleware('auth:showroomstaff');
   Route::get('/updateCar/{type}/{id}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@updateProduct')->name('showroom.update.car')->middleware('auth:showroomstaff');
   Route::get('/inventory', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@showInventory')->name('showroom.show.inventory')->middleware('auth:showroomstaff');
-  Route::get('/staff/show', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@showStaffs')->name('showroom.show.staffs')->middleware('auth:showroomstaff');
-  Route::get('/staff/add', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@addStaff')->name('showroom.add.staff')->middleware('auth:showroomstaff');
-  Route::post('/staff/store', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@store')->name('showroom.store.staff')->middleware('auth:showroomstaff');
 
   //Auth Routes
     //login

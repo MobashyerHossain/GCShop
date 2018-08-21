@@ -125,24 +125,24 @@ class CarHandlingController extends Controller
       $info->requested_loan_percentage = $request->Input('requested_percentage')/100;
 
       //upload image
-      $nid = (new ImageController)->storeOnlyImage($request, 'national_id');
-      $bank = (new ImageController)->storeOnlyImage($request, 'bank_statement');
-      $tax = (new ImageController)->storeOnlyImage($request, 'tex_clearence');
+      $nid = (new ImageController)->storeOnlyImage($request, 'national_id', 'images/Others/');
+      $bank = (new ImageController)->storeOnlyImage($request, 'bank_statement', 'images/Others/');
+      $tax = (new ImageController)->storeOnlyImage($request, 'tex_clearence', 'images/Others/');
 
       $info->applicant_national_id = $nid->id;
       $info->applicant_bank_statment = $bank->id;
       $info->applicant_tax_clearence = $tax->id;
 
       if($request->has(['passport'])){
-        $passport = (new ImageController)->storeOnlyImage($request, 'passport');
+        $passport = (new ImageController)->storeOnlyImage($request, 'passport', 'images/Others/');
         $info->applicant_passport = $passport->id;
       }
       if($request->has(['additional_1'])){
-        $add1 = (new ImageController)->storeOnlyImage($request, 'additional_1');
+        $add1 = (new ImageController)->storeOnlyImage($request, 'additional_1', 'images/Others/');
         $info->additional_1 = $add1->id;
       }
       if($request->has(['additional_2'])){
-        $add2 = (new ImageController)->storeOnlyImage($request, 'additional_2');
+        $add2 = (new ImageController)->storeOnlyImage($request, 'additional_2', 'images/Others/');
         $info->additional_2 = $add2->id;
       }
 

@@ -64,7 +64,7 @@ class ImageController extends Controller
         }
     }
 
-    public function storeOnlyImage(Request $request, $name)
+    public function storeOnlyImage(Request $request, $name, $givenPath)
     {
         if($request->hasFile($name)){
           // filename with .ext
@@ -76,9 +76,9 @@ class ImageController extends Controller
           // stored path
           $newfilename = $filename.'_'.time().'.'.$extension;
           // upload image
-          $path = $request->file($name)->storeAs('public/images/Others/', $newfilename);
+          $path = $request->file($name)->storeAs('public/'.$givenPath, $newfilename);
           //final pathname
-          $finalpathname = 'storage/images/Others/'.$newfilename;
+          $finalpathname = 'storage/'.$givenPath.$newfilename;
 
           return Image::create([
             'uri' => $finalpathname,

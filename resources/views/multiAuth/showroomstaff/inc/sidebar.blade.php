@@ -27,13 +27,13 @@
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="{{route('showroom.add.staff')}}">
+                <a class="nav-link" href="{{route('staffCruds.create')}}">
                     <i class="fa fa-plus"></i>
                     <p>Add Employee</p>
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="{{route('showroom.show.staffs')}}">
+                <a class="nav-link" href="{{route('staffCruds.index')}}">
                     <i class="fa fa-users"></i>
                     <p>Employee List</p>
                 </a>

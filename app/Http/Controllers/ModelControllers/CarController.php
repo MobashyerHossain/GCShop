@@ -65,7 +65,7 @@ class CarController extends Controller
         $car->model_id = $request->Input('car_model');
 
         if($request->has(['car_image_main'])){
-          $carimage = (new ImageController)->storeOnlyImage($request, 'car_image_main');
+          $carimage = (new ImageController)->storeOnlyImage($request, 'car_image_main', 'images/products/car/');
           $car->image_id = $carimage->id;
         }
 
@@ -80,7 +80,7 @@ class CarController extends Controller
 
         for ($i=1; $i < 4; $i++) {
             if($request->has(['car_image_extra'.$i])){
-                $extraImg = (new ImageController)->storeOnlyImage($request, 'car_image_extra'.$i);
+                $extraImg = (new ImageController)->storeOnlyImage($request, 'car_image_extra'.$i, 'images/products/car/');
                 $extra = new MoreImage();
                 $extra->product_type = 'car';
                 $extra->product_id = $car->id;
@@ -157,7 +157,7 @@ class CarController extends Controller
         $car->model_id = $request->Input('car_model');
 
         if($request->has(['car_image_main'])){
-          $carimage = (new ImageController)->storeOnlyImage($request, 'car_image_main');
+          $carimage = (new ImageController)->storeOnlyImage($request, 'car_image_main', 'images/products/car/');
           $car->image_id = $carimage->id;
         }
 
@@ -174,7 +174,7 @@ class CarController extends Controller
                 if(count($prevExtra) > $i-1){
                   $prevExtra[$i-1]->delete();
                 }
-                $extraImg = (new ImageController)->storeOnlyImage($request, 'car_image_extra'.$i);
+                $extraImg = (new ImageController)->storeOnlyImage($request, 'car_image_extra'.$i, 'images/products/car/');
                 $extra = new MoreImage();
                 $extra->product_type = 'car';
                 $extra->product_id = $car->id;

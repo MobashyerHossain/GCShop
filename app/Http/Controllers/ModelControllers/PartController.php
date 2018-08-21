@@ -67,7 +67,7 @@ class PartController extends Controller
         $part->manufacturer_id = $request->Input('part_manufacturer');
 
         if($request->has(['part_image_main'])){
-            $partimage = (new ImageController)->storeOnlyImage($request, 'part_image_main');
+            $partimage = (new ImageController)->storeOnlyImage($request, 'part_image_main', 'images/products/part/');
             $part->image_id = $partimage->id;
         }
 
@@ -82,7 +82,7 @@ class PartController extends Controller
 
         for ($i=1; $i < 4; $i++) {
             if($request->has(['part_image_extra'.$i])){
-                $extraImg = (new ImageController)->storeOnlyImage($request, 'part_image_extra'.$i);
+                $extraImg = (new ImageController)->storeOnlyImage($request, 'part_image_extra'.$i, 'images/products/part/');
                 $extra = new MoreImage();
                 $extra->product_type = 'part';
                 $extra->product_id = $part->id;
@@ -160,7 +160,7 @@ class PartController extends Controller
         $part->manufacturer_id = $request->Input('part_manufacturer');
 
         if($request->has(['part_image_main'])){
-            $partimage = (new ImageController)->storeOnlyImage($request, 'part_image_main');
+            $partimage = (new ImageController)->storeOnlyImage($request, 'part_image_main', 'images/products/part/');
             $part->image_id = $partimage->id;
         }
 
@@ -177,7 +177,7 @@ class PartController extends Controller
                 if(count($prevExtra) > $i-1){
                   $prevExtra[$i-1]->delete();
                 }
-                $extraImg = (new ImageController)->storeOnlyImage($request, 'part_image_extra'.$i);
+                $extraImg = (new ImageController)->storeOnlyImage($request, 'part_image_extra'.$i, 'images/products/part/');
                 $extra = new MoreImage();
                 $extra->product_type = 'part';
                 $extra->product_id = $part->id;

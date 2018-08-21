@@ -47,7 +47,7 @@ class CarModelController extends Controller
 
         $carModel = new CarModel();
         if($request->has(['car_modal_image'])){
-          $image = (new ImageController)->storeOnlyImage($request, 'car_modal_image');
+          $image = (new ImageController)->storeOnlyImage($request, 'car_modal_image', 'images/categories/car model/');
           $carModel->image_id = $image->id;
         }
         $carModel->name = $request->Input('model_name');
