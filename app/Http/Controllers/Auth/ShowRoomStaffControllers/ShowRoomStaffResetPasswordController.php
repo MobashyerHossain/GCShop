@@ -35,9 +35,8 @@ class ShowRoomStaffResetPasswordController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest:showroomstaff');
+    public function __construct(){
+
     }
 
     protected function guard(){
@@ -50,7 +49,7 @@ class ShowRoomStaffResetPasswordController extends Controller
 
     public function showResetForm(Request $request, $token = null)
     {
-        return view('auth.showroomstaff.reset')->with(
+        return view('auth.showroom.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
     }

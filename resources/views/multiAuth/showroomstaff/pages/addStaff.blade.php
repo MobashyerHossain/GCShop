@@ -12,7 +12,7 @@
           <div class="container-fluid">
               <div class="row">
                   <div class="col-md-8 bg-white p-3 border">
-                    {!! Form::open(['id' => 'editForm', 'action' => ['ModelControllers\StaffCrudController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['action' => ['ModelControllers\StaffCrudController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                         @csrf
                         <div class="form-row">
                             <!--first_name-->

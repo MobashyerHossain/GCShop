@@ -28,7 +28,8 @@ Route::resource('partSubCategories', 'ModelControllers\PartSubCategoryController
 Route::resource('partManufacturers', 'ModelControllers\PartManufacturerController');
 Route::resource('roles', 'ModelControllers\RoleController');
 Route::resource('staffCruds', 'ModelControllers\StaffCrudController')->middleware('auth:showroomstaff');
-Route::resource('adminCruds', 'ModelControllers\StaffCrudController');
+Route::resource('adminCruds', 'ModelControllers\AdminCrudController')->middleware('auth:admin');
+Route::resource('showrooms', 'ModelControllers\ShowRoomController')->middleware('auth:admin');
 
 //Consumer Routes
 Route::prefix('consumer')->group(function(){
@@ -65,12 +66,12 @@ Route::prefix('admin')->group(function(){
   Route::post('/', 'Auth\AdminControllers\AdminLoginController@login')->name('admin.login.submit');
   Route::get('/logout', 'Auth\AdminControllers\AdminLoginController@adminLogout')->name('admin.logout');
     //password reset
-  Route::post('/password/email', 'Auth\AdminControllers\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-  Route::get('/password/reset', 'Auth\AdminControllers\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-  Route::post('/password/reset', 'Auth\AdminControllers\AdminResetPasswordController@reset');
-  Route::get('/password/reset/{token}', 'Auth\AdminControllers\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+  Route::post('/password/email', 'Auth\AdminControllers\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email')->middleware('auth:admin');
+  Route::get('/password/reset', 'Auth\AdminControllers\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request')->middleware('auth:admin');
+  Route::post('/password/reset', 'Auth\AdminControllers\AdminResetPasswordController@reset')->middleware('auth:admin');
+  Route::get('/password/reset/{token}', 'Auth\AdminControllers\AdminResetPasswordController@showResetForm')->name('admin.password.reset')->middleware('auth:admin');
     //verification
-  Route::get('/verify', 'Auth\AdminControllers\AdminController@verifyAccount')->name('admin.verify');
+  Route::get('/verify', 'Auth\AdminControllers\AdminController@verifyAccount')->name('admin.verify')->middleware('auth:admin');
 
   //views
 
@@ -92,10 +93,10 @@ Route::prefix('showroomstaff')->group(function(){
   Route::post('/', 'Auth\ShowRoomStaffControllers\ShowRoomStaffLoginController@login')->name('showroomstaff.login.submit');
   Route::get('/logout', 'Auth\ShowRoomStaffControllers\ShowRoomStaffLoginController@showroomstaffLogout')->name('showroomstaff.logout');
     //password reset
-  Route::post('/password/email', 'Auth\ShowRoomStaffControllers\ShowRoomStaffForgotPasswordController@sendResetLinkEmail')->name('showroomstaff.password.email');
-  Route::get('/password/reset', 'Auth\ShowRoomStaffControllers\ShowRoomStaffForgotPasswordController@showLinkRequestForm')->name('showroomstaff.password.request');
-  Route::post('/password/reset', 'Auth\ShowRoomStaffControllers\ShowRoomStaffResetPasswordController@reset');
-  Route::get('/password/reset/{token}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffResetPasswordController@showResetForm')->name('showroomstaff.password.reset');
+  Route::post('/password/email', 'Auth\ShowRoomStaffControllers\ShowRoomStaffForgotPasswordController@sendResetLinkEmail')->name('showroomstaff.password.email')->middleware('auth:showroomstaff');
+  Route::get('/password/reset', 'Auth\ShowRoomStaffControllers\ShowRoomStaffForgotPasswordController@showLinkRequestForm')->name('showroomstaff.password.request')->middleware('auth:showroomstaff');
+  Route::post('/password/reset', 'Auth\ShowRoomStaffControllers\ShowRoomStaffResetPasswordController@reset')->middleware('auth:showroomstaff');
+  Route::get('/password/reset/{token}', 'Auth\ShowRoomStaffControllers\ShowRoomStaffResetPasswordController@showResetForm')->name('showroomstaff.password.reset')->middleware('auth:showroomstaff');
     //verification
   Route::get('/verify', 'Auth\ShowRoomStaffControllers\ShowRoomStaffController@verifyAccount')->name('showroomstaff.verify');
 });

@@ -1,18 +1,18 @@
-@extends('layout.showroom')
+@extends('layout.admin')
 
-@section('title', 'Update Employee')
+@section('title', 'Update Admin')
 
 @section('content')
-  @include('multiAuth.showroomstaff.inc.sidebar')
+  @include('multiAuth.admin.inc.sidebar')
   <!-- modals -->
-  @include('multiAuth.showroomstaff.inc.modals.addNewRole')
+  @include('multiAuth.admin.inc.modals.addNewRole')
   <div class="main-panel">
-      @include('multiAuth.showroomstaff.inc.navbar')
+      @include('multiAuth.admin.inc.navbar')
       <div class="content">
           <div class="container-fluid">
               <div class="row">
                   <div class="col-md-8 bg-white p-3 border">
-                    {!! Form::open(['id' => 'editForm', 'action' => ['ModelControllers\StaffCrudController@update', $staff->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['action' => ['ModelControllers\AdminCrudController@update', $admin->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                         @csrf
                         {{Form::hidden('_method', 'PUT')}}
                         <div class="form-row">
@@ -20,7 +20,7 @@
                             <div class="col" style="padding-right:10px;">
                                 <div class="form-group">
                                   <label for="first_name" style="margin:0px;color:#7a7a7a;">First Name</label>
-                                  <input class="text-capitalize form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$staff->first_name}}" placeholder="First Name" id="first_name" name="first_name" required>
+                                  <input class="text-capitalize form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$admin->first_name}}" placeholder="First Name" id="first_name" name="first_name" required>
 
                                   @if ($errors->has('first_name'))
                                       <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
                             <div class="col" style="padding-left:10px;">
                                 <div class="form-group">
                                   <label for="last_name" style="margin:0px;color:#7a7a7a;">Last Name</label>
-                                  <input class="text-capitalize form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$staff->last_name}}" placeholder="Last Name" id="last_name" name="last_name" required>
+                                  <input class="text-capitalize form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$admin->last_name}}" placeholder="Last Name" id="last_name" name="last_name" required>
 
                                   @if ($errors->has('last_name'))
                                       <span class="invalid-feedback" role="alert">
@@ -50,7 +50,7 @@
                             <div class="col" style="padding-right:10px;">
                                 <div class="form-group">
                                   <label for="email" style="margin:0px;color:#7a7a7a;">Email</label>
-                                  <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} no-outline rounded-0" type="email" value="{{$staff->email}}" placeholder="Email" id="email" name="email" required>
+                                  <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} no-outline rounded-0" type="email" value="{{$admin->email}}" placeholder="Email" id="email" name="email" required>
 
                                   @if ($errors->has('email'))
                                       <span class="invalid-feedback" role="alert">
@@ -66,7 +66,7 @@
                             <div class="col">
                                 <div class="form-group">
                                   <label for="local_address" style="margin:0px;color:#7a7a7a;">Local Adrress</label>
-                                  <input class="form-control{{ $errors->has('local_address') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$staff->getAddress()->local}}" placeholder="Local Address" id="local_address" name="local_address" required>
+                                  <input class="form-control{{ $errors->has('local_address') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$admin->getAddress()->local}}" placeholder="Local Address" id="local_address" name="local_address" required>
 
                                   @if ($errors->has('local_address'))
                                       <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
                             <div class="col" style="padding-right:10px;">
                                 <div class="form-group">
                                   <label for="phone_number" style="margin:0px;color:#7a7a7a;">Phone Number</label>
-                                  <input class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }} no-outline rounded-0" type="tel" value="{{$staff->getPhoneNumber()->number}}" placeholder="Phone Number" id="phone_number" name="phone_number" required>
+                                  <input class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }} no-outline rounded-0" type="tel" value="{{$admin->getPhoneNumber()->number}}" placeholder="Phone Number" id="phone_number" name="phone_number" required>
 
                                   @if ($errors->has('phone_number'))
                                       <span class="invalid-feedback" role="alert">
@@ -95,7 +95,7 @@
                             <div class="col" style="padding-left:10px;">
                                 <div class="form-group">
                                   <label for="postal_code" style="margin:0px;color:#7a7a7a;">Postal Code</label>
-                                  <input class="form-control{{ $errors->has('postal_code') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$staff->getAddress()->postal_code}}" placeholder="Postal Code" id="postal_code" name="postal_code" required onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                  <input class="form-control{{ $errors->has('postal_code') ? ' is-invalid' : '' }} no-outline rounded-0" type="text" value="{{$admin->getAddress()->postal_code}}" placeholder="Postal Code" id="postal_code" name="postal_code" required onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
 
                                   @if ($errors->has('postal_code'))
                                       <span class="invalid-feedback" role="alert">
@@ -110,7 +110,7 @@
                             <div class="col" style="padding-right:10px;">
                                 <div class="form-group">
                                   <label for="city" style="margin:0px;color:#7a7a7a;">City</label>
-                                  <input class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }} text-capitalize no-outline rounded-0" type="text" value="{{$staff->getAddress()->city}}" placeholder="City" id="city" name="city" required>
+                                  <input class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }} text-capitalize no-outline rounded-0" type="text" value="{{$admin->getAddress()->city}}" placeholder="City" id="city" name="city" required>
 
                                   @if ($errors->has('city'))
                                       <span class="invalid-feedback" role="alert">
@@ -124,7 +124,7 @@
                             <div class="col" style="padding-left:10px;">
                                 <div class="form-group">
                                   <label for="country" style="margin:0px;color:#7a7a7a;">Country</label>
-                                  <input class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }} text-capitalize no-outline rounded-0" type="text" value="{{$staff->getAddress()->country}}" placeholder="Country" id="country" name="country" required>
+                                  <input class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }} text-capitalize no-outline rounded-0" type="text" value="{{$admin->getAddress()->country}}" placeholder="Country" id="country" name="country" required>
 
                                   @if ($errors->has('country'))
                                       <span class="invalid-feedback" role="alert">
@@ -141,8 +141,8 @@
                               <label for="country" style="margin:0px;color:#7a7a7a;">Job Title</label>
                               <div class="input-group">
                                   <select id="job_title_select" name="job_title" class="form-control text-capitalize no-outline rounded-0 border" required>
-                                    @foreach(App\Models\Other\Role::where('work_as','showroom staff')->where('title','!=', 'showroom manager')->get() as $job)
-                                      @if($staff->role_id == $job->id)
+                                    @foreach(App\Models\Other\Role::where('work_as','admin')->where('title','!=', 'super admin')->get() as $job)
+                                      @if($admin->role_id == $job->id)
                                         <option value="{{$job->id}}" class="text-capitalize" selected>{{$job->title}}</option>
                                       @else
                                         <option value="{{$job->id}}" class="text-capitalize">{{$job->title}}</option>
@@ -166,8 +166,8 @@
                             <div class="col" style="padding-left:10px;">
                                 <div class="form-group">
                                   <label for="salary" style="margin:0px;color:#7a7a7a;">Salary</label>
-                                  <input class="form-control no-outline rounded-0" type="text" value="{{$staff->getRole()->getSalary()}}" placeholder="Salary" id="preset_salary" name="preset_salary" readonly>
-                                  @foreach(App\Models\Other\Role::where('work_as','showroom staff')->where('title','!=', 'showroom manager')->get() as $job)
+                                  <input class="form-control no-outline rounded-0" type="text" value="{{$admin->getRole()->getSalary()}}" placeholder="Salary" id="preset_salary" name="preset_salary" readonly>
+                                  @foreach(App\Models\Other\Role::where('work_as','admin')->where('title','!=', 'super admin')->get() as $job)
                                     <input style="display:none;" class="form-control no-outline rounded-0" type="text" value="{{$job->getSalary()}}" placeholder="Salary" id="preset_salary{{$job->id}}" name="preset_salary" readonly>
                                   @endforeach
                                 </div>
@@ -175,23 +175,23 @@
                         </div>
 
                         <!--profile pic-->
-                        <input id="em_pro" name="propic" class="d-none" onchange="readURL(this, '#em_pro_prev')" type="file"/>
+                        <input id="ad_pro" name="propic" class="d-none" onchange="readURL(this, '#ad_pro_prev')" type="file"/>
 
                         <div class="form-row">
                             <div class="col text-right">
-                              {{Form::submit('Update Employee Info',['class' => 'rounded-0 no-outline btn btn-primary float-right'])}}
+                              {{Form::submit('Update Admin Info',['class' => 'rounded-0 no-outline btn btn-primary float-right'])}}
                             </div>
                         </div>
                     {!! Form::close() !!}
                   </div>
                   <div class="col-md-4">
                       <div class="card card-user">
-                          <div class="card-image">
-                              <img src="{{url($staff->getProfilePic())}}" style="width:100%;object-fit:contain;">
-                          </div>
+                        <div class="card-image">
+                            <img src="{{url($admin->getProfilePic())}}" style="width:100%;object-fit:contain;">
+                        </div>
                           <div class="card-body">
                               <div class="author">
-                                <img id="em_pro_prev" class="avatar border-gray" onclick="uploadImage('em_pro')" src="{{url($staff->getProfilePic())}}" style="cursor:pointer;">
+                                <img id="ad_pro_prev" class="avatar border-gray" onclick="uploadImage('ad_pro')" src="{{url($admin->getProfilePic())}}" style="cursor:pointer;">
                                 <h5 class="title text-secondary" style="letter-spacing:8px;">Click Me</h5>
                               </div>
                           </div>
@@ -200,7 +200,7 @@
               </div>
           </div>
       </div>
-      @include('multiAuth.showroomstaff.inc.footer')
+      @include('multiAuth.admin.inc.footer')
   </div>
 @endsection
 
@@ -216,7 +216,7 @@
 @stop
 
 @section('script')
-  @include('multiAuth.showroomstaff.js.showroomJS')
+  @include('multiAuth.admin.js.adminJS')
   <!--   Core JS Files   -->
   <script src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/js/core/popper.min.js') }}" type="text/javascript"></script>

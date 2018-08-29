@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', ucfirst(substr(Route::currentRouteName(),14)))
+@section('title', 'Admin Dashboard')
 
 @section('content')
   @include('multiAuth.admin.inc.sidebar')

@@ -27,13 +27,19 @@
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('adminCruds.create')}}">
                     <i class="fa fa-plus"></i>
                     <p>Add Admin</p>
                 </a>
             </li>
             <li class="">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{route('adminCruds.index')}}">
+                    <i class="fa fa-users"></i>
+                    <p>Admin List</p>
+                </a>
+            </li>
+            <li class="">
+                <a class="nav-link" href="{{route('showrooms.index')}}">
                     <i class="fa fa-plus"></i>
                     <p>Add ShowRoom</p>
                 </a>

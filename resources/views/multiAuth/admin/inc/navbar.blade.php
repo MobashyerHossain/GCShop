@@ -1,7 +1,7 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg " color-on-scroll="500">
+<nav class="navbar navbar-expand-lg" color-on-scroll="500">
     <div class=" container-fluid  ">
-        <a class="navbar-brand" href="#"> {{ ucfirst(substr(Route::currentRouteName(),6)) }} </a>
+        <a class="navbar-brand" href="#"> @yield('title') </a>
         <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar burger-lines"></span>
             <span class="navbar-toggler-bar burger-lines"></span>
@@ -25,10 +25,15 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.logout')}}">
-                        <span class="no-icon">Log out</span>
+                <li class="dropdown nav-item">
+                    <a href="" class="nav-link" data-toggle="dropdown">
+                      <img class="rounded-circle m-0" style="width:30px;height:30px;object-fit:cover;cursor:pointer;" src="{{ url(Auth::user()->getProfilePic()) }}">
+                      <span class="mt-1 ml-2">{{Auth::user()->getFullname()}}</span>
                     </a>
+                    <ul class="dropdown-menu rounded-0">
+                        <a class="dropdown-item" href="{{ route('admin.password.request') }}">Change Password</a>
+                        <a class="dropdown-item" href="{{ route('admin.logout')}}">Log out</a>
+                    </ul>
                 </li>
             </ul>
         </div>

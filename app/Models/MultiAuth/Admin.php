@@ -9,6 +9,7 @@ use App\Notifications\ResetPassword\AdminResetPasswordNotification;
 use App\Models\Other\Image;
 use App\Models\Other\Address;
 use App\Models\Other\PhoneNumber;
+use App\Models\Other\Role;
 
 class Admin extends Authenticatable
 {
@@ -59,5 +60,13 @@ class Admin extends Authenticatable
 
     public function getPhoneNumber(){
         return PhoneNumber::find($this->phone_number_id);
+    }
+
+    public function getRole(){
+        return Role::find($this->role_id);
+    }
+
+    public function getAdminList(){
+        return Admin::where('id', '!=', $this->id)->get();
     }
 }

@@ -1,39 +1,39 @@
-@extends('layout.showroom')
+@extends('layout.admin')
 
-@section('title', 'Employee List')
+@section('title', 'Admin List')
 
 @section('content')
-  @include('multiAuth.showroomstaff.inc.sidebar')
+  @include('multiAuth.admin.inc.sidebar')
   <div class="main-panel">
-      @include('multiAuth.showroomstaff.inc.navbar')
+      @include('multiAuth.admin.inc.navbar')
       <div class="content">
         <div class="row">
-          @foreach(Auth::user()->getShowRoom()->getEmployees() as $employee)
-            @if($employee->id != Auth::id())
+          @foreach(Auth::user()->getAdminList() as $admin)
+            @if($admin->id != Auth::id())
               <div class="col-md-4">
                   <div class="card card-user">
                       <div class="card-image">
-                          <img src="{{ url($employee->getProfilePic()) }}" style="width:100%;object-fit:contain;">
+                          <img src="{{ url($admin->getProfilePic()) }}" style="width:100%;object-fit:contain;">
                       </div>
                       <div class="card-body">
                           <div class="author">
-                            <img class="avatar border-gray" src="{{ url($employee->getProfilePic()) }}">
-                            <h5 class="title text-secondary" style="letter-spacing:5px;">{{ $employee->getFullName() }}</h5>
-                            @if(Auth::user()->getRole()->title == 'showroom manager')
+                            <img class="avatar border-gray" src="{{ url($admin->getProfilePic()) }}">
+                            <h5 class="title text-secondary" style="letter-spacing:5px;">{{ $admin->getFullName() }}</h5>
+                            @if(Auth::user()->getRole()->title == 'super admin')
                               <h5>
-                                <a href="{{route('staffCruds.edit', ['id' => $employee->id])}}"><span class="mr-1 fa fa-edit text-primary" class="no-outline"></span></a>
-                                <a href="" data-toggle="modal" data-target="#removeEmployeeModal{{$employee->id}}" class="no-outline"><span class="ml-1 fa fa-trash text-danger"></span></a>
+                                <a href="{{route('adminCruds.edit', ['id' => $admin->id])}}"><span class="mr-1 fa fa-edit text-primary" class="no-outline"></span></a>
+                                <a href="" data-toggle="modal" data-target="#removeEmployeeModal{{$admin->id}}" class="no-outline"><span class="ml-1 fa fa-trash text-danger"></span></a>
 
-                                <div class="modal fade" id="removeEmployeeModal{{$employee->id}}" tabindex="-1" role="dialog" aria-labelledby="removeEmployeeModalLabel{{$employee->id}}" aria-hidden="true">
+                                <div class="modal fade" id="removeEmployeeModal{{$admin->id}}" tabindex="-1" role="dialog" aria-labelledby="removeEmployeeModalLabel{{$admin->id}}" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-body">
                                         <p>Are you sure you wish to Fire</p>
-                                        <p class="text-capitalize">{{$employee->getRole()->title}} {{$employee->getFullName()}}</p>
-                                        <p>as an Employee?</p>
+                                        <p class="text-capitalize">{{$admin->getRole()->title}} {{$admin->getFullName()}}</p>
+                                        <p>as an Admin?</p>
                                       </div>
                                       <div class="modal-footer">
-                                        {!!Form::open(['action' => ['ModelControllers\StaffCrudController@destroy', $employee->id], 'method' => 'POST'])!!}
+                                        {!!Form::open(['action' => ['ModelControllers\AdminCrudController@destroy', $admin->id], 'method' => 'POST'])!!}
                                           {{Form::hidden('_method', 'DELETE')}}
                                           <a onclick="this.parentNode.submit();" class="btn btn-danger rounded-0" style="color:#7f7f7f;">Fire</a>
                                         {!!Form::close()!!}
@@ -51,17 +51,17 @@
                               <tr>
                                 <td>Job</td>
                                 <td>:</td>
-                                <td class="col-7 text-right text-capitalize">{{$employee->getRole()->title}}</td>
+                                <td class="col-7 text-right text-capitalize">{{$admin->getRole()->title}}</td>
                               </tr>
                               <tr>
                                 <td>Email</td>
                                 <td>:</td>
-                                <td class="col-7 text-right">{{$employee->email}}</td>
-                              </tr>                              
+                                <td class="col-7 text-right">{{$admin->email}}</td>
+                              </tr>
                               <tr>
                                 <td>Phone</td>
                                 <td>:</td>
-                                <td class="col-7 text-right">{{$employee->getPhoneNumber()->number}}</td>
+                                <td class="col-7 text-right">{{$admin->getPhoneNumber()->number}}</td>
                               </tr>
                             </table>
                           </div>
@@ -72,7 +72,7 @@
           @endforeach
         </div>
       </div>
-      @include('multiAuth.showroomstaff.inc.footer')
+      @include('multiAuth.admin.inc.footer')
   </div>
 @endsection
 
@@ -88,7 +88,7 @@
 @stop
 
 @section('script')
-  @include('multiAuth.showroomstaff.js.showroomJS')
+  @include('multiAuth.admin.js.adminJS')
   <!--   Core JS Files   -->
   <script src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/js/core/popper.min.js') }}" type="text/javascript"></script>

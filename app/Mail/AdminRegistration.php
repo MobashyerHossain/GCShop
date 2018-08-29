@@ -11,14 +11,18 @@ class AdminRegistration extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $admin;
+    public $pass;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($admin, $pass)
     {
-        //
+        $this->admin = $admin;
+        $this->pass = $pass;
     }
 
     /**
@@ -28,6 +32,6 @@ class AdminRegistration extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('email.admin.adminRegistration',['admin' => $this->admin, 'pass' => $this->pass]);
     }
 }

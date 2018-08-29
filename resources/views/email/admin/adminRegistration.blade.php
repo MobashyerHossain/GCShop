@@ -8,11 +8,11 @@
     <meta name="description" content="Online Car and Car Parts shop">
     <meta name="author" content="Global Car Shop">
     <link rel="icon" type="image/png" href="{{ asset('storage/images/devil.ico') }}">
-    <title>{{ config('app.name', 'Laravel') }} ShowRoom Staff Registration</title>
+    <title>{{ config('app.name', 'Laravel') }} Admin Registration</title>
   </head>
   <body style="color:#979799;">
     <h2 style="text-align:center;margin-bottom:0px;color:#808082;">{{ config('app.name', 'Laravel') }}</h2>
-    <h4 style="margin-bottom:30px;">Welcome, {{$staff->getFullName()}}</h4>
+    <h4 style="margin-bottom:30px;">Welcome, {{$admin->getFullName()}}</h4>
     <h5 style="margin-bottom:30px;">Your current password is: <span class="font-weight-bold">{{$pass}}</span></h5>
     <p>Thanks for your purchase,<br>
       {{ config('app.name', 'Laravel') }}

@@ -26,9 +26,8 @@ class ShowRoomStaffForgotPasswordController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest:showroomstaff');
+    public function __construct(){
+
     }
 
     protected function broker(){
@@ -37,6 +36,6 @@ class ShowRoomStaffForgotPasswordController extends Controller
 
     public function showLinkRequestForm()
     {
-        return view('auth.showroomstaff.email');
+        return view('auth.showroom.email');
     }
 }

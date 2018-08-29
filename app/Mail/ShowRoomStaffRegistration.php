@@ -12,15 +12,17 @@ class ShowRoomStaffRegistration extends Mailable
     use Queueable, SerializesModels;
 
     public $staff;
+    public $pass;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($staff)
+    public function __construct($staff, $pass)
     {
         $this->staff = $staff;
+        $this->pass = $pass;
     }
 
     /**
@@ -30,6 +32,6 @@ class ShowRoomStaffRegistration extends Mailable
      */
     public function build()
     {
-        return $this->view('email.showroom.showRoomStaffRegistration',['staff' => $this->staff]);
+        return $this->view('email.showroom.showRoomStaffRegistration',['staff' => $this->staff, 'pass' => $this->pass]);
     }
 }

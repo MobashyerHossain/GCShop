@@ -9,7 +9,7 @@ use Auth;
 class ShowRoomStaffLoginController extends Controller
 {
     public function __construct(){
-      $this->middleware('guest:showroomstaff', ['except' => ['showroomstaffLogout']]);
+      
     }
 
     public function show(){

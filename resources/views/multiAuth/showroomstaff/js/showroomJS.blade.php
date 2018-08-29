@@ -84,12 +84,25 @@
   });
 </script>
 
-<!--upload product image-->
+<!--upload image-->
 <script>
+  //profile img
   function uploadImage(input){
     document.getElementById(input).click();
   }
 
+  function readURL(input, img) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+         $(img).attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  //product img
   function uploadPartImage(){
     document.getElementById("part_image").click();
   }
@@ -176,17 +189,4 @@
        $("#part_sub_category_select").children("option[class=category"+va+"]").show();
     });
   });
-</script>
-
-<script>
-  function readURL(input, img) {
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
-
-          reader.onload = function (e) {
-             $(img).attr('src', e.target.result);
-          }
-          reader.readAsDataURL(input.files[0]);
-        }
-  }
 </script>

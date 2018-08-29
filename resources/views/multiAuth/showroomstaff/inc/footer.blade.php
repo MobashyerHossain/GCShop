@@ -1,7 +1,7 @@
-<footer class="footer">
+<footer class="footer" style="position:fixed;bottom:0px;width:81%;">
     <div class="container">
         <nav>
-            <ul class="footer-menu">
+            <ul class="footer-menu float-right">
                 <li>
                     <a href="{{ route('showroom.show.dashboard')}}">
                         Dashboard

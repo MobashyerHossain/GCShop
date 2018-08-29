@@ -71,12 +71,12 @@ class StaffCrudController extends Controller
         $address->save();
 
         $pro_pic = (new ImageController)->storeOnlyImage($request, 'propic', 'images/Profile Pic/');
-
+        $pass = str_random(10);
         $staff = new ShowRoomStaff();
         $staff->first_name = $request->Input('first_name');
         $staff->last_name = $request->Input('last_name');
         $staff->email = $request->Input('email');
-        $staff->password = Hash::make(str_random(10));
+        $staff->password = Hash::make($pass);
         $staff->profile_pic = $pro_pic->id;
         $staff->role_id = $request->Input('job_title');
         $staff->showroom_id = Auth::guard('showroomstaff')->user()->getShowRoom()->id;
@@ -86,7 +86,7 @@ class StaffCrudController extends Controller
 
         try {
           //send email confirmation mail
-          Mail::to($staff->email)->send(new ShowRoomStaffRegistration($staff));
+          Mail::to($staff->email)->send(new ShowRoomStaffRegistration($staff, $pass));
         } catch (\Exception $e) {
 
         }
@@ -138,13 +138,16 @@ class StaffCrudController extends Controller
             'job_title' => 'required',
         ]);
 
-        $pro_pic = (new ImageController)->storeOnlyImage($request, 'propic', 'images/Profile Pic/');
-
         $staff = ShowRoomStaff::find($id);
+
+        if($request->hasFile('propic')){
+            $pro_pic = (new ImageController)->storeOnlyImage($request, 'propic', 'images/Profile Pic/');
+            $staff->profile_pic = $pro_pic->id;
+        }
+
         $staff->first_name = $request->Input('first_name');
         $staff->last_name = $request->Input('last_name');
         $staff->email = $request->Input('email');
-        $staff->profile_pic = $pro_pic->id;
         $staff->role_id = $request->Input('job_title');
         $staff->save();
 

@@ -25,10 +25,15 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.logout')}}">
-                        <span class="no-icon">Log out</span>
+                <li class="dropdown nav-item">
+                    <a href="" class="nav-link" data-toggle="dropdown">
+                      <img class="rounded-circle m-0" style="width:30px;height:30px;object-fit:cover;cursor:pointer;" src="{{ url(Auth::user()->getProfilePic()) }}">
+                      <span class="mt-1 ml-2">{{Auth::user()->getFullname()}}</span>
                     </a>
+                    <ul class="dropdown-menu rounded-0">
+                        <a class="dropdown-item" href="{{ route('showroomstaff.password.request') }}">Change Password</a>
+                        <a class="dropdown-item" href="{{ route('showroomstaff.logout')}}">Log out</a>
+                    </ul>
                 </li>
             </ul>
         </div>

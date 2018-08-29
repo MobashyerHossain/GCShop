@@ -121,3 +121,32 @@
     }
   });
 </script>
+
+<script>
+    //profile img
+    function uploadImage(input){
+      document.getElementById(input).click();
+    }
+
+    function readURL(input, img) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+           $(img).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+</script>
+
+<script>
+  //employee salary selector
+  $(document).ready(function () {
+    $("#job_title_select").change(function () {
+       $("input[id*=preset_salary]").hide();
+       var va = $(this).val();
+       $("#preset_salary"+va+"").show();
+    });
+  });
+</script>
